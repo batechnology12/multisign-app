@@ -5,7 +5,6 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
-import 'package:multisign_app/src/model/home_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -195,76 +194,92 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                   color: AppColors.darkGrey.withOpacity(.05)),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 65,
-                                    width: 65,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: multisign.colors[index],
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      multisign.projectDetails[index].letters
-                                          .toString(),
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.white),
-                                    ),
-                                  ),
-                                  ksizedbox10w,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Row(
                                     children: [
-                                      Text(
-                                          multisign.projectDetails[index].name
+                                      Container(
+                                        margin: EdgeInsets.only(left: 10),
+                                        height: 65,
+                                        width: 65,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: multisign.colors[index],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          multisign
+                                              .projectDetails[index].letters
                                               .toString(),
                                           style: primaryFonts.copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.black)),
-                                      Text(
-                                          multisign.projectDetails[index].place
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.70))),
-                                      Text(
-                                          multisign.projectDetails[index].jobId
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.50))),
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.white),
+                                        ),
+                                      ),
+                                      ksizedbox10w,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              multisign
+                                                  .projectDetails[index].name
+                                                  .toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.black)),
+                                          Text(
+                                              multisign
+                                                  .projectDetails[index].place
+                                                  .toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.black
+                                                      .withOpacity(.70))),
+                                          Text(
+                                              multisign
+                                                  .projectDetails[index].jobId
+                                                  .toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.black
+                                                      .withOpacity(.50))),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                  Row(
                                     children: [
-                                      Text(
-                                          multisign.projectDetails[index].date
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
-                                      Text(
-                                          multisign.projectDetails[index].day
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                              multisign
+                                                  .projectDetails[index].date
+                                                  .toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.black)),
+                                          Text(
+                                              multisign
+                                                  .projectDetails[index].day
+                                                  .toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.black)),
+                                        ],
+                                      ),
                                     ],
                                   )
                                 ],

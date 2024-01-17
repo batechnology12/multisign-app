@@ -80,76 +80,82 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                           decoration: BoxDecoration(
                               color: AppColors.darkGrey.withOpacity(.05)),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 10),
-                                height: 65,
-                                width: 65,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: AppColors.blue,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  "PN",
-                                  style: primaryFonts.copyWith(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.white),
-                                ),
-                              ),
-                              ksizedbox10w,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  Text("Project Name $index",
+                                  Container(
+                                    height: 65,
+                                    width: 65,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.blue,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      "PN",
                                       style: primaryFonts.copyWith(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.black)),
-                                  Text("Dealer name $index, chennai",
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.black
-                                              .withOpacity(.70))),
-                                  Text('Job Id:AKASH12345',
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.black
-                                              .withOpacity(.50))),
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.white),
+                                    ),
+                                  ),
+                                  ksizedbox10w,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Project Name $index",
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.black)),
+                                      Text("Dealer name $index, chennai",
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.black
+                                                  .withOpacity(.70))),
+                                      Text('Job Id:AKASH12345',
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.black
+                                                  .withOpacity(.50))),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                              Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(InstallationStoreName());
-                                    },
-                                    child: Text('Full View',
-                                        style: primaryFonts.copyWith(
-                                            decoration:
-                                                TextDecoration.underline,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.green)),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(InstallationStoreName());
+                                        },
+                                        child: Text('Full View',
+                                            style: primaryFonts.copyWith(
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.green)),
+                                      ),
+                                      Text('08-12-2023',
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300,
+                                              color: AppColors.black)),
+                                      Text('Friday',
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300,
+                                              color: AppColors.black)),
+                                    ],
                                   ),
-                                  Text('08-12-2023',
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w300,
-                                          color: AppColors.black)),
-                                  Text('Friday',
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w300,
-                                          color: AppColors.black)),
                                 ],
                               )
                             ],
