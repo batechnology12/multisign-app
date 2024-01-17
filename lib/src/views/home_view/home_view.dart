@@ -5,6 +5,7 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,35 +30,46 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset("assets/images/profile.png"),
-                    ksizedbox10w,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Text(
-                          "Hello,",
-                          style: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          "Prakash Mp",
-                          style: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w300),
+                        Image.asset("assets/images/profile.png"),
+                        ksizedbox10w,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Hello,",
+                              style: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              "Prakash Mp",
+                              style: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: 150,
-                    ),
-                    Image.asset(
-                      "assets/icons/notification.png",
-                      height: 22,
-                      width: 22,
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(EmptyNotification());
+                          },
+                          child: Image.asset(
+                            "assets/icons/notification.png",
+                            height: 22,
+                            width: 22,
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -102,58 +114,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      height: 50,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            color: AppColors.blue,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          children: [
+                            Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Image.asset("assets/icons/recce.png")),
+                            ksizedbox20w,
+                            Text(
+                              "Recce",
+                              style: primaryFonts.copyWith(
                                   color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Image.asset("assets/icons/recce.png")),
-                          ksizedbox20w,
-                          Text(
-                            "Recce",
-                            style: primaryFonts.copyWith(
-                                color: AppColors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      height: 50,
-                      width: 195,
-                      decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        height: 50,
+                        width: 195,
+                        decoration: BoxDecoration(
+                            color: AppColors.blue,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          children: [
+                            Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Image.asset("assets/icons/install.png")),
+                            ksizedbox20w,
+                            Text(
+                              "Installation",
+                              style: primaryFonts.copyWith(
                                   color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Image.asset("assets/icons/install.png")),
-                          ksizedbox20w,
-                          Text(
-                            "Installation",
-                            style: primaryFonts.copyWith(
-                                color: AppColors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
