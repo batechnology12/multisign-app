@@ -13,3 +13,7 @@ const SizedBox ksizedbox40 = SizedBox(height: 40);
 const SizedBox ksizedbox5w = SizedBox(width: 5);
 const SizedBox ksizedbox10w = SizedBox(width: 10);
 const SizedBox ksizedbox20w = SizedBox(width: 20);
+
+
+ var smalbalckfont =     GoogleFonts.montserrat(
+                  fontSize: 15, fontWeight: FontWeight.bold,);
