@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
@@ -48,20 +49,22 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(19.r),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0.w), // Border when focused
+                        //  width: 2.0.w
+                          ), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0.w), // Border when not focused
+                        //  width: 2.0.w
+                          ), // Border when not focused
                     ),
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w300, color: Colors.grey),
                     labelText: 'Email ID', // Changed label text
                     labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600),
                     // Text style for the label
                   ),
@@ -76,13 +79,15 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(19),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0.w), // Border when focused
+                        //  width: 2.0.w
+                          ), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0.w), // Border when not focused
+                          //width: 2.0.w
+                          ), // Border when not focused
                     ),
 
                     hintStyle: TextStyle(
@@ -90,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Password', // Changed label text
                     labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0.sp,
+                        fontSize: 14.0.sp,
                         fontWeight: FontWeight.w600),
                     // Text style for the label
                   ),
@@ -138,7 +143,7 @@ class LoginScreen extends StatelessWidget {
                 // Get.back();
               },
               text: 'SIGN IN',
-              color: Colors.green,
+              color: AppColors.green,
               textColor: Colors.white,
             ),
           ),

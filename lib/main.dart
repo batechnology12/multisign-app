@@ -11,7 +11,9 @@ import 'package:device_preview/device_preview.dart';
 void main() {
   Get.put(Multisign());
   runApp(DevicePreview(
-    builder: (context) => MyApp(), // Wrap your app
+  enabled: false,  
+    builder: (context) => 
+    MyApp(), // Wrap your app
   ),);
 }
 

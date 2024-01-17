@@ -38,13 +38,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(19.r),
                   borderSide: BorderSide(
-                      color: Colors.black, width: 2.0.w), // Border when focused
+                      color: Colors.black, 
+                    //  width: 2.0.w
+                      ), // Border when focused
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide(
                       color: Colors.black,
-                      width: 2.0.w), // Border when not focused
+                      //width: 2.0.w
+                      ), // Border when not focused
                 ),
 
                 hintStyle:
@@ -52,7 +55,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 labelText: 'Enter Email Address', // Changed label text
                 labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 18.0.sp,
+                    fontSize: 14.0.sp,
                     fontWeight: FontWeight.w600),
                 // Text style for the label
               ),
@@ -67,7 +70,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: Text(
                       'Back to sign in',
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                           color: Colors.grey),
                     ),

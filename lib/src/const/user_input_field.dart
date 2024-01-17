@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +42,7 @@ class UserInputField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            width: 1.5,
+         //   width: 1,
             color: Colors.black,
             style: BorderStyle.solid,
           ),
@@ -55,9 +56,9 @@ class UserInputField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            width: 1.2,
+         //   width: 1,
             color: Colors.black,
-            style: BorderStyle.solid,
+           // style: BorderStyle.solid,
           ),
           borderRadius: BorderRadius.circular(
             60.r,

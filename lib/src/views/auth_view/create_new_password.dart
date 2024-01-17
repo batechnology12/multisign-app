@@ -34,13 +34,16 @@ class NewPassword extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(19.r),
                   borderSide: BorderSide(
-                      color: Colors.black, width: 2.0.w), // Border when focused
+                      color: Colors.black,
+                      // width: 2.0.w
+                      ), // Border when focused
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide(
                       color: Colors.black,
-                      width: 2.0.w), // Border when not focused
+                     // width: 2.0.w
+                      ), // Border when not focused
                 ),
 
                 hintStyle:
@@ -48,7 +51,7 @@ class NewPassword extends StatelessWidget {
                 labelText: 'Password', // Changed label text
                 labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 18.0.sp,
+                    fontSize: 14.0.sp,
                     fontWeight: FontWeight.w600),
                 // Text style for the label
               ),
@@ -62,13 +65,16 @@ class NewPassword extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(19.r),
                   borderSide: BorderSide(
-                      color: Colors.black, width: 2.0.w), // Border when focused
+                      color: Colors.black, 
+                      //width: 2.0.w
+                      ), // Border when focused
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide(
                       color: Colors.black,
-                      width: 2.0.w), // Border when not focused
+                    //  width: 2.0.w
+                      ), // Border when not focused
                 ),
 
                 hintStyle:
@@ -76,7 +82,7 @@ class NewPassword extends StatelessWidget {
                 labelText: 'Confirm Password', // Changed label text
                 labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 18.0.sp,
+                    fontSize: 14.0.sp,
                     fontWeight: FontWeight.w600),
                 // Text style for the label
               ),
