@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/views/history_view/history_view.dart';
 import 'package:multisign_app/src/views/home_view/home_view.dart';
@@ -36,7 +37,7 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
     return Scaffold(
       body: screens[bottomIndex],
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          height: 50,
+          height: 50.h,
           leftCornerRadius: 8,
           rightCornerRadius: 8,
           gapLocation: GapLocation.none,
@@ -47,16 +48,16 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 43,
-                  width: 43,
+                  height: 43.h,
+                  width: 43.w,
                   decoration: BoxDecoration(
                       color: bottomIndex == index
                           ? AppColors.white
                           : AppColors.yellowAccent,
                       shape: BoxShape.circle),
                   child: Image.asset(iconsList[index],
-                      height: 26,
-                      width: 26,
+                      height: 26.h,
+                      width: 26.w,
                       color: bottomIndex == index
                           ? AppColors.yellowAccent
                           : AppColors.black),

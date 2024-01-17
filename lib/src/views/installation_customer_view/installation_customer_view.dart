@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_store_name.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_store_name.dart';
 
 class InstallationCustomer extends StatefulWidget {
   const InstallationCustomer({super.key});
@@ -15,35 +16,36 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: Icon(
-            Icons.arrow_back,
-          ),
-          centerTitle: true,
-          title: Text("Installation Customer",
-              style: primaryFonts.copyWith(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.black)),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                popUp();
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: Image.asset(
-                  "assets/icons/filter.png",
-                ),
-              ),
-            )
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(105),
           child: Column(
             children: [
+              AppBar(
+                leading: Icon(
+                  Icons.arrow_back,
+                ),
+                centerTitle: true,
+                title: Text("Recce Customer",
+                    style: primaryFonts.copyWith(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.black)),
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      popUp();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Image.asset(
+                        "assets/icons/filter.png",
+                      ),
+                    ),
+                  )
+                ],
+              ),
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 15),
                 height: 45,
                 decoration: BoxDecoration(
                     color: AppColors.black.withOpacity(.02),
@@ -66,106 +68,107 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                               BorderSide(width: 1, color: AppColors.grey))),
                 ),
               ),
-              ksizedbox20,
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 7,
-                  itemBuilder: ((context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: AppColors.darkGrey.withOpacity(.05)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 65,
-                                    width: 65,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.blue,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Text(
-                                      "PN",
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.white),
-                                    ),
-                                  ),
-                                  ksizedbox10w,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Project Name $index",
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.black)),
-                                      Text("Dealer name $index, chennai",
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.70))),
-                                      Text('Job Id:AKASH12345',
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.50))),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.to(InstallationStoreName());
-                                        },
-                                        child: Text('Full View',
-                                            style: primaryFonts.copyWith(
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.green)),
-                                      ),
-                                      Text('08-12-2023',
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
-                                      Text('Friday',
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
-                  }))
             ],
           ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 7,
+              itemBuilder: ((context, index) {
+                return Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10, top: 4),
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: AppColors.darkGrey.withOpacity(.05)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                height: 65,
+                                width: 65,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: AppColors.blue,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  "PN",
+                                  style: primaryFonts.copyWith(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.white),
+                                ),
+                              ),
+                              ksizedbox10w,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Project Name $index",
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.black)),
+                                  Text("Dealer name $index, chennai",
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.black
+                                              .withOpacity(.70))),
+                                  Text('Job Id:AKASH12345',
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.black
+                                              .withOpacity(.50))),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(InstallationStoreName());
+                                    },
+                                    child: Text('Full View',
+                                        style: primaryFonts.copyWith(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.green)),
+                                  ),
+                                  Text('08-12-2023',
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                          color: AppColors.black)),
+                                  Text('Friday',
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                          color: AppColors.black)),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              })),
         ));
   }
 

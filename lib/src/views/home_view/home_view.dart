@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
@@ -116,17 +117,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: Container(
+                        margin: EdgeInsets.only(right: 8),
                         padding: EdgeInsets.all(5),
-                        height: 50,
-                        width: 150,
+                        height: 50.h,
                         decoration: BoxDecoration(
                             color: AppColors.blue,
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
                             Container(
-                                height: 40,
-                                width: 40,
+                                height: 40.h,
+                                width: 40.w,
                                 decoration: BoxDecoration(
                                     color: AppColors.white,
                                     borderRadius: BorderRadius.circular(8)),
@@ -136,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Recce",
                               style: primaryFonts.copyWith(
                                   color: AppColors.white,
-                                  fontSize: 18,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500),
                             )
                           ],
@@ -146,16 +147,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(5),
-                        height: 50,
-                        width: 195,
+                        height: 50.h,
                         decoration: BoxDecoration(
                             color: AppColors.blue,
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
                             Container(
-                                height: 40,
-                                width: 40,
+                                height: 40.h,
+                                width: 40.w,
                                 decoration: BoxDecoration(
                                     color: AppColors.white,
                                     borderRadius: BorderRadius.circular(8)),
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Installation",
                               style: primaryFonts.copyWith(
                                   color: AppColors.white,
-                                  fontSize: 18,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500),
                             )
                           ],

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
@@ -17,7 +18,7 @@ class InstallationReportDetails extends StatefulWidget {
 
 class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   Multisign multisign = Get.find<Multisign>();
-// String? cameraImages;
+
   File? photo;
   File? image;
   ImagePicker imagePicker = ImagePicker();
@@ -27,7 +28,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Installtion Report Details",
+        title: Text("Installation Report Details",
             style: primaryFonts.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -377,106 +378,112 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 45,
-                    width: 180,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 5, left: 10),
-                          labelText: "Width",
-                          labelStyle: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide:
-                                  BorderSide(width: 1, color: AppColors.black)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.black))),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 8),
+                      height: 45.h,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 5, left: 10),
+                            labelText: "Width",
+                            labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black))),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: 45,
-                    width: 180,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 5, left: 10),
-                          labelText: "Hight",
-                          labelStyle: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide:
-                                  BorderSide(width: 1, color: AppColors.black)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.black))),
+                  Expanded(
+                    child: Container(
+                      height: 45.h,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 5, left: 10),
+                            labelText: "Height",
+                            labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black))),
+                      ),
                     ),
                   ),
                 ],
               ),
-              ksizedbox15,
+              ksizedbox10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 45,
-                    width: 180,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 5, left: 10),
-                          labelText: "Dimensions",
-                          labelStyle: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide:
-                                  BorderSide(width: 1, color: AppColors.black)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.black))),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 8),
+                      height: 45.h,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 5, left: 10),
+                            labelText: "Dimensions",
+                            labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black))),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: 45,
-                    width: 180,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(top: 5, left: 10),
-                          labelText: "Square Feet",
-                          labelStyle: primaryFonts.copyWith(
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide:
-                                  BorderSide(width: 1, color: AppColors.black)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.black))),
+                  Expanded(
+                    child: Container(
+                      height: 45.h,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(top: 5, left: 10),
+                            labelText: "Square Feet",
+                            labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black))),
+                      ),
                     ),
                   ),
                 ],
@@ -503,8 +510,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             });
                           },
                           child: Container(
-                            height: 165,
-                            width: 185,
+                            //   margin: EdgeInsets.only(right: 10),
+                            height: 115.h,
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 1, color: AppColors.lightGrey),
@@ -521,15 +528,16 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               image = File(pickedCamera!.path);
                             });
                           },
-                          child: Container(
-                            height: 165,
-                            width: 185,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1, color: AppColors.lightGrey),
-                                color: AppColors.lightGrey.withOpacity(.20),
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Image.file(image!),
+                          child: Expanded(
+                            child: Container(
+                              height: 115.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 1, color: AppColors.lightGrey),
+                                  color: AppColors.lightGrey.withOpacity(.20),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Image.file(image!),
+                            ),
                           ),
                         ),
                   photo == null
@@ -542,13 +550,14 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               print(photo);
                             });
                           },
-                          child: Container(
-                            height: 165,
-                            width: 185,
-                            decoration: BoxDecoration(
-                                color: AppColors.lightGrey.withOpacity(.20),
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Image.asset("assets/images/gallery.png"),
+                          child: Expanded(
+                            child: Container(
+                              height: 120.h,
+                              decoration: BoxDecoration(
+                                  color: AppColors.lightGrey.withOpacity(.20),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Image.asset("assets/images/gallery.png"),
+                            ),
                           ),
                         )
                       : GestureDetector(
@@ -560,15 +569,16 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               print(photo);
                             });
                           },
-                          child: Container(
-                            height: 165,
-                            width: 185,
-                            decoration: BoxDecoration(
-                                color: AppColors.lightGrey.withOpacity(.20),
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Image.file(
-                              photo!,
-                              fit: BoxFit.cover,
+                          child: Expanded(
+                            child: Container(
+                              height: 120.h,
+                              decoration: BoxDecoration(
+                                  color: AppColors.lightGrey.withOpacity(.20),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Image.file(
+                                photo!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -577,8 +587,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
               ksizedbox20,
               Container(
                 alignment: Alignment.center,
-                height: 45,
-                width: double.infinity,
+                height: 45.h,
                 decoration: BoxDecoration(
                     color: AppColors.green,
                     borderRadius: BorderRadius.circular(8)),
