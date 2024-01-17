@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
 import 'package:multisign_app/src/views/auth_view/login_view.dart';
@@ -34,15 +36,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               autofocus: true,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(19),
+                  borderRadius: BorderRadius.circular(19.r),
                   borderSide: BorderSide(
-                      color: Colors.black, width: 2.0), // Border when focused
+                      color: Colors.black, width: 2.0.w), // Border when focused
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   borderSide: BorderSide(
                       color: Colors.black,
-                      width: 2.0), // Border when not focused
+                      width: 2.0.w), // Border when not focused
                 ),
 
                 hintStyle:
@@ -50,7 +52,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 labelText: 'Enter Email Address', // Changed label text
                 labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 18.0,
+                    fontSize: 18.0.sp,
                     fontWeight: FontWeight.w600),
                 // Text style for the label
               ),
@@ -74,8 +76,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             ),ksizedbox40,ksizedbox40,ksizedbox40,ksizedbox40,
            CustomElevatedButton(
-              height: 45,
-              width: 1,
+              height: 45.h,
+              width: 1.w,
               onPressed: () {
                 Get.to(OtpScreen());
                 // ProfileUpdateModel profileUpdateModel =
@@ -89,7 +91,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // Get.back();
               },
               text: 'Send',
-              color: Colors.green,
+              color: AppColors.green,
               textColor: Colors.white,
             ),],
         ),

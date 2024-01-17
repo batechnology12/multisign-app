@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -26,15 +27,15 @@ class CustomElevatedButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         alignment: Alignment.center,
-        height: 55,
+        height: 55.h,
         width: double.infinity,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(
-            10,
+            10.r,
           ),
           border: Border.all(
-            width: 1.5,
+            width: 1.5.w,
             color: Colors.green,
           ),
         ),
@@ -42,7 +43,7 @@ class CustomElevatedButton extends StatelessWidget {
           text,
           style: smalbalckfont.copyWith(
             color: textColor,
-            fontSize: 17,
+            fontSize: 17.sp,
           ),
         ),
       ),

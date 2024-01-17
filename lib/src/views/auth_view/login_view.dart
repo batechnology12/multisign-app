@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
@@ -18,20 +19,20 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Image.asset('assets/images/ud_4x 1.png'),
-          ksizedbox10w,
+          Image.asset('assets/images/ud_4x 1.png',height: 200.h,),
+        
           Text(
             'Enter your Login Details',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
           ),
           ksizedbox30,
           Text(
             'Please sing in to continue and email id ',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
           ),
           Text(
             '& password enter login',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
           ),
           ksizedbox30,
           Padding(
@@ -44,23 +45,23 @@ class LoginScreen extends StatelessWidget {
                   autofocus: true,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(19),
+                      borderRadius: BorderRadius.circular(19.r),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0), // Border when focused
+                          width: 2.0.w), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0), // Border when not focused
+                          width: 2.0.w), // Border when not focused
                     ),
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w300, color: Colors.grey),
                     labelText: 'Email ID', // Changed label text
                     labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 18.0.sp,
                         fontWeight: FontWeight.w600),
                     // Text style for the label
                   ),
@@ -75,13 +76,13 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(19),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0), // Border when focused
+                          width: 2.0.w), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
                           color: Colors.black,
-                          width: 2.0), // Border when not focused
+                          width: 2.0.w), // Border when not focused
                     ),
 
                     hintStyle: TextStyle(
@@ -89,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Password', // Changed label text
                     labelStyle: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 18.0.sp,
                         fontWeight: FontWeight.w600),
                     // Text style for the label
                   ),
@@ -122,8 +123,8 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: CustomElevatedButton(
-              height: 45,
-              width: 1,
+              height: 40.h,
+              width: 1.w,
               onPressed: () {
                 Get.to(BottomNaviBar());
                 // ProfileUpdateModel profileUpdateModel =

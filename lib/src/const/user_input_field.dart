@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class UserInputField extends StatelessWidget {
@@ -23,7 +24,7 @@ class UserInputField extends StatelessWidget {
       controller: controller,
       autofocus: false,
       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            fontSize: 15,
+            fontSize: 15.sp,
             color: Colors.black,
           ),
       textCapitalization: isNameField == true
@@ -59,13 +60,13 @@ class UserInputField extends StatelessWidget {
             style: BorderStyle.solid,
           ),
           borderRadius: BorderRadius.circular(
-            60,
+            60.r,
           ),
         ),
         filled: true,
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-              fontSize: 15,
+              fontSize: 15.sp,
               color: Colors.grey[600],
               fontWeight: FontWeight.w100,
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
 import 'package:multisign_app/src/views/auth_view/create_new_password.dart';
@@ -20,7 +22,7 @@ class OtpScreen extends StatelessWidget {
           Image.asset('assets/images/ud_4x 1.png'),
             Text(
             'Enter Verification Code',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
           ),ksizedbox20,
           OTPField(),
           ksizedbox10,
@@ -29,20 +31,20 @@ class OtpScreen extends StatelessWidget {
             children: [
               Text(
                 'If you didn’t receive a code, ',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
               ),
               Text('Resend',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: Colors.red))
             ],
           ),ksizedbox40,
        Padding(
          padding: const EdgeInsets.all(8.0),
          child: CustomElevatedButton(
-                height: 45,
-                width: 1,
+                height: 45.h,
+                width: 1.w,
                 onPressed: () {
                   Get.to(NewPassword());
                   // ProfileUpdateModel profileUpdateModel =
@@ -56,7 +58,7 @@ class OtpScreen extends StatelessWidget {
                   // Get.back();
                 },
                 text: 'Send',
-                color: Colors.green,
+                color: AppColors.green,
                 textColor: Colors.white,
               ),
        ),  ],
