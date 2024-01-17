@@ -25,7 +25,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                   Icons.arrow_back,
                 ),
                 centerTitle: true,
-                title: Text("Recce Customer",
+                title: Text("Installation Customer",
                     style: primaryFonts.copyWith(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
