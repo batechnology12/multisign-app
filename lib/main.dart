@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
-import 'package:multisign_app/src/views/home_view/home_view.dart';
+import 'package:multisign_app/src/controllers/home_controller.dart';
 
 void main() {
+  Get.put(Multisign());
   runApp(const MyApp());
 }
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

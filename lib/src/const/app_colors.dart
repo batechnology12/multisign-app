@@ -14,4 +14,5 @@ class AppColors {
   static const Color bermudaGrey = Color(0XFF3E4095);
   static const Color black = Color(0XFF000000);
   static const Color white = Color(0XFFFFFFFF);
+  static const Color lightGrey = Color(0xFFD9D9D9);
 }

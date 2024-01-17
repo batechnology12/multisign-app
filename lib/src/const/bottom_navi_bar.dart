@@ -25,8 +25,8 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
   ];
   List screens = [
     HomeScreen(),
-    InstallationCustomer(),
     RecceCustomer(),
+    InstallationCustomer(),
     HistoryScreen(),
     UserScreen(),
   ];
