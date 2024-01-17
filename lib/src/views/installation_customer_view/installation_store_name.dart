@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 
 class InstallationStoreName extends StatefulWidget {
   const InstallationStoreName({super.key});
@@ -15,7 +17,7 @@ class _InstallationStoreNameState extends State<InstallationStoreName> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Recce Store Name",
+        title: Text("Installation Store Name",
             style: primaryFonts.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -140,7 +142,11 @@ class _InstallationStoreNameState extends State<InstallationStoreName> {
                         fontSize: 12,
                         fontWeight: FontWeight.w400),
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.arrow_forward)),
+                  IconButton(
+                      onPressed: () {
+                        Get.to(InstallationReportDetails());
+                      },
+                      icon: Icon(Icons.arrow_forward)),
                 ],
               ),
             ),

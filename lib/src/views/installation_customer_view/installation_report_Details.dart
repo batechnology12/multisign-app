@@ -7,14 +7,15 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 
-class RecceReportDetails extends StatefulWidget {
-  const RecceReportDetails({super.key});
+class InstallationReportDetails extends StatefulWidget {
+  const InstallationReportDetails({super.key});
 
   @override
-  State<RecceReportDetails> createState() => _RecceReportDetailsState();
+  State<InstallationReportDetails> createState() =>
+      _InstallationReportDetailsState();
 }
 
-class _RecceReportDetailsState extends State<RecceReportDetails> {
+class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   Multisign multisign = Get.find<Multisign>();
 // String? cameraImages;
   File? photo;
@@ -26,7 +27,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Recce Report Details",
+        title: Text("Installtion Report Details",
             style: primaryFonts.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,

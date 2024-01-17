@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
@@ -47,4 +49,11 @@ class Multisign extends GetxController {
         date: "08-12-2023",
         day: "Friday"),
   ];
+
+
+
+  // addImages(photos) {
+  //  cameraImages.
+  //   update();
+  // }
 }
