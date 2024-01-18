@@ -3,9 +3,14 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/views/notification/notification.dart';
 
-class EmptyNotification extends StatelessWidget {
+class EmptyNotification extends StatefulWidget {
   const EmptyNotification({super.key});
 
+  @override
+  State<EmptyNotification> createState() => _EmptyNotificationState();
+}
+
+class _EmptyNotificationState extends State<EmptyNotification> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -31,8 +36,8 @@ class EmptyNotification extends StatelessWidget {
               '''You're all caught up''',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
-            Text('Come back later for Reminders, Prints model '),
-            Text(' and banners notifications')
+            Text('Come back later for Reminders, Prints model'),
+            Text(' and banners notifications'),
           ],
         ),
       ),

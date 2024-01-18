@@ -10,7 +10,8 @@ import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.
 import 'package:multisign_app/src/views/user_view/user_view.dart';
 
 class BottomNaviBar extends StatefulWidget {
-  const BottomNaviBar({super.key});
+  int index;
+  BottomNaviBar({super.key, this.index = 0});
 
   @override
   State<BottomNaviBar> createState() => _BottomNaviBarState();
@@ -32,12 +33,27 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
     HistoryScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    setDefault();
+  }
+
+  setDefault() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        bottomIndex = widget.index;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[bottomIndex],
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-          height: 50.h,
+          height: 40.h,
           leftCornerRadius: 8,
           rightCornerRadius: 8,
           gapLocation: GapLocation.none,
@@ -48,8 +64,8 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 43.h,
-                  width: 43.w,
+                  height: 39.h,
+                  width: 39.w,
                   decoration: BoxDecoration(
                       color: bottomIndex == index
                           ? AppColors.white

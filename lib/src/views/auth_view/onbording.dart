@@ -50,18 +50,35 @@ class Onbording extends StatelessWidget {
                         left: 0,
                         right: 0,
                         top: 2,
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('''Get latest printing all''',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp),),
-                            Row(mainAxisAlignment: MainAxisAlignment.center,
+                            Text(
+                              '''Get latest printing all''',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 17.sp),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('brands in your shops banners',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17.sp),),
+                                Text(
+                                  'brands in your shops banners',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 17.sp),
+                                ),
                               ],
-                            ),ksizedbox20,Text('''
-It was popularised in the 1960s with the release of 
-Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software 
-like Aldus PageMaker including versions of Lorem Ipsum.''',style: TextStyle(fontSize: 12.sp),)
+                            ),
+                            ksizedbox20,
+                            Text(
+                              '''
+  It was popularised in the 1960s with the release of 
+  Letraset sheets containing Lorem Ipsum passages, 
+  and more recently with desktop publishing software 
+  like Aldus PageMaker including versions of Lorem 
+  Ipsum.''',
+                              style: TextStyle(fontSize: 12.sp),
+                            )
                           ],
                         ),
                       ),

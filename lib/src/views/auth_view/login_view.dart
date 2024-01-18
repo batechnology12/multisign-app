@@ -7,6 +7,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
 import 'package:multisign_app/src/views/auth_view/forgot_password.dart';
+import 'package:multisign_app/src/views/auth_view/splash_loading.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -20,8 +21,10 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Image.asset('assets/images/ud_4x 1.png',height: 200.h,),
-        
+          Image.asset(
+            'assets/images/ud_4x 1.png',
+            height: 200.h,
+          ),
           Text(
             'Enter your Login Details',
             style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
@@ -48,16 +51,16 @@ class LoginScreen extends StatelessWidget {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(19.r),
                       borderSide: BorderSide(
-                          color: Colors.black,
+                        color: Colors.black,
                         //  width: 2.0.w
-                          ), // Border when focused
+                      ), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
-                          color: Colors.black,
+                        color: Colors.black,
                         //  width: 2.0.w
-                          ), // Border when not focused
+                      ), // Border when not focused
                     ),
                     hintStyle: TextStyle(
                         fontWeight: FontWeight.w300, color: Colors.grey),
@@ -78,16 +81,16 @@ class LoginScreen extends StatelessWidget {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(19),
                       borderSide: BorderSide(
-                          color: Colors.black,
+                        color: Colors.black,
                         //  width: 2.0.w
-                          ), // Border when focused
+                      ), // Border when focused
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(
-                          color: Colors.black,
-                          //width: 2.0.w
-                          ), // Border when not focused
+                        color: Colors.black,
+                        //width: 2.0.w
+                      ), // Border when not focused
                     ),
 
                     hintStyle: TextStyle(
@@ -131,7 +134,7 @@ class LoginScreen extends StatelessWidget {
               height: 40.h,
               width: 1.w,
               onPressed: () {
-                Get.to(BottomNaviBar());
+                Get.to(LoadingScreen());
                 // ProfileUpdateModel profileUpdateModel =
                 // ProfileUpdateModel(
                 // email: emailController.text,

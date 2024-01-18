@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 
 class InstallationReportDetails extends StatefulWidget {
@@ -517,7 +518,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     width: 1, color: AppColors.lightGrey),
                                 color: AppColors.lightGrey.withOpacity(.20),
                                 borderRadius: BorderRadius.circular(6)),
-                            child: Image.asset("assets/images/camera.png"),
+                            child: Image.asset("assets/images/camera.png",height: 165,
+                                width: 185,),
                           ),
                         )
                       : GestureDetector(
@@ -536,7 +538,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       width: 1, color: AppColors.lightGrey),
                                   color: AppColors.lightGrey.withOpacity(.20),
                                   borderRadius: BorderRadius.circular(6)),
-                              child: Image.file(image!),
+                              child: Image.file(image!,height: 165,
+                                width: 185,),
                             ),
                           ),
                         ),
@@ -556,7 +559,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               decoration: BoxDecoration(
                                   color: AppColors.lightGrey.withOpacity(.20),
                                   borderRadius: BorderRadius.circular(6)),
-                              child: Image.asset("assets/images/gallery.png"),
+                              child: Image.asset("assets/images/gallery.png",height: 165,
+                                width: 185,),
                             ),
                           ),
                         )
@@ -575,7 +579,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               decoration: BoxDecoration(
                                   color: AppColors.lightGrey.withOpacity(.20),
                                   borderRadius: BorderRadius.circular(6)),
-                              child: Image.file(
+                              child: Image.file(height: 165,
+                                width: 185,
                                 photo!,
                                 fit: BoxFit.cover,
                               ),
@@ -603,12 +608,17 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Cancel",
-                    style: primaryFonts.copyWith(
-                        color: AppColors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(BottomNaviBar(index: 2));
+                    },
+                    child: Text(
+                      "Cancel",
+                      style: primaryFonts.copyWith(
+                          color: AppColors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ],
               ),

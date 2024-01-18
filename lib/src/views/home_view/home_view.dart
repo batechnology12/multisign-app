@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_customer_view.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -116,59 +119,74 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: 8),
-                        padding: EdgeInsets.all(5),
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                            color: AppColors.blue,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 40.h,
-                                width: 40.w,
-                                decoration: BoxDecoration(
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.offAll(BottomNaviBar(
+                            index: 1,
+                          ));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 8),
+                          padding: EdgeInsets.all(5),
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                              color: AppColors.blue,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Image.asset("assets/icons/recce.png")),
+                              ksizedbox20w,
+                              Text(
+                                "Recce",
+                                style: primaryFonts.copyWith(
                                     color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Image.asset("assets/icons/recce.png")),
-                            ksizedbox20w,
-                            Text(
-                              "Recce",
-                              style: primaryFonts.copyWith(
-                                  color: AppColors.white,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          ],
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                            color: AppColors.blue,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 40.h,
-                                width: 40.w,
-                                decoration: BoxDecoration(
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.offAll(BottomNaviBar(
+                            index: 2,
+                          ));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                              color: AppColors.blue,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Container(
+                                  height: 40.h,
+                                  width: 40.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child:
+                                      Image.asset("assets/icons/install.png")),
+                              ksizedbox20w,
+                              Text(
+                                "Installation",
+                                style: primaryFonts.copyWith(
                                     color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Image.asset("assets/icons/install.png")),
-                            ksizedbox20w,
-                            Text(
-                              "Installation",
-                              style: primaryFonts.copyWith(
-                                  color: AppColors.white,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          ],
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -185,12 +203,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 20,
                           fontWeight: FontWeight.w600),
                     ),
-                    Text(
-                      "See All",
-                      style: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.43),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
+                    GestureDetector(
+                      onTap: () {
+                        Get.offAll(BottomNaviBar(
+                          index: 3,
+                        ));
+                      },
+                      child: Text(
+                        "See All",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.black.withOpacity(.43),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ],
                 ),

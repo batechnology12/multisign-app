@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
+import 'package:multisign_app/src/views/auth_view/login_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -252,25 +254,43 @@ class ProfileScreen extends StatelessWidget {
           title: Text('Logout ?'),
           content: Text('Are you sure you want to logout?'),
           actions: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: 36,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color:Colors.grey),
-               child: Center(child: Text('Cancel')), ),
-           Container(
-                  height: 36,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color:AppColors.green),
-               child: Center(child: Text('Log Out',style: TextStyle(color: AppColors.white),)), ),    ],
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 36,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey.withOpacity(.20)),
+                    child: Center(child: Text('Cancel')),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.offAll(LoginScreen());
+                  },
+                  child: Container(
+                    height: 36,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: AppColors.green),
+                    child: Center(
+                        child: Text(
+                      'Log Out',
+                      style: TextStyle(color: AppColors.white),
+                    )),
+                  ),
+                ),
+              ],
             ),
-       
-       ksizedbox20   ],
+            ksizedbox20
+          ],
         );
       },
     );
