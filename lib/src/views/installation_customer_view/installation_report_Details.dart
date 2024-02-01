@@ -18,7 +18,7 @@ class InstallationReportDetails extends StatefulWidget {
 }
 
 class _InstallationReportDetailsState extends State<InstallationReportDetails> {
-  Multisign multisign = Get.find<Multisign>();
+  HomeController multisign = Get.find<HomeController>();
 
   File? photo;
   File? image;

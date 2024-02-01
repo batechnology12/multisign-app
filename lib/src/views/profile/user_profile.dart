@@ -202,9 +202,9 @@ class ProfileScreen extends StatelessWidget {
                             // profileController.update();
                             // Get.back();
                           },
-                          text: 'UPDATE',
+                        
                           color: AppColors.green,
-                          textColor: Colors.white,
+                          textColor: Colors.white, child: customtext(text: 'Update'),
                         ),
                       ],
                     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
+import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_store_name.dart';
 
 class RecceCustomer extends StatefulWidget {
@@ -12,6 +13,14 @@ class RecceCustomer extends StatefulWidget {
 }
 
 class _RecceCustomerState extends State<RecceCustomer> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getRecee();
+  }
+
+  final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,107 +81,121 @@ class _RecceCustomerState extends State<RecceCustomer> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 7,
-              itemBuilder: ((context, index) {
-                return Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(RecceStoreName());
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: 10, top: 4),
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: AppColors.darkGrey.withOpacity(.05)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 65,
-                                  width: 65,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.blue,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    "PN",
-                                    style: primaryFonts.copyWith(
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.white),
-                                  ),
-                                ),
-                                ksizedbox10w,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Project Name $index",
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.black)),
-                                    Text("Dealer name $index, chennai",
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.black
-                                                .withOpacity(.70))),
-                                    Text('Job Id:AKASH12345',
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.black
-                                                .withOpacity(.50))),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(RecceStoreName());
-                                      },
-                                      child: Text('Full View',
-                                          style: primaryFonts.copyWith(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.green)),
+          child: GetBuilder<HomeController>(builder: (context) {
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.getreceelistData.length,
+                itemBuilder: ((context, index) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(RecceStoreName());
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10, top: 4),
+                          height: 80,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: AppColors.darkGrey.withOpacity(.05)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 65,
+                                    width: 65,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.blue,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    Text('08-12-2023',
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            color: AppColors.black)),
-                                    Text('Friday',
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            color: AppColors.black)),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
+                                    child: Text(
+                                      "PN",
+                                      style: primaryFonts.copyWith(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.white),
+                                    ),
+                                  ),
+                                  ksizedbox10w,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          controller.getreceelistData[index]
+                                              .clientName,
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.black)),
+                                      Text(
+                                          controller
+                                              .getreceelistData[index].address,
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.black
+                                                  .withOpacity(.70))),
+                                      Text(
+                                          controller
+                                              .getreceelistData[index].jobcard,
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.black
+                                                  .withOpacity(.50))),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(RecceStoreName());
+                                        },
+                                        child: Text('Full View',
+                                            style: primaryFonts.copyWith(
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.green)),
+                                      ),
+                                      Text(
+                                          controller
+                                              .getreceelistData[index].createdAt
+                                              .toString(),
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300,
+                                              color: AppColors.black)),
+                                      Text(
+                                          controller.getreceelistData[index]
+                                              .scopeOfWork,
+                                          style: primaryFonts.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300,
+                                              color: AppColors.black)),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              })),
+                    ],
+                  );
+                }));
+          }),
         ));
   }
 

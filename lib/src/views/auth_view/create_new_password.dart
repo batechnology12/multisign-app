@@ -5,6 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
+import 'package:multisign_app/src/views/auth_view/login_view.dart';
 import 'package:multisign_app/src/views/auth_view/splash_loading.dart';
 
 class NewPassword extends StatelessWidget {
@@ -105,9 +106,9 @@ class NewPassword extends StatelessWidget {
                 // profileController.update();
                 // Get.back();
               },
-              text: 'Submit',
+        
               color: AppColors.green,
-              textColor: Colors.white,
+              textColor: Colors.white, child: customtext(text: 'Submit'),
             ),
           ],
         ),

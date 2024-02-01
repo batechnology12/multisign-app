@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // var projectDetails = ProjectDetails();
-  final Multisign multisign = Get.find<Multisign>();
+  final HomeController multisign = Get.find<HomeController>();
   int activeIndex = 0;
 
   @override

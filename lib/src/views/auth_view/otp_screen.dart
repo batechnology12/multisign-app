@@ -57,9 +57,9 @@ class OtpScreen extends StatelessWidget {
                   // profileController.update();
                   // Get.back();
                 },
-                text: 'Send',
+               
                 color: AppColors.green,
-                textColor: Colors.white,
+                textColor: Colors.white, child: Text('Sent'), 
               ),
        ),  ],
       ),

@@ -44,6 +44,8 @@ dependencies:
   device_preview: ^1.1.0
   flutter_screenutil: ^5.9.0
   flutter_launcher_icons: 
+  dio: ^5.4.0
+  shared_preferences: ^2.1.0
   
 
 

@@ -93,7 +93,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 // profileController.update();
                 // Get.back();
               },
-              text: 'Send',
+              child: customtext(text: 'SEND',),
               color: AppColors.green,
               textColor: Colors.white,
             ),],

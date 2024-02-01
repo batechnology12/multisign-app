@@ -17,7 +17,7 @@ class RecceReportDetails extends StatefulWidget {
 }
 
 class _RecceReportDetailsState extends State<RecceReportDetails> {
-  Multisign multisign = Get.find<Multisign>();
+  HomeController multisign = Get.find<HomeController>();
 // String? cameraImages;
   File? photo;
   File? image;

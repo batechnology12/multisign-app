@@ -12,7 +12,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-  final Multisign multisign = Get.find<Multisign>();
+  final HomeController multisign = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
