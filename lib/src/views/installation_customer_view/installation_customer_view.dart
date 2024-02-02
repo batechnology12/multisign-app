@@ -83,7 +83,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: GetBuilder<HomeController>(
             builder: (_) {
-              return ListView.builder(
+              return controller.installerListdata.isEmpty?Center(child: Image.asset('assets/icons/fi_6598519.png')) :ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.installerListdata.length,
                   itemBuilder: ((context, index) {
@@ -99,85 +99,88 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 color: AppColors.darkGrey.withOpacity(.05)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 65,
-                                      width: 65,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.blue,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        "PN",
-                                        style: primaryFonts.copyWith(
-                                            fontSize: 26,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.white),
-                                      ),
-                                    ),
-                                    ksizedbox10w,
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.installerListdata[index].clientName,
-                                            style: primaryFonts.copyWith(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.black)),
-                                        Text("Dealer name $index, chennai",
-                                            style: primaryFonts.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.black
-                                                    .withOpacity(.70))),
-                                        Text('Job Id:${controller.installerListdata[index].jobcard}}',
-                                            style: primaryFonts.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.black
-                                                    .withOpacity(.50))),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.to(InstallationStoreName());
-                                          },
-                                          child: Text('Full View',
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      // Container(
+                                      //   height: 65,
+                                      //   width: 65,
+                                      //   alignment: Alignment.center,
+                                      //   decoration: BoxDecoration(
+                                      //     color: AppColors.blue,
+                                      //     borderRadius: BorderRadius.circular(8),
+                                      //   ),
+                                      //   child: Text(
+                                      //     "PN",
+                                      //     style: primaryFonts.copyWith(
+                                      //         fontSize: 26,
+                                      //         fontWeight: FontWeight.w700,
+                                      //         color: AppColors.white),
+                                      //   ),
+                                      // ),
+                                      ksizedbox10w,
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.installerListdata[index].clientName,
                                               style: primaryFonts.copyWith(
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                  fontSize: 12,
+                                                  fontSize: 15,
                                                   fontWeight: FontWeight.w600,
-                                                  color: AppColors.green)),
-                                        ),
-                                        Text('08-12-2023',
-                                            style: primaryFonts.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w300,
-                                                color: AppColors.black)),
-                                        Text('Friday',
-                                            style: primaryFonts.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w300,
-                                                color: AppColors.black)),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
+                                                  color: AppColors.black)),
+                                          Text("${controller.installerListdata[index].address}, ${controller.installerListdata[index].city}",
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.black
+                                                      .withOpacity(.70))),
+                                          Text('Job Id:${controller.installerListdata[index].jobcard}}',
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.black
+                                                      .withOpacity(.50))),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.to(InstallationStoreName());
+                                            },
+                                            child: Text('Full View',
+                                                style: primaryFonts.copyWith(
+                                                    decoration:
+                                                        TextDecoration.underline,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.green)),
+                                          ),
+                                          Text(controller.installerListdata[index].poDate.toString(),
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.black)),
+                                          Text(controller.installerListdata[index].production,
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: AppColors.black)),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),

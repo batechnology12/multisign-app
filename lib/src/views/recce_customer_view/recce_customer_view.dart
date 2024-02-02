@@ -82,119 +82,120 @@ class _RecceCustomerState extends State<RecceCustomer> {
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: GetBuilder<HomeController>(builder: (context) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.getreceelistData.length,
-                itemBuilder: ((context, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(RecceStoreName());
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 10, top: 4),
-                          height: 80,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: AppColors.darkGrey.withOpacity(.05)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 65,
-                                    width: 65,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.blue,
-                                      borderRadius: BorderRadius.circular(8),
+            return controller.getreceelistData.isEmpty
+                ? Center(child: Image.asset('assets/icons/fi_6598519.png'))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.getreceelistData.length,
+                    itemBuilder: ((context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(RecceStoreName(id: controller.getreceelistData[index]
+                                                  .id,));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10, top: 4),
+                              height: 80,
+                              width: double.infinity,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+                                  color: AppColors.darkGrey.withOpacity(.05)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        ksizedbox10w,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              controller.getreceelistData[index]
+                                                  .clientName,
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.black),
+                                            ),
+                                            Text(
+                                                controller
+                                                    .getreceelistData[index]
+                                                    .address,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.black
+                                                        .withOpacity(.70))),
+                                            Text(
+                                                controller
+                                                    .getreceelistData[index]
+                                                    .jobcard,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.black
+                                                        .withOpacity(.50))),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    child: Text(
-                                      "PN",
-                                      style: primaryFonts.copyWith(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.white),
-                                    ),
-                                  ),
-                                  ksizedbox10w,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          controller.getreceelistData[index]
-                                              .clientName,
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.black)),
-                                      Text(
-                                          controller
-                                              .getreceelistData[index].address,
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.70))),
-                                      Text(
-                                          controller
-                                              .getreceelistData[index].jobcard,
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.black
-                                                  .withOpacity(.50))),
-                                    ],
-                                  ),
-                                ],
+                                    Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(RecceStoreName(id:    controller.getreceelistData[index]
+                                                  .id,));
+                                              },
+                                              child: Text('Full View',
+                                                  style: primaryFonts.copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors.green)),
+                                            ),
+                                            Text(
+                                                controller
+                                                    .getreceelistData[index]
+                                                    .createdAt
+                                                    .toString(),
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: AppColors.black)),
+                                            Text(
+                                                controller
+                                                    .getreceelistData[index]
+                                                    .scopeOfWork,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: AppColors.black)),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.to(RecceStoreName());
-                                        },
-                                        child: Text('Full View',
-                                            style: primaryFonts.copyWith(
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.green)),
-                                      ),
-                                      Text(
-                                          controller
-                                              .getreceelistData[index].createdAt
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
-                                      Text(
-                                          controller.getreceelistData[index]
-                                              .scopeOfWork,
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w300,
-                                              color: AppColors.black)),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
-                }));
+                        ],
+                      );
+                    }));
           }),
         ));
   }

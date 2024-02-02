@@ -7,7 +7,9 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
+import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
+import 'package:multisign_app/src/model/get_details_recee_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/home_model.dart';
@@ -94,6 +96,27 @@ GetReceeApiServices getReceeApiServices=GetReceeApiServices();
     }
     update();
   }
+
+
+
+
+
+ReceeDetailsServicesApi receeDetailsServicesApi=ReceeDetailsServicesApi();
+  GetReceeDetilsList? getreceedetailsData ;
+  getReceedetails({required int id}) async {
+    isLoading(true);
+    update();
+    dio.Response<dynamic> response =
+        await receeDetailsServicesApi.receedetailsApi(id: id);
+    isLoading(false);
+    update();
+    if (response.statusCode == 200) {
+      GetIReceeDetailsModel geRreceedetailModel = GetIReceeDetailsModel.fromJson(response.data);
+      getreceedetailsData = geRreceedetailModel.data;
+    }
+    update();
+  }
+
 
 
 
