@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final getIReceeDetailsModel = getIReceeDetailsModelFromJson(jsonString);
+//     final getIInstallerDetailsModel = getIInstallerDetailsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetIReceeDetailsModel getIReceeDetailsModelFromJson(String str) => GetIReceeDetailsModel.fromJson(json.decode(str));
+GetIInstallerDetailsModel getIInstallerDetailsModelFromJson(String str) => GetIInstallerDetailsModel.fromJson(json.decode(str));
 
-String getIReceeDetailsModelToJson(GetIReceeDetailsModel data) => json.encode(data.toJson());
+String getIInstallerDetailsModelToJson(GetIInstallerDetailsModel data) => json.encode(data.toJson());
 
-class GetIReceeDetailsModel {
+class GetIInstallerDetailsModel {
     bool status;
-    Data data;
+    installerData data;
 
-    GetIReceeDetailsModel({
+    GetIInstallerDetailsModel({
         required this.status,
         required this.data,
     });
 
-    factory GetIReceeDetailsModel.fromJson(Map<String, dynamic> json) => GetIReceeDetailsModel(
+    factory GetIInstallerDetailsModel.fromJson(Map<String, dynamic> json) => GetIInstallerDetailsModel(
         status: json["status"],
-        data: Data.fromJson(json["data"]),
+        data: installerData.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class GetIReceeDetailsModel {
     };
 }
 
-class Data {
+class installerData {
     int id;
     String jobcard;
     String clientName;
@@ -56,8 +56,9 @@ class Data {
     String isReceeVerrified;
     DateTime createdAt;
     DateTime updatedAt;
+    List<ReceeVerification> receeVerifications;
 
-    Data({
+    installerData({
         required this.id,
         required this.jobcard,
         required this.clientName,
@@ -85,9 +86,10 @@ class Data {
         required this.isReceeVerrified,
         required this.createdAt,
         required this.updatedAt,
+        required this.receeVerifications,
     });
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory installerData.fromJson(Map<String, dynamic> json) => installerData(
         id: json["id"],
         jobcard: json["jobcard"],
         clientName: json["client_name"],
@@ -115,6 +117,7 @@ class Data {
         isReceeVerrified: json["is_recee_verrified"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        receeVerifications: List<ReceeVerification>.from(json["recee_verifications"].map((x) => ReceeVerification.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -143,6 +146,87 @@ class Data {
         "installer_status": installerStatus,
         "status": status,
         "is_recee_verrified": isReceeVerrified,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "recee_verifications": List<dynamic>.from(receeVerifications.map((x) => x.toJson())),
+    };
+}
+
+class ReceeVerification {
+    int id;
+    String userId;
+    String clientId;
+    dynamic installerId;
+    String jobCard;
+    String withColumn;
+    String heightColumn;
+    String squareFit;
+    String dimension;
+    String signageType;
+    String signageDetails;
+    dynamic beforeImages;
+    dynamic afterImages;
+    dynamic isReceeVerrified;
+    String isJobCompleted;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    ReceeVerification({
+        required this.id,
+        required this.userId,
+        required this.clientId,
+        required this.installerId,
+        required this.jobCard,
+        required this.withColumn,
+        required this.heightColumn,
+        required this.squareFit,
+        required this.dimension,
+        required this.signageType,
+        required this.signageDetails,
+        required this.beforeImages,
+        required this.afterImages,
+        required this.isReceeVerrified,
+        required this.isJobCompleted,
+        required this.createdAt,
+        required this.updatedAt,
+    });
+
+    factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
+        id: json["id"],
+        userId: json["user_id"],
+        clientId: json["client_id"],
+        installerId: json["installer_id"],
+        jobCard: json["job_card"],
+        withColumn: json["with_column"],
+        heightColumn: json["height_column"],
+        squareFit: json["square_fit"],
+        dimension: json["dimension"],
+        signageType: json["signage_type"],
+        signageDetails: json["signage_details"],
+        beforeImages: json["before_images"],
+        afterImages: json["after_images"],
+        isReceeVerrified: json["is_recee_verrified"],
+        isJobCompleted: json["is_job_completed"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "client_id": clientId,
+        "installer_id": installerId,
+        "job_card": jobCard,
+        "with_column": withColumn,
+        "height_column": heightColumn,
+        "square_fit": squareFit,
+        "dimension": dimension,
+        "signage_type": signageType,
+        "signage_details": signageDetails,
+        "before_images": beforeImages,
+        "after_images": afterImages,
+        "is_recee_verrified": isReceeVerrified,
+        "is_job_completed": isJobCompleted,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

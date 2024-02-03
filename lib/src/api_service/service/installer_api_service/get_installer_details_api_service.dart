@@ -3,17 +3,17 @@ import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ReceeDetailsServicesApi extends BaseApiService {
-  Future receedetailsApi({
+class InstallerDetailsServicesApi extends BaseApiService {
+  Future installerdetailsApi({
     required String id,
   }) async {
     dynamic responseJson;
     try {
-    var dio = Dio();
+      var dio = Dio();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? authtoken = prefs.getString('auth_token');
 
-      var response = await dio.post(getreceeDetailsURI,
+      var response = await dio.post(GetinstallerDetailsURI,
           options: Options(
               headers: {
                 'Accept': 'application/json',
@@ -26,7 +26,8 @@ class ReceeDetailsServicesApi extends BaseApiService {
           data: {
             "id": id,
           });
-      print("::::::::<get recee details Api>::${id}::::::status code::::::::::");
+      print(
+          "::::::::<get INSTALLER details Api>::${id}::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

@@ -3,17 +3,28 @@ import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ReceeDetailsServicesApi extends BaseApiService {
-  Future receedetailsApi({
-    required String id,
+class VerifyInstallationApiServices extends BaseApiService {
+  Future varifyInastallatinApi({
+    required String job_card,
+    required String media,
+    required String media1,
   }) async {
     dynamic responseJson;
     try {
-    var dio = Dio();
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? authtoken = prefs.getString('auth_token');
+      var dio = Dio();
+      final prefs = await SharedPreferences.getInstance();
+      String? authtoken = prefs.getString("auth_token");
 
-      var response = await dio.post(getreceeDetailsURI,
+      FormData formData = FormData.fromMap({
+        "job_card": job_card,
+
+        "after_images[]":
+            await MultipartFile.fromFile(media, filename: "image"),
+        // "before_images[]":
+        //     await MultipartFile.fromFile(media1, filename: "image"),
+      });
+
+      var response = await dio.post(installerVerificationURI,
           options: Options(
               headers: {
                 'Accept': 'application/json',
@@ -23,10 +34,8 @@ class ReceeDetailsServicesApi extends BaseApiService {
               validateStatus: (status) {
                 return status! <= 500;
               }),
-          data: {
-            "id": id,
-          });
-      print("::::::::<get recee details Api>::${id}::::::status code::::::::::");
+          data: formData);
+      print("::::::::<Upload installer  post>::::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

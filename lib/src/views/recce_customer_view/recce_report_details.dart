@@ -17,8 +17,19 @@ class RecceReportDetails extends StatefulWidget {
 }
 
 class _RecceReportDetailsState extends State<RecceReportDetails> {
+  final TextEditingController job_cardContoller = TextEditingController();
+  final TextEditingController widthController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController squrefitController = TextEditingController();
+  final TextEditingController dimensionController = TextEditingController();
+  final TextEditingController signage_typeController = TextEditingController();
+  final TextEditingController signage_detailsController =
+      TextEditingController();
+  final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
 // String? cameraImages;
+  final _ImagePath = ''.obs;
+  String? get ImagePath => _ImagePath.value;
   File? photo;
   File? image;
   ImagePicker imagePicker = ImagePicker();
@@ -48,19 +59,232 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                     fontWeight: FontWeight.w500),
               ),
               ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Redmi Mobile Store Room",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "Project Name",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Chennai",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "City",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Anna Nagar",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "Address",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox20,
+              // Text(
+              //   "Signage Details",
+              //   style: primaryFonts.copyWith(
+              //       color: AppColors.red,
+              //       fontSize: 18,
+              //       fontWeight: FontWeight.w500),
+              // ),
+              // ksizedbox20,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Praksh MP",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "Dealer Name",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Redmi Shop",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "Store Name",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Redmi Shop",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "City",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              // ksizedbox15,
+              // Container(
+              //   height: 45,
+              //   decoration:
+              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Perambur",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.20),
+              //             fontSize: 13,
+              //             fontWeight: FontWeight.w600),
+              //         labelText: "Area Name",
+              //         labelStyle: primaryFonts.copyWith(
+              //             color: AppColors.black,
+              //             fontSize: 14,
+              //             fontWeight: FontWeight.w600),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black)),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(4),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.black))),
+              //   ),
+              // ),
+              ksizedbox15,
               Container(
                 height: 45,
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(4)),
                 child: TextFormField(
+                  controller: job_cardContoller,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Redmi Mobile Store Room",
+                      hintText: "JOB",
                       hintStyle: primaryFonts.copyWith(
                           color: AppColors.black.withOpacity(.20),
                           fontSize: 13,
                           fontWeight: FontWeight.w600),
-                      labelText: "Project Name",
+                      labelText: 'Job Card',
                       labelStyle: primaryFonts.copyWith(
                           color: AppColors.black,
                           fontSize: 14,
@@ -82,14 +306,16 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(4)),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: client_idController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Chennai",
+                      hintText: "1",
                       hintStyle: primaryFonts.copyWith(
                           color: AppColors.black.withOpacity(.20),
                           fontSize: 13,
                           fontWeight: FontWeight.w600),
-                      labelText: "City",
+                      labelText: "ID Number",
                       labelStyle: primaryFonts.copyWith(
                           color: AppColors.black,
                           fontSize: 14,
@@ -111,217 +337,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(4)),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Anna Nagar",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Address",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox20,
-              Text(
-                "Signage Details",
-                style: primaryFonts.copyWith(
-                    color: AppColors.red,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
-              ksizedbox20,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Praksh MP",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Dealer Name",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Redmi Shop",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Store Name",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Redmi Shop",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "City",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Perambur",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Area Name",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Chennai",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Address",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "+91 98765 43210",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Contact Number",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: signage_detailsController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 5, left: 10),
                       hintText: "HFE42USD94645",
@@ -329,7 +346,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           color: AppColors.black.withOpacity(.20),
                           fontSize: 13,
                           fontWeight: FontWeight.w600),
-                      labelText: "GST Number",
+                      labelText: "Signage Details",
                       labelStyle: primaryFonts.copyWith(
                           color: AppColors.black,
                           fontSize: 14,
@@ -351,6 +368,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(4)),
                 child: TextFormField(
+                  controller: signage_typeController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(top: 5, left: 10),
                       hintText: "HOARDINGS",
@@ -385,6 +403,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                       decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(4)),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: widthController,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, left: 10),
                             labelText: "Width",
@@ -410,6 +430,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                       decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(4)),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: heightController,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, left: 10),
                             labelText: "Height",
@@ -442,6 +464,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                       decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(4)),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: dimensionController,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, left: 10),
                             labelText: "Dimensions",
@@ -467,6 +491,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                       decoration:
                           BoxDecoration(borderRadius: BorderRadius.circular(4)),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: squrefitController,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, left: 10),
                             labelText: "Square Feet",
@@ -507,6 +533,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                 source: ImageSource.camera);
                             setState(() {
                               image = File(pickedCamera!.path);
+
+                              _ImagePath.value = image!.path;
                             });
                           },
                           child: Container(
@@ -530,6 +558,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                 source: ImageSource.camera);
                             setState(() {
                               image = File(pickedCamera!.path);
+
+                              _ImagePath.value = image!.path;
                             });
                           },
                           child: Expanded(
@@ -551,35 +581,37 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                   photo == null
                       ? GestureDetector(
                           onTap: () async {
-                            var pickedFile = await imagePicker.pickImage(
-                                source: ImageSource.gallery);
-                            setState(() {
-                              photo = File(pickedFile!.path);
-                              print(photo);
-                            });
+                            controller.pickImage(
+                                imageSource: ImageSource.gallery);
+
+                            controller.update();
                           },
                           child: Expanded(
-                            child: Container(
-                              height: 120.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightGrey.withOpacity(.20),
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: Image.asset(
-                                "assets/images/gallery.png",
-                                height: 165,
-                                width: 185,
+                            child: Obx(
+                              () => Container(
+                                height: 120.h,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: FileImage(File(
+                                      controller.pickedImagePath!,
+                                    ))),
+                                    color: AppColors.lightGrey.withOpacity(.20),
+                                    borderRadius: BorderRadius.circular(6)),
+                                child: Image.asset(
+                                  "assets/images/gallery.png",
+                                  height: 165,
+                                  width: 185,
+                                ),
                               ),
                             ),
                           ),
                         )
                       : GestureDetector(
                           onTap: () async {
-                            var pickedFile = await imagePicker.pickImage(
-                                source: ImageSource.gallery);
-                            setState(() {
-                              photo = File(pickedFile!.path);
-                              print(photo);
-                            });
+                            controller.pickImage(
+                                imageSource: ImageSource.gallery);
+
+                            controller.update();
                           },
                           child: Expanded(
                             child: Container(
@@ -599,22 +631,45 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                 ],
               ),
               ksizedbox20,
-              Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: AppColors.green,
-                    borderRadius: BorderRadius.circular(8)),
-                child: Text(
-                  "Submit",
-                  style: primaryFonts.copyWith(
-                      color: AppColors.white,
-                      fontSize: 23,
-                      fontWeight: FontWeight.w600),
+              InkWell(
+                onTap: () {
+                  controller.verifyRecee(
+                      job_card: job_cardContoller.text,
+                      width: widthController.text,
+                      height: heightController.text,
+                      squrefit: squrefitController.text,
+                      dimension: dimensionController.text,
+                      signage_type: signage_typeController.text,
+                      signage_details: signage_detailsController.text,
+                      client_id: client_idController.text,
+                      media1: _ImagePath.value!,
+                      media: controller.pickedImagePath!);
+                },
+                child: Obx(
+                  () => Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: AppColors.green,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: controller.isLoading.isTrue
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.white,
+                            ),
+                          )
+                        : Text(
+                            "Submit",
+                            style: primaryFonts.copyWith(
+                                color: AppColors.white,
+                                fontSize: 23,
+                                fontWeight: FontWeight.w600),
+                          ),
+                  ),
                 ),
               ),
-              ksizedbox10,
+              ksizedbox20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -628,12 +683,13 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                       "Cancel",
                       style: primaryFonts.copyWith(
                           color: AppColors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ],
               ),
+              ksizedbox20
             ],
           ),
         ),

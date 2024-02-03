@@ -93,7 +93,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                           GestureDetector(
                             onTap: () {
                               Get.to(RecceStoreName(id: controller.getreceelistData[index]
-                                                  .id,));
+                                                  .id.toString(),));
                             },
                             child: Container(
                               margin: EdgeInsets.only(bottom: 10, top: 4),
@@ -156,7 +156,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                             GestureDetector(
                                               onTap: () {
                                                 Get.to(RecceStoreName(id:    controller.getreceelistData[index]
-                                                  .id,));
+                                                  .id.toString(),));
                                               },
                                               child: Text('Full View',
                                                   style: primaryFonts.copyWith(
