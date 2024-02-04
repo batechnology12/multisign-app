@@ -4,6 +4,7 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
 import 'package:multisign_app/src/views/auth_view/login_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -271,7 +272,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async{
+                      final prefs = await SharedPreferences.getInstance();
+                          // await FirebaseMessaging.instance.deleteToken();
+                          await prefs.setString("auth_token", "null");
                     Get.offAll(LoginScreen());
                   },
                   child: Container(

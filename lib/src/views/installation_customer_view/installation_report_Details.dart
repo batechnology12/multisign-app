@@ -507,51 +507,57 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                   image == null
                       ? GestureDetector(
                           onTap: () async {
-                            var pickedCamera = await imagePicker.pickImage(
-                                source: ImageSource.camera);
-                            setState(() {
-                              image = File(pickedCamera!.path);
-                         //     _ImagePath.value = image!.path;
-                            });
+                          controller.CameraImage(
+                                imageSource: ImageSource.camera);
+
+                            controller.update();
                           },
-                          child: Container(
-                            //   margin: EdgeInsets.only(right: 10),
-                            height: 115.h,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1, color: AppColors.lightGrey),
-                                color: AppColors.lightGrey.withOpacity(.20),
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Image.asset(
-                              "assets/images/camera.png",
-                              height: 165,
-                              width: 185,
+                          child: Obx(
+                            ()=> Container(
+                              //   margin: EdgeInsets.only(right: 10),
+                              height: 115.h,
+                              decoration: BoxDecoration(image:  DecorationImage(
+                                        image: FileImage(File(
+                                      controller.pickedcamerapath!,
+                                    ))),
+                                  border: Border.all(
+                                      width: 1, color: AppColors.lightGrey),
+                                  color: AppColors.lightGrey.withOpacity(.20),
+                                  borderRadius: BorderRadius.circular(6)),
+                              child: Image.asset(
+                                "assets/images/camera.png",
+                                height: 165,
+                                width: 185,
+                              ),
                             ),
                           ),
                         )
                       : GestureDetector(
                           onTap: () async {
-                            var pickedCamera = await imagePicker.pickImage(
-                                source: ImageSource.camera);
-                            setState(() {
-                              image = File(pickedCamera!.path);
-                           ///   _ImagePath.value = image!.path;
-                            });
+                          controller.CameraImage(
+                                imageSource: ImageSource.camera);
+
+                            controller.update();
                           },
                           child: Expanded(
-                            child:Container(
-                                height: 115.h,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 1, color: AppColors.lightGrey),
-                                    color: AppColors.lightGrey.withOpacity(.20),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Image.file(
-                                  image!,
-                                  height: 165,
-                                  width: 185,
+                            child:Obx(
+                              ()=> Container(
+                                  height: 115.h,
+                                  decoration: BoxDecoration(image:  DecorationImage(
+                                        image: FileImage(File(
+                                      controller.pickedcamerapath!,
+                                    ))),
+                                      border: Border.all(
+                                          width: 1, color: AppColors.lightGrey),
+                                      color: AppColors.lightGrey.withOpacity(.20),
+                                      borderRadius: BorderRadius.circular(6)),
+                                  // child: Image.file(
+                                  //   image!,
+                                  //   height: 165,
+                                  //   width: 185,
+                                  // ),
                                 ),
-                              ),
+                            ),
                             ),
                           ),
                         
@@ -611,8 +617,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                 onTap: () {
                   controller.verifyInstall(
                       job_card: job_cardContoller.text,
-                      media: controller.pickedImagePath!,
-                      media1: _ImagePath.value!);
+                      media1: controller.pickedcamerapath!,
+                      media:controller.pickedImagePath!,);
                 },
                 child: Obx(
                   () => Container(
@@ -621,7 +627,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                     decoration: BoxDecoration(
                         color: AppColors.green,
                         borderRadius: BorderRadius.circular(8)),
-                    child: controller.isLoading.isTrue
+                    child: controller.isLoadingverification.isTrue
                         ? Center(
                             child: CircularProgressIndicator(
                               color: AppColors.white,

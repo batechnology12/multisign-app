@@ -40,12 +40,16 @@ class _InstallationStoreNameState extends State<InstallationStoreName> {
                 color: AppColors.black)),
       ),
       body:
-          // Center(child: Image.asset('assets/icons/fi_6598519.png'))
+          // Center(child: Image.asset('assets/icons/fi_6598519.png'))R
           Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
         child: GetBuilder<HomeController>(builder: (_) {
-          return controller.getinstallerdetailsData == null
-              ? Center(child: Image.asset('assets/icons/fi_6598519.png'))
+          return controller.isLoadingdatails.isTrue
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.green,
+                  ),
+                )
               : Column(
                   children: [
                     Container(
@@ -161,14 +165,15 @@ class _InstallationStoreNameState extends State<InstallationStoreName> {
                           borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [    
+                        children: [
                           // controller.getinstallerdetailsData == null
-                       //       ? 
+                          //       ?
                           //    Text('Addreas B')
-                              //:
-                               Text('Client B',
-                                 // controller
-                                    //  .getinstallerdetailsData!.clientName,
+                          //:
+                          Text(
+                            'Client B',
+                            // controller
+                            //  .getinstallerdetailsData!.clientName,
                             style: primaryFonts.copyWith(
                                 color: AppColors.black,
                                 fontSize: 12,

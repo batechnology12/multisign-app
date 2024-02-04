@@ -20,8 +20,8 @@ class VerifyInstallationApiServices extends BaseApiService {
 
         "after_images[]":
             await MultipartFile.fromFile(media, filename: "image"),
-        // "before_images[]":
-        //     await MultipartFile.fromFile(media1, filename: "image"),
+        "after_images[]":
+            await MultipartFile.fromFile(media1, filename: "image1"),
       });
 
       var response = await dio.post(installerVerificationURI,

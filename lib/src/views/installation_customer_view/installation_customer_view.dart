@@ -82,8 +82,11 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: GetBuilder<HomeController>(builder: (_) {
-            return controller.installerListdata.isEmpty
-                ? Center(child: Image.asset('assets/icons/fi_6598519.png'))
+            return controller.isLoading.isTrue
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.green,
+                  ))
                 : ListView.builder(
                     shrinkWrap: true,
                     itemCount: controller.installerListdata.length,
@@ -92,7 +95,10 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(InstallationStoreName(id: controller.installerListdata[index].id.toString(),));
+                              Get.to(InstallationStoreName(
+                                id: controller.installerListdata[index].id
+                                    .toString(),
+                              ));
                             },
                             child: Container(
                               margin: EdgeInsets.only(bottom: 10, top: 4),
@@ -166,7 +172,12 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(InstallationStoreName(id:controller.installerListdata[index].id.toString()));
+                                                Get.to(InstallationStoreName(
+                                                    id: controller
+                                                        .installerListdata[
+                                                            index]
+                                                        .id
+                                                        .toString()));
                                               },
                                               child: Text('Full View',
                                                   style: primaryFonts.copyWith(

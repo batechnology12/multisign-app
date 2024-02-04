@@ -66,6 +66,12 @@ class HomeController extends GetxController {
         day: "Friday"),
   ];
   RxBool isLoading = false.obs;
+   RxBool isLoadingdatails = false.obs;
+   RxBool isLoadingverification = false.obs;
+
+
+
+
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
   List<InstallerListData> installerListdata = [];
   getinstallation() async {
@@ -82,6 +88,14 @@ class HomeController extends GetxController {
     }
     update();
   }
+
+
+
+
+
+
+
+
 
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
   List<GetReceDataList> getreceelistData = [];
@@ -124,11 +138,11 @@ class HomeController extends GetxController {
   getinstallerdetails({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
-    isLoading(true);
+    isLoadingdatails(true);
     update();
     dio.Response<dynamic> response =
         await installerDetailsServicesApi.installerdetailsApi(id: id);
-    isLoading(false);
+    isLoadingdatails(false);
     update();
     print('========================data==2=================================');
     if (response.statusCode == 200) {
@@ -162,7 +176,7 @@ class HomeController extends GetxController {
     required String media,
     required String media1,
   }) async {
-     isLoading(true);
+     isLoadingverification(true);
     update();
     dio.Response<dynamic> response =
         await verifyReceeApiServices.varifyreceeApi(
@@ -176,7 +190,7 @@ class HomeController extends GetxController {
             client_id: client_id,
             media: media,
             media1: media1);
- isLoading(false);
+ isLoadingverification(false);
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
       Get.rawSnackbar(
@@ -211,7 +225,7 @@ class HomeController extends GetxController {
     required String media,
     required String media1,
   }) async {
-     isLoading(true);
+     isLoadingverification(true);
     update();
     dio.Response<dynamic> response =
         await verifyInstallationApiServices.varifyInastallatinApi(
@@ -219,7 +233,7 @@ class HomeController extends GetxController {
       
             media: media,
             media1: media1);
- isLoading(false);
+ isLoadingverification(false);
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
       Get.rawSnackbar(
@@ -245,11 +259,34 @@ class HomeController extends GetxController {
 
 
 
+ final camera = ImagePicker();
 
+  File? cameraimage;
+  final cameraimagePath = ''.obs;
 
+  File? get pickedcameraimage => cameraimage;
+  String? get pickedcamerapath => cameraimagePath.value;
 
+  void setImageEmpty() {
+    cameraimagePath.value = '';
+  }
 
+  Future CameraImage({
+    required ImageSource imageSource,
+  }) async {
+    final pickedCamerafile = await camera.pickImage(
+      source: ImageSource.camera,
+    );
 
+    if (pickedCamerafile != null) {
+      cameraimage = File(pickedCamerafile.path);
+
+      cameraimagePath.value = cameraimage!.path;
+      print(
+        'picked image size ${cameraimage!.lengthSync()}',
+      );
+    } else {}
+  }
 
 
  final picker = ImagePicker();
@@ -280,6 +317,12 @@ class HomeController extends GetxController {
       );
     } else {}
   }
+
+
+
+
+
+
 
 
 
