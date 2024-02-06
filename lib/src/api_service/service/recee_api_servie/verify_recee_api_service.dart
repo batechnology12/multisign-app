@@ -13,8 +13,7 @@ class VerifyReceeApiServices extends BaseApiService {
     required String signage_type,
     required String signage_details,
     required String client_id,
-    required String media,
-    required String media1,
+    required List<String> media,
   }) async {
     dynamic responseJson;
     try {
@@ -31,10 +30,9 @@ class VerifyReceeApiServices extends BaseApiService {
         "signage_type": signage_type,
         "signage_details": signage_details,
         "client_id": client_id,
-        "before_images[]":
-            await MultipartFile.fromFile(media, filename: "image"),
-        // "before_images[]":
-        //     await MultipartFile.fromFile(media1, filename: "image"),
+        for (int i = 0; i < media.length; i++)
+          "before_images[$i]":
+              await MultipartFile.fromFile(media[i], filename: "image"),
       });
 
       var response = await dio.post(receeverificationURI,

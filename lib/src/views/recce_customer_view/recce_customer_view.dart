@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_store_name.dart';
 
 class RecceCustomer extends StatefulWidget {
@@ -92,7 +93,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(RecceStoreName(id: controller.getreceelistData[index]
+                              Get.to(RecceReportDetails(id: controller.getreceelistData[index]
                                                   .id.toString(),));
                             },
                             child: Container(
@@ -123,15 +124,15 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   fontWeight: FontWeight.w600,
                                                   color: AppColors.black),
                                             ),
-                                            Text(
-                                                controller
-                                                    .getreceelistData[index]
-                                                    .address,
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: AppColors.black
-                                                        .withOpacity(.70))),
+                                            // Text(
+                                            //     controller
+                                            //         .getreceelistData[index]
+                                            //         .address,
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 14,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: AppColors.black
+                                            //             .withOpacity(.70))),
                                             Text(
                                                 controller
                                                     .getreceelistData[index]
@@ -155,7 +156,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(RecceStoreName(id:    controller.getreceelistData[index]
+                                                Get.to(RecceReportDetails(id:    controller.getreceelistData[index]
                                                   .id.toString(),));
                                               },
                                               child: Text('Full View',

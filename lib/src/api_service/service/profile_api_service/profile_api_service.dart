@@ -1,38 +1,37 @@
+
+
+
+
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class VerifyInstallationApiServices extends BaseApiService {
-  Future varifyInastallatinApi({
-    required String job_card,
-    required List<String> media,
-  }) async {
+
+
+
+
+class ProfileApiServices extends BaseApiService {
+  Future getProfileApiServices() async {
     dynamic responseJson;
     try {
       var dio = Dio();
       final prefs = await SharedPreferences.getInstance();
       String? authtoken = prefs.getString("auth_token");
 
-      FormData formData = FormData.fromMap({
-        "job_card": job_card,
-        for (int i = 0; i < media.length; i++)
-          "after_images[$i]":
-              await MultipartFile.fromFile(media[i], filename: "image"),
-      });
-
-      var response = await dio.post(installerVerificationURI,
-          options: Options(
-              headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer $authtoken',
-              },
-              followRedirects: false,
-              validateStatus: (status) {
-                return status! <= 500;
-              }),
-          data: formData);
-      print("::::::::<Upload installer  post>::::::::status code::::::::::");
+      var response = await dio.get(
+        profileURI,
+        options: Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $authtoken',
+            },
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! <= 500;
+            }),
+      );
+      print("::::::::<get profile Api>::::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

@@ -10,13 +10,18 @@ import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 
 class RecceReportDetails extends StatefulWidget {
-  const RecceReportDetails({super.key});
+  final String id;
+  const RecceReportDetails({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<RecceReportDetails> createState() => _RecceReportDetailsState();
 }
 
 class _RecceReportDetailsState extends State<RecceReportDetails> {
+  final _focusNode = FocusNode();
   final TextEditingController job_cardContoller = TextEditingController();
   final TextEditingController widthController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
@@ -35,6 +40,19 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   ImagePicker imagePicker = ImagePicker();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setDefault();
+  }
+
+  setDefault() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getReceedetails(id: widget.id);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -48,650 +66,677 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Project Details",
-                style: primaryFonts.copyWith(
-                    color: AppColors.red,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-              ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Redmi Mobile Store Room",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "Project Name",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Chennai",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "City",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Anna Nagar",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "Address",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox20,
-              // Text(
-              //   "Signage Details",
-              //   style: primaryFonts.copyWith(
-              //       color: AppColors.red,
-              //       fontSize: 18,
-              //       fontWeight: FontWeight.w500),
-              // ),
-              // ksizedbox20,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Praksh MP",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "Dealer Name",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Redmi Shop",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "Store Name",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Redmi Shop",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "City",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              // ksizedbox15,
-              // Container(
-              //   height: 45,
-              //   decoration:
-              //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Perambur",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.20),
-              //             fontSize: 13,
-              //             fontWeight: FontWeight.w600),
-              //         labelText: "Area Name",
-              //         labelStyle: primaryFonts.copyWith(
-              //             color: AppColors.black,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w600),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black)),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(4),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.black))),
-              //   ),
-              // ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  controller: job_cardContoller,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "JOB",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: 'Job Card',
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: client_idController,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "1",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "ID Number",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: signage_detailsController,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "HFE42USD94645",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Signage Details",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Container(
-                height: 45,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: TextFormField(
-                  controller: signage_typeController,
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "HOARDINGS",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.20),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                      labelText: "Signage Type",
-                      labelStyle: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.black))),
-                ),
-              ),
-              ksizedbox15,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 8),
-                      height: 45.h,
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: widthController,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(top: 5, left: 10),
-                            labelText: "Width",
-                            labelStyle: primaryFonts.copyWith(
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black))),
-                      ),
+          child: GetBuilder<HomeController>(builder: (context) {
+            return controller.isLoadingdatails.isTrue
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.green,
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 45.h,
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: heightController,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(top: 5, left: 10),
-                            labelText: "Height",
-                            labelStyle: primaryFonts.copyWith(
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black))),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Project Details",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.red,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              ksizedbox10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 8),
-                      height: 45.h,
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: dimensionController,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(top: 5, left: 10),
-                            labelText: "Dimensions",
-                            labelStyle: primaryFonts.copyWith(
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black))),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          //obscureText: false,
+                   //       autofocus: true,
+                          //    readOnly: true,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getreceedetailsData!.clientName,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 45.h,
-                      decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: squrefitController,
-                        decoration: InputDecoration(
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: TextFormField(
+                          
+                          focusNode: _focusNode, // Assign the FocusNode
+                        //  autofocus: false, // Disable autofocus
+                          // readOnly:
+                          //     true, // Readonly will ensure the text field doesn't lose focus
+                          onTap: () =>
+                              _focusNode.requestFocus(), // Focus when tapped
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, left: 10),
-                            labelText: "Square Feet",
-                            labelStyle: primaryFonts.copyWith(
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600),
-                            border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.black))),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              ksizedbox20,
-              Text(
-                "Capture Spaces & My Space",
-                style: primaryFonts.copyWith(
-                    color: AppColors.red,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
-              ),
-              ksizedbox15,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  image == null
-                      ? GestureDetector(
-                          onTap: () async {
-                            var pickedCamera = await imagePicker.pickImage(
-                                source: ImageSource.camera);
-                            setState(() {
-                              image = File(pickedCamera!.path);
-
-                              _ImagePath.value = image!.path;
-                            });
-                          },
-                          child: Container(
-                            //   margin: EdgeInsets.only(right: 10),
-                            height: 120.h,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1, color: AppColors.lightGrey),
-                                color: AppColors.lightGrey.withOpacity(.20),
-                                borderRadius: BorderRadius.circular(6)),
-                            child: Image.asset(
-                              "assets/images/camera.png",
-                              height: 165,
-                              width: 185,
+                            hintText: controller.getreceedetailsData!.city,
+                            hintStyle: primaryFonts.copyWith(
+                              color: AppColors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () async {
-                            var pickedCamera = await imagePicker.pickImage(
-                                source: ImageSource.camera);
-                            setState(() {
-                              image = File(pickedCamera!.path);
-
-                              _ImagePath.value = image!.path;
-                            });
-                          },
-                          child: Expanded(
-                            child: Container(
-                              height: 120.h,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: AppColors.lightGrey),
-                                  color: AppColors.lightGrey.withOpacity(.20),
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: Image.file(
-                                image!,
-                                height: 165,
-                                width: 185,
-                              ),
+                         //   labelText: 'fds',
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide:
+                                  BorderSide(width: 1, color: AppColors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide:
+                                  BorderSide(width: 1, color: AppColors.black),
                             ),
                           ),
                         ),
-                  photo == null
-                      ? GestureDetector(
-                          onTap: () async {
-                            controller.pickImage(
-                                imageSource: ImageSource.gallery);
+                      ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          autofocus: false,
+                          //  readOnly: true,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: controller.getreceedetailsData!.address,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox20,
+                      Text(
+                        "Signage Details",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.red,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      ksizedbox20,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          autofocus: true,
+                          //        readOnly: true,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getreceedetailsData!.state,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                           //   labelText: "ID",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      // Container(
+                      //   height: 45,
+                      //   decoration:
+                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                      //   child: TextFormField(
+                      //     decoration: InputDecoration(
+                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+                      //         hintText: "Redmi Shop",
+                      //         hintStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black.withOpacity(.20),
+                      //             fontSize: 13,
+                      //             fontWeight: FontWeight.w600),
+                      //         labelText: "Store Name",
+                      //         labelStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black,
+                      //             fontSize: 14,
+                      //             fontWeight: FontWeight.w600),
+                      //         border: InputBorder.none,
+                      //         enabledBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide:
+                      //                 BorderSide(width: 1, color: AppColors.black)),
+                      //         focusedBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide:
+                      //                 BorderSide(width: 1, color: AppColors.black))),
+                      //   ),
+                      // ),
+                      // ksizedbox15,
+                      // Container(
+                      //   height: 45,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(4)),
+                      //   child: TextFormField(
+                      //     decoration: InputDecoration(
+                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+                      //         hintText: "Redmi Shop",
+                      //         hintStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black.withOpacity(.20),
+                      //             fontSize: 13,
+                      //             fontWeight: FontWeight.w600),
+                      //         labelText: "City",
+                      //         labelStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black,
+                      //             fontSize: 14,
+                      //             fontWeight: FontWeight.w600),
+                      //         border: InputBorder.none,
+                      //         enabledBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: AppColors.black)),
+                      //         focusedBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: AppColors.black))),
+                      //   ),
+                      // ),
+                      // ksizedbox15,
+                      // Container(
+                      //   height: 45,
+                      //   decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(4)),
+                      //   child: TextFormField(
+                      //     decoration: InputDecoration(
+                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+                      //         hintText: "Perambur",
+                      //         hintStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black.withOpacity(.20),
+                      //             fontSize: 13,
+                      //             fontWeight: FontWeight.w600),
+                      //         labelText: "Area Name",
+                      //         labelStyle: primaryFonts.copyWith(
+                      //             color: AppColors.black,
+                      //             fontSize: 14,
+                      //             fontWeight: FontWeight.w600),
+                      //         border: InputBorder.none,
+                      //         enabledBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: AppColors.black)),
+                      //         focusedBorder: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.circular(4),
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: AppColors.black))),
+                      //   ),
+                      // ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          controller: job_cardContoller,
+                       //   keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: controller.getreceedetailsData?.jobcard,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                            //  labelText: 'Job Card',
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          controller: client_idController,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: controller.getreceedetailsData?.recceId,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                        //  keyboardType: TextInputType.number,
+                          controller: signage_detailsController,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: "HFE42USD94645",
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black.withOpacity(.20),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600),
+                              labelText: "Signage Details",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          controller: signage_typeController,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: "HOARDINGS",
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black.withOpacity(.20),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600),
+                              labelText: "Signage Type",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 8),
+                              height: 45.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                controller: widthController,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    labelText: "Width",
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 45.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                controller: heightController,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    labelText: "Height",
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      ksizedbox10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 8),
+                              height: 45.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                controller: dimensionController,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    labelText: "Dimensions",
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 45.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                controller: squrefitController,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    labelText: "Square Feet",
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      ksizedbox20,
+                      Text(
+                        "Capture Spaces & My Space",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.red,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      ksizedbox15,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          image == null
+                              ? GestureDetector(
+                                  onTap: () async {
+                                    var pickedCamera = await imagePicker
+                                        .pickImage(source: ImageSource.camera);
+                                    setState(() {
+                                      image = File(pickedCamera!.path);
 
-                            controller.update();
-                          },
-                          child: Expanded(
-                            child: Obx(
-                              () => Container(
-                                height: 120.h,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: FileImage(File(
-                                      controller.pickedImagePath!,
-                                    ))),
-                                    color: AppColors.lightGrey.withOpacity(.20),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Image.asset(
-                                  "assets/images/gallery.png",
-                                  height: 165,
-                                  width: 185,
+                                      _ImagePath.value = image!.path;
+                                    });
+                                  },
+                                  child: Container(
+                                    //   margin: EdgeInsets.only(right: 10),
+                                    height: 120.h,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1,
+                                            color: AppColors.lightGrey),
+                                        color: AppColors.lightGrey
+                                            .withOpacity(.20),
+                                        borderRadius: BorderRadius.circular(6)),
+                                    child: Image.asset(
+                                      "assets/images/camera.png",
+                                      height: 165,
+                                      width: 185,
+                                    ),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () async {
+                                    var pickedCamera = await imagePicker
+                                        .pickImage(source: ImageSource.camera);
+                                    setState(() {
+                                      image = File(pickedCamera!.path);
+
+                                      _ImagePath.value = image!.path;
+                                    });
+                                  },
+                                  child: Expanded(
+                                    child: Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1,
+                                              color: AppColors.lightGrey),
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.file(
+                                        image!,
+                                        height: 165,
+                                        width: 185,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () async {
-                            controller.pickImage(
-                                imageSource: ImageSource.gallery);
+                          photo == null
+                              ? GestureDetector(
+                                  onTap: () async {
+                                    controller.pickImage(
+                                        imageSource: ImageSource.gallery);
 
-                            controller.update();
-                          },
-                          child: Expanded(
-                            child: Container(
-                              height: 120.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightGrey.withOpacity(.20),
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: Image.file(
-                                height: 165,
-                                width: 185,
-                                photo!,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                                    controller.update();
+                                  },
+                                  child: Expanded(
+                                    child: Obx(
+                                      () => Container(
+                                        height: 120.h,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: FileImage(File(
+                                              controller.pickedImagePath!,
+                                            ))),
+                                            color: AppColors.lightGrey
+                                                .withOpacity(.20),
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        child: Image.asset(
+                                          "assets/images/gallery.png",
+                                          height: 165,
+                                          width: 185,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () async {
+                                    controller.pickImage(
+                                        imageSource: ImageSource.gallery);
+
+                                    controller.update();
+                                  },
+                                  child: Expanded(
+                                    child: Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.file(
+                                        height: 165,
+                                        width: 185,
+                                        photo!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ],
+                      ),
+                      ksizedbox20,
+                      InkWell(
+                        onTap: () {
+                          controller.verifyRecee(
+                              job_card: controller.getreceedetailsData!.jobcard,
+                              width: widthController.text,
+                              height: heightController.text,
+                              squrefit: squrefitController.text,
+                              dimension: dimensionController.text,
+                              signage_type: signage_typeController.text,
+                              signage_details: signage_detailsController.text,
+                              client_id:controller.getreceedetailsData!.recceId,
+                              //    media1: _ImagePath.value!,
+                              media: controller.pickedImagePathList!);
+                        },
+                        child: Obx(
+                          () => Container(
+                            alignment: Alignment.center,
+                            height: 45,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: AppColors.green,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: controller.isLoadingverification.isTrue
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.white,
+                                    ),
+                                  )
+                                : Text(
+                                    "Submit",
+                                    style: primaryFonts.copyWith(
+                                        color: AppColors.white,
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                           ),
                         ),
-                ],
-              ),
-              ksizedbox20,
-              InkWell(
-                onTap: () {
-                  controller.verifyRecee(
-                      job_card: job_cardContoller.text,
-                      width: widthController.text,
-                      height: heightController.text,
-                      squrefit: squrefitController.text,
-                      dimension: dimensionController.text,
-                      signage_type: signage_typeController.text,
-                      signage_details: signage_detailsController.text,
-                      client_id: client_idController.text,
-                      media1: _ImagePath.value!,
-                      media: controller.pickedImagePath!);
-                },
-                child: Obx(
-                  () => Container(
-                    alignment: Alignment.center,
-                    height: 45,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: AppColors.green,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: controller.isLoading.isTrue
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.white,
+                      ),
+                      ksizedbox20,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(BottomNaviBar(
+                                index: 1,
+                              ));
+                            },
+                            child: Text(
+                              "Cancel",
+                              style: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700),
                             ),
-                          )
-                        : Text(
-                            "Submit",
-                            style: primaryFonts.copyWith(
-                                color: AppColors.white,
-                                fontSize: 23,
-                                fontWeight: FontWeight.w600),
                           ),
-                  ),
-                ),
-              ),
-              ksizedbox20,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(BottomNaviBar(
-                        index: 1,
-                      ));
-                    },
-                    child: Text(
-                      "Cancel",
-                      style: primaryFonts.copyWith(
-                          color: AppColors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ],
-              ),
-              ksizedbox20
-            ],
-          ),
+                        ],
+                      ),
+                      ksizedbox20
+                    ],
+                  );
+          }),
         ),
       ),
     );

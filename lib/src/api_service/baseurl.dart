@@ -8,4 +8,5 @@ final String getreceeDetailsURI='https://portal.multisigns.batechnology.in/api/a
 final String receeverificationURI ='https://portal.multisigns.batechnology.in/api/auth/recee_verification';
 final String GetinstallerDetailsURI="https://portal.multisigns.batechnology.in/api/auth/get_list_details";
 final String installerVerificationURI="https://portal.multisigns.batechnology.in/api/auth/installer_status";
+final String profileURI='https://portal.multisigns.batechnology.in/api/auth/get-user-details';
 }

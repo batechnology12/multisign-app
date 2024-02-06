@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/controllers/auth_controller.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/views/splash_view/splash_view.dart';
 import 'package:device_preview/device_preview.dart';
 
@@ -11,6 +12,7 @@ void main() {
   Get.put(HomeController());
   Get.put(AuthController());
   Get.put(AuthController());
+  Get.put(ProfileController());
   runApp(
     DevicePreview(
       enabled: false,

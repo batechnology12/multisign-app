@@ -46,6 +46,7 @@ dependencies:
   flutter_launcher_icons: 
   dio: ^5.4.0
   shared_preferences: ^2.1.0
+  image_cropper: 
   
 
 
