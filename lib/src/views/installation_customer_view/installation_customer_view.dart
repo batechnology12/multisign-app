@@ -18,7 +18,14 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.getinstallation();
+    setDefault();
+  }
+
+
+   setDefault() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller.getinstallation();
+    });
   }
 
   final controller = Get.find<HomeController>();
@@ -82,8 +89,8 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
-          child: GetBuilder<HomeController>(builder: (_) {
-            return controller.isLoading.isTrue
+          child: GetBuilder<HomeController>(builder: (context) {
+            return controller.installerListdata.isEmpty
                 ? Center(
                     child: CircularProgressIndicator(
                     color: AppColors.green,
@@ -189,23 +196,23 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                                           FontWeight.w600,
                                                       color: AppColors.green)),
                                             ),
-                                            Text(
-                                                controller
-                                                    .installerListdata[index]
-                                                    .poDate
-                                                    .toString(),
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: AppColors.black)),
-                                            Text(
-                                                controller
-                                                    .installerListdata[index]
-                                                    .production,
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: AppColors.black)),
+                                            // Text(
+                                            //     controller
+                                            //         .installerListdata[index]
+                                            //         .poDate
+                                            //         .toString(),
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 12,
+                                            //         fontWeight: FontWeight.w300,
+                                            //         color: AppColors.black)),
+                                            // Text(
+                                            //     controller
+                                            //         .installerListdata[index]
+                                            //         .production,
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 12,
+                                            //         fontWeight: FontWeight.w300,
+                                            //         color: AppColors.black)),
                                           ],
                                         ),
                                       ],

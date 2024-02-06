@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
+import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
@@ -233,7 +234,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         ),
                       ),
                       ksizedbox15,
-                          Container(
+                      Container(
                         height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
@@ -265,7 +266,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         ),
                       ),
                       ksizedbox15,
-                       Container(
+                      Container(
                         height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
@@ -297,7 +298,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         ),
                       ),
                       ksizedbox15,
-                         Container(
+                      Container(
                         height: 45,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
@@ -875,12 +876,21 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ksizedbox30,
                       InkWell(
                         onTap: () {
-                          controller.verifyInstall(
-                            job_card:
-                                controller.getinstallerdetailsData!.jobcard,
-                            //  media1: controller.pickedcamerapath!,
-                            media: controller.pickedImagePathList!,
-                          );
+                          if (controller.pickedImagePathList != null &&
+                              controller.pickedImagePathList!.isNotEmpty) {
+                            controller.verifyInstall(
+                              job_card:
+                                  controller.getinstallerdetailsData!.jobcard,
+                              //  media1: controller.pickedcamerapath!,
+                              media: controller.pickedImagePathList!,
+                            );
+                          } else {
+                            AppConstant.showSnackbar(
+                              headText: "Upload Failed",
+                              content: "Please pick at least one image.",
+                              position: SnackPosition.BOTTOM,
+                            );
+                          }
                         },
                         child: Obx(
                           () => Container(

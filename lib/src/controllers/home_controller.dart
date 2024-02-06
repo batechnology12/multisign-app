@@ -15,6 +15,7 @@ import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/verify_recee_api_service.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
+import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/model/Get_installer_details_model.dart';
 import 'package:multisign_app/src/model/get_details_recee_model.dart';
@@ -71,7 +72,7 @@ class HomeController extends GetxController {
   RxBool isLoadingverification = false.obs;
 
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
-  List<InstallerListData> installerListdata = [];
+  List<intallerListData> installerListdata = [];
   getinstallation() async {
     isLoading(true);
     update();
@@ -174,22 +175,31 @@ class HomeController extends GetxController {
     isLoadingverification(false);
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
-
-      Get.rawSnackbar(
-        messageText: const Text(
-          "Uploaded successfull",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
+      AppConstant.showSnackbar(
+        headText: "Successful",
+        content: "Uploaded successfull",
+        position: SnackPosition.BOTTOM,
       );
+      // Get.showSnackbar(
+      //   messageText: const Text(
+      //     "Uploaded successfull",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   backgroundColor: Colors.green,
+      // );
     } else {
-      Get.rawSnackbar(
-        messageText: const Text(
-          "Something went wrong",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
+      AppConstant.showSnackbar(
+        headText: "Failed",
+        content: "Something went wrong",
+        position: SnackPosition.BOTTOM,
       );
+      // Get.showSnackbar(
+      //   messageText: const Text(
+      //     "Something went wrong",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   backgroundColor: Colors.red,
+      // );
     }
   }
 
@@ -251,6 +261,7 @@ class HomeController extends GetxController {
     );
 
     if (pickedCamerafile != null) {
+      print('=========================================');
       final croppedcam = await ImageCropper().cropImage(
         sourcePath: pickedCamerafile!.path,
         aspectRatioPresets: [CropAspectRatioPreset.ratio7x5],

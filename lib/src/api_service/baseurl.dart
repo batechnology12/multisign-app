@@ -9,4 +9,7 @@ final String receeverificationURI ='https://portal.multisigns.batechnology.in/ap
 final String GetinstallerDetailsURI="https://portal.multisigns.batechnology.in/api/auth/get_list_details";
 final String installerVerificationURI="https://portal.multisigns.batechnology.in/api/auth/installer_status";
 final String profileURI='https://portal.multisigns.batechnology.in/api/auth/get-user-details';
+final String ForgotpasswordURI="https://portal.multisigns.batechnology.in/api/forgotPassword";
+final String verifyotpURI="https://portal.multisigns.batechnology.in/api/verify-otp";
+final String newpasswordURI="https://portal.multisigns.batechnology.in/api/changePassword";
 }

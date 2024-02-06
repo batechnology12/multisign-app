@@ -3,12 +3,28 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
+import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/views/auth_view/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+
+  final controller = Get.find<ProfileController>();
+ 
+  @override
+  void initState() {
+    super.initState();
+    controller.getprofile();
+     
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +35,11 @@ class ProfileScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
-          children: [
+          children: [  controller.getprofileData == null
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.red,
+                        ),):
             Container(
               height: 550,
               width: double.infinity,
@@ -77,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                           child: TextField(
                             //  controller: _controller,
                             decoration: InputDecoration(
-                              hintText: 'Prakash Mp',
+                              hintText: controller.getprofileData!.name,
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
@@ -105,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                'Email ID',
+                              'Email',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 16),
                               ),
@@ -121,7 +141,7 @@ class ProfileScreen extends StatelessWidget {
                           child: TextField(
                             //  controller: _controller,
                             decoration: InputDecoration(
-                              hintText: 'prakashmp@gmail.com',
+                              hintText:   controller.getprofileData!.email,
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {
@@ -165,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
                           child: TextField(
                             //  controller: _controller,
                             decoration: InputDecoration(
-                              hintText: '+91 98765 43210',
+                              hintText:controller.getprofileData!.mobile,
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.edit),
                                 onPressed: () {

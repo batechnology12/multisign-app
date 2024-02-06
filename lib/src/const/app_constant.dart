@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:multisign_app/src/const/app_colors.dart';
 
 mixin AppConstant {
   static const Color primaryColor = Color(0xffF98448);
@@ -40,7 +41,7 @@ mixin AppConstant {
             ),
             child: CircularProgressIndicator(
               strokeWidth: 5.w,
-              color: AppConstant.primaryColor,
+              color:AppColors.green ,
             ),
           ),
         );
@@ -56,7 +57,7 @@ mixin AppConstant {
     return Get.snackbar(
       headText,
       content,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
       snackPosition: position,
     );
   }

@@ -49,11 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ksizedbox30,
             Text(
-              'Please sing in to continue and email id ',
+              'Please SighIn to continue and email id ',
               style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
             ),
             Text(
-              '& password enter login',
+              '& password enter logIn',
               style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
             ),
             ksizedbox30,
@@ -249,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: AppColors.green,
                       textColor: Colors.white,
                       child: customtext(
-                        text: 'SIGHIN',
+                        text: 'SIGH IN',
                       ),
                     )),
             ),
@@ -271,7 +271,7 @@ class customtext extends StatelessWidget {
     return Text(
       text,
       style: smalbalckfont.copyWith(
-          fontSize: 17.sp, color: Colors.white, fontWeight: FontWeight.w500),
+          fontSize: 17.sp, color: Colors.white, fontWeight: FontWeight.w600),
     );
   }
 }

@@ -10,7 +10,7 @@ String getInstallerModelToJson(GetInstallerModel data) => json.encode(data.toJso
 
 class GetInstallerModel {
     bool status;
-    List<InstallerListData> data;
+    List<intallerListData> data;
 
     GetInstallerModel({
         required this.status,
@@ -19,7 +19,7 @@ class GetInstallerModel {
 
     factory GetInstallerModel.fromJson(Map<String, dynamic> json) => GetInstallerModel(
         status: json["status"],
-        data: List<InstallerListData>.from(json["data"].map((x) => InstallerListData.fromJson(x))),
+        data: List<intallerListData>.from(json["data"].map((x) => intallerListData.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class GetInstallerModel {
     };
 }
 
-class InstallerListData {
+class intallerListData {
     int id;
     String jobcard;
     String clientName;
@@ -58,7 +58,7 @@ class InstallerListData {
     DateTime updatedAt;
     List<ReceeVerification> receeVerifications;
 
-    InstallerListData({
+    intallerListData({
         required this.id,
         required this.jobcard,
         required this.clientName,
@@ -89,7 +89,7 @@ class InstallerListData {
         required this.receeVerifications,
     });
 
-    factory InstallerListData.fromJson(Map<String, dynamic> json) => InstallerListData(
+    factory intallerListData.fromJson(Map<String, dynamic> json) => intallerListData(
         id: json["id"],
         jobcard: json["jobcard"],
         clientName: json["client_name"],
@@ -164,8 +164,9 @@ class ReceeVerification {
     String dimension;
     String signageType;
     String signageDetails;
-    dynamic beforeImages;
-    dynamic afterImages;
+    List<String> beforeImages;
+    List<dynamic> afterImages;
+    String isReceeVerrified;
     String isJobCompleted;
     DateTime createdAt;
     DateTime updatedAt;
@@ -184,6 +185,7 @@ class ReceeVerification {
         required this.signageDetails,
         required this.beforeImages,
         required this.afterImages,
+        required this.isReceeVerrified,
         required this.isJobCompleted,
         required this.createdAt,
         required this.updatedAt,
@@ -201,8 +203,9 @@ class ReceeVerification {
         dimension: json["dimension"],
         signageType: json["signage_type"],
         signageDetails: json["signage_details"],
-        beforeImages: json["before_images"],
-        afterImages: json["after_images"],
+        beforeImages: List<String>.from(json["before_images"].map((x) => x)),
+        afterImages: List<dynamic>.from(json["after_images"].map((x) => x)),
+        isReceeVerrified: json["is_recee_verrified"],
         isJobCompleted: json["is_job_completed"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -220,8 +223,9 @@ class ReceeVerification {
         "dimension": dimension,
         "signage_type": signageType,
         "signage_details": signageDetails,
-        "before_images": beforeImages,
-        "after_images": afterImages,
+        "before_images": List<dynamic>.from(beforeImages.map((x) => x)),
+        "after_images": List<dynamic>.from(afterImages.map((x) => x)),
+        "is_recee_verrified": isReceeVerrified,
         "is_job_completed": isJobCompleted,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

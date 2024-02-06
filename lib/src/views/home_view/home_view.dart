@@ -8,9 +8,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
-import 'package:multisign_app/src/views/installation_customer_view/installation_customer_view.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
-import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     controller.getprofile();
+     multisign.getRecee();
+     multisign.getinstallation();
   }
 
   @override
@@ -224,133 +227,276 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 20,
                           fontWeight: FontWeight.w600),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.offAll(BottomNaviBar(
-                          index: 3,
-                        ));
-                      },
-                      child: Text(
-                        "See All",
-                        style: primaryFonts.copyWith(
-                            color: AppColors.black.withOpacity(.43),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Get.offAll(BottomNaviBar(
+                    //       index: 2,
+                    //     ));
+                    //   },
+                    //   child: Text(
+                    //     "See All",
+                    //     style: primaryFonts.copyWith(
+                    //         color: AppColors.black.withOpacity(.43),
+                    //         fontSize: 12,
+                    //         fontWeight: FontWeight.w400),
+                    //   ),
+                    // ),
                   ],
                 ),
-                ksizedbox10,
-                Container(
-                  height: 400,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: multisign.projectDetails.length,
-                      itemBuilder: ((context, index) {
-                        return Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 10),
+                ksizedbox10,  controller.getprofileData!.roleId == '2'
+                ?
+   GetBuilder<HomeController>(builder: (context) {
+            return multisign.getreceelistData == null
+                ? Center(child: Image.asset('assets/icons/fi_6598519.png'))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: multisign.getreceelistData.length,
+                    itemBuilder: ((context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(RecceReportDetails(id: multisign.getreceelistData[index]
+                                                  .id.toString(),));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10, top: 4),
+                              height: 80,
+                              width: double.infinity,
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+                                  color: AppColors.darkGrey.withOpacity(.05)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        ksizedbox10w,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              multisign.getreceelistData[index]
+                                                  .clientName,
+                                              style: primaryFonts.copyWith(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.black),
+                                            ),
+                                            // Text(
+                                            //     controller
+                                            //         .getreceelistData[index]
+                                            //         .address,
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 14,
+                                            //         fontWeight: FontWeight.w400,
+                                            //         color: AppColors.black
+                                            //             .withOpacity(.70))),
+                                            Text(
+                                                multisign
+                                                    .getreceelistData[index]
+                                                    .jobcard,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.black
+                                                        .withOpacity(.50))),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(RecceReportDetails(id:    multisign.getreceelistData[index]
+                                                  .id.toString(),));
+                                              },
+                                              child: Text('Full View',
+                                                  style: primaryFonts.copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors.green)),
+                                            ),
+                                            Text(
+                                                multisign
+                                                    .getreceelistData[index]
+                                                    .createdAt
+                                                    .toString(),
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: AppColors.black)),
+                                            Text(
+                                                multisign
+                                                    .getreceelistData[index]
+                                                    .scopeOfWork,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w300,
+                                                    color: AppColors.black)),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }));
+          }): GetBuilder<HomeController>(builder: (context) {
+            return multisign.installerListdata.isEmpty
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.green,
+                  ))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: multisign.installerListdata.length,
+                    itemBuilder: ((context, index) {
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(InstallationReportDetails(
+                                id: multisign.installerListdata[index].id
+                                    .toString(),
+                              ));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 10, top: 4),
                               height: 80,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: AppColors.darkGrey.withOpacity(.05)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(left: 10),
-                                        height: 65,
-                                        width: 65,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          color: multisign.colors[index],
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        // Container(
+                                        //   height: 65,
+                                        //   width: 65,
+                                        //   alignment: Alignment.center,
+                                        //   decoration: BoxDecoration(
+                                        //     color: AppColors.blue,
+                                        //     borderRadius: BorderRadius.circular(8),
+                                        //   ),
+                                        //   child: Text(
+                                        //     "PN",
+                                        //     style: primaryFonts.copyWith(
+                                        //         fontSize: 26,
+                                        //         fontWeight: FontWeight.w700,
+                                        //         color: AppColors.white),
+                                        //   ),
+                                        // ),
+                                        ksizedbox10w,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                multisign
+                                                    .installerListdata[index]
+                                                    .clientName,
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.black)),
+                                            Text(
+                                                "${multisign.installerListdata[index].address}, ${multisign.installerListdata[index].city}",
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.black
+                                                        .withOpacity(.70))),
+                                            Text(
+                                                'Job Id:${multisign.installerListdata[index].jobcard}}',
+                                                style: primaryFonts.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.black
+                                                        .withOpacity(.50))),
+                                          ],
                                         ),
-                                        child: Text(
-                                          multisign
-                                              .projectDetails[index].letters
-                                              .toString(),
-                                          style: primaryFonts.copyWith(
-                                              fontSize: 26,
-                                              fontWeight: FontWeight.w700,
-                                              color: AppColors.white),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(InstallationReportDetails(
+                                                    id: multisign
+                                                        .installerListdata[
+                                                            index]
+                                                        .id
+                                                        .toString()));
+                                              },
+                                              child: Text('Full View',
+                                                  style: primaryFonts.copyWith(
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors.green)),
+                                            ),
+                                            // Text(
+                                            //     controller
+                                            //         .installerListdata[index]
+                                            //         .poDate
+                                            //         .toString(),
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 12,
+                                            //         fontWeight: FontWeight.w300,
+                                            //         color: AppColors.black)),
+                                            // Text(
+                                            //     controller
+                                            //         .installerListdata[index]
+                                            //         .production,
+                                            //     style: primaryFonts.copyWith(
+                                            //         fontSize: 12,
+                                            //         fontWeight: FontWeight.w300,
+                                            //         color: AppColors.black)),
+                                          ],
                                         ),
-                                      ),
-                                      ksizedbox10w,
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              multisign
-                                                  .projectDetails[index].name
-                                                  .toString(),
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.black)),
-                                          Text(
-                                              multisign
-                                                  .projectDetails[index].place
-                                                  .toString(),
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: AppColors.black
-                                                      .withOpacity(.70))),
-                                          Text(
-                                              multisign
-                                                  .projectDetails[index].jobId
-                                                  .toString(),
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: AppColors.black
-                                                      .withOpacity(.50))),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                              multisign
-                                                  .projectDetails[index].date
-                                                  .toString(),
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: AppColors.black)),
-                                          Text(
-                                              multisign
-                                                  .projectDetails[index].day
-                                                  .toString(),
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w300,
-                                                  color: AppColors.black)),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ],
-                        );
-                      })),
-                )
+                          ),
+                        ],
+                      );
+                    }));
+          }),
               ],
             ),
           ),
