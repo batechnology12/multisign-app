@@ -50,6 +50,9 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   setDefault() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getReceedetails(id: widget.id);
+      
+      controller.setImagePathEmpty();
+      controller.setImagesEmpty();
     });
   }
 
@@ -94,7 +97,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           child: TextFormField(
                             //obscureText: false,
                             //       autofocus: true,
-                            //    readOnly: true,
+                               readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -124,8 +127,9 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           child: TextFormField(
                             focusNode: _focusNode, // Assign the FocusNode
                             //  autofocus: false, // Disable autofocus
-                            // readOnly:
-                            //     true, // Readonly will ensure the text field doesn't lose focus
+                            readOnly:
+                                true, // Readonly will ensure the text field doesn't lose focus
+                            
                             onTap: () =>
                                 _focusNode.requestFocus(), // Focus when tapped
                             decoration: InputDecoration(
@@ -158,7 +162,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
                             autofocus: false,
-                            //  readOnly: true,
+                              readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -194,7 +198,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
                             autofocus: true,
-                            //        readOnly: true,
+                                    readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -311,7 +315,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           height: 45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField(
+                          child: TextFormField( readOnly: true,
                             controller: job_cardContoller,
                             //   keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -344,7 +348,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           height: 45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField(
+                          child: TextFormField( readOnly: true,
                             keyboardType: TextInputType.number,
                             controller: client_idController,
                             decoration: InputDecoration(
@@ -680,24 +684,20 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               fontWeight: FontWeight.w600),
                         ),
                         ksizedbox15,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            image == null
-                                ? GestureDetector(
-                                    onTap: () async {
-                                      controller.CameraImage(
-                                          imageSource: ImageSource.gallery);
-
-                                      controller.update();
-                                    },
-                                    child: Container(
-                                      //   margin: EdgeInsets.only(right: 10),
-                                      height: 120.h,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1,
-                                              color: AppColors.lightGrey),
+                         Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              controller.CameraImage(
+                                  imageSource: ImageSource.camera);
+                              controller.update();
+                            },
+                            child: Obx(
+                              () => controller.pickedcamerapath == ""
+                                  ? Container(
+                                      height: 115.h,
+                                   decoration: BoxDecoration(
                                           color: AppColors.lightGrey
                                               .withOpacity(.20),
                                           borderRadius:
@@ -707,90 +707,68 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         height: 165,
                                         width: 185,
                                       ),
+                                    )
+                                  : Container(width: 200,
+                                      height: 115.h,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: FileImage(File(
+                                            controller.pickedcamerapath!,
+                                          ))),
+                                          border: Border.all(
+                                              width: 1,
+                                              color: AppColors.lightGrey),
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                     
                                     ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () async {
-                                      controller.CameraImage(
-                                          imageSource: ImageSource.gallery);
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              controller.pickImage(
+                                  imageSource: ImageSource.gallery);
 
-                                      controller.update();
-                                    },
-                                    child: Expanded(
-                                      child: Container(
-                                        height: 120.h,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 1,
-                                                color: AppColors.lightGrey),
-                                            color: AppColors.lightGrey
-                                                .withOpacity(.20),
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Image.file(
-                                          image!,
-                                          height: 165,
-                                          width: 185,
-                                        ),
+                              controller.update();
+                            },
+                            child: Obx(
+                              () => controller.pickedImagePath == ""
+                                  ? Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                        "assets/images/gallery.png",
+                                        height: 165,
+                                        width: 185,
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: FileImage(File(
+                                            controller.pickedImagePath!,
+                                          ))),
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                        "assets/images/gallery.png",
+                                        height: 165,
+                                        width: 185,
                                       ),
                                     ),
-                                  ),
-                            photo == null
-                                ? GestureDetector(
-                                    onTap: () async {
-                                      controller.pickImage(
-                                          imageSource: ImageSource.gallery);
-
-                                      controller.update();
-                                    },
-                                    child: Expanded(
-                                      child: Obx(
-                                        () => Container(
-                                          height: 120.h,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: FileImage(File(
-                                                controller.pickedImagePath!,
-                                              ))),
-                                              color: AppColors.lightGrey
-                                                  .withOpacity(.20),
-                                              borderRadius:
-                                                  BorderRadius.circular(6)),
-                                          child: Image.asset(
-                                            "assets/images/gallery.png",
-                                            height: 165,
-                                            width: 185,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () async {
-                                      controller.pickImage(
-                                          imageSource: ImageSource.gallery);
-
-                                      controller.update();
-                                    },
-                                    child: Expanded(
-                                      child: Container(
-                                        height: 120.h,
-                                        decoration: BoxDecoration(
-                                            color: AppColors.lightGrey
-                                                .withOpacity(.20),
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Image.file(
-                                          height: 165,
-                                          width: 185,
-                                          photo!,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
+                      ),
                         ksizedbox20,
                         InkWell(
                           onTap: () {
@@ -809,7 +787,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   signage_details:
                                       signage_detailsController.text,
                                   client_id:
-                                      controller.getreceedetailsData!.recceId,
+                                      controller.getreceedetailsData!.id.toString(),
                                   media: controller.pickedImagePathList!,
                                 );
                               } else {

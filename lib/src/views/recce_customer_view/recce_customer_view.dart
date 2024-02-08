@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/controllers/profile_controller.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
+import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_store_name.dart';
 
 class RecceCustomer extends StatefulWidget {
-  const RecceCustomer({super.key});
+  RecceCustomer({super.key});
 
   @override
   State<RecceCustomer> createState() => _RecceCustomerState();
@@ -19,185 +22,401 @@ class _RecceCustomerState extends State<RecceCustomer> {
     // TODO: implement initState
     super.initState();
     controller.getRecee();
+    prfilecontroller.getprofile();
   }
-
+//String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
   final controller = Get.find<HomeController>();
+
+  final prfilecontroller = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(105),
+          preferredSize: Size.fromHeight(80),
           child: Column(
             children: [
               AppBar(
-                leading: Icon(
-                  Icons.arrow_back,
-                ),
                 centerTitle: true,
-                title: Text("Recce Customer",
-                    style: primaryFonts.copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.black)),
+                title: prfilecontroller.getprofileData!.roleId == '2'
+                    ? Text("Recce Customer",
+                        style: primaryFonts.copyWith(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black))
+                    : Text("Installer Customer",
+                        style: primaryFonts.copyWith(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black)),
                 actions: [
-                  GestureDetector(
-                    onTap: () {
-                      popUp();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Image.asset(
-                        "assets/icons/filter.png",
-                      ),
-                    ),
-                  )
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(EmptyNotification());
+                                    },
+                                    child: Image.asset(
+                                      "assets/icons/notification.png",
+                                      height: 22,
+                                      width: 22,
+                                    ),
+                                  ),
+                  ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                height: 45,
-                decoration: BoxDecoration(
-                    color: AppColors.black.withOpacity(.02),
-                    borderRadius: BorderRadius.circular(6)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Search",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.50)),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(
-                              width: 1,
-                              color: AppColors.black.withOpacity(.20))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.grey))),
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.symmetric(horizontal: 15),
+              //   height: 45,
+              //   decoration: BoxDecoration(
+              //       color: AppColors.black.withOpacity(.02),
+              //       borderRadius: BorderRadius.circular(6)),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
+              //         hintText: "Search",
+              //         hintStyle: primaryFonts.copyWith(
+              //             color: AppColors.black.withOpacity(.50)),
+              //         border: InputBorder.none,
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(6),
+              //             borderSide: BorderSide(
+              //                 width: 1,
+              //                 color: AppColors.black.withOpacity(.20))),
+              //         focusedBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(6),
+              //             borderSide:
+              //                 BorderSide(width: 1, color: AppColors.grey))),
+              //   ),
+              // ),
             ],
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
-          child: GetBuilder<HomeController>(builder: (context) {
-            return controller.getreceelistData.isEmpty
-                ? Center(child: Image.asset('assets/icons/fi_6598519.png'))
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.getreceelistData.length,
-                    itemBuilder: ((context, index) {
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(RecceReportDetails(id: controller.getreceelistData[index]
-                                                  .id.toString(),));
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10, top: 4),
-                              height: 80,
-                              width: double.infinity,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
-                                  color: AppColors.darkGrey.withOpacity(.05)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        ksizedbox10w,
-                                        Column(
+          child: prfilecontroller.getprofileData!.roleId == '2'
+              ? GetBuilder<HomeController>(builder: (context) {
+                  return controller.getreceelistData.isEmpty
+                      ? Center(
+                          child: Image.asset('assets/icons/fi_6598519.png'))
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.getreceelistData.length,
+                          itemBuilder: ((context, index) {
+                            return Card(
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(RecceReportDetails(
+                                        id: controller.getreceelistData[index].id
+                                            .toString(),
+                                      ));
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10, top: 4),
+                                      height: 80,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                         // color: Colors.grey[200]
+                                          ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              controller.getreceelistData[index]
-                                                  .clientName,
-                                              style: primaryFonts.copyWith(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.black),
-                                            ),
-                                            // Text(
-                                            //     controller
-                                            //         .getreceelistData[index]
-                                            //         .address,
-                                            //     style: primaryFonts.copyWith(
-                                            //         fontSize: 14,
-                                            //         fontWeight: FontWeight.w400,
-                                            //         color: AppColors.black
-                                            //             .withOpacity(.70))),
-                                            Text(
-                                                controller
-                                                    .getreceelistData[index]
-                                                    .jobcard,
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: AppColors.black
-                                                        .withOpacity(.50))),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Column(
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                Get.to(RecceReportDetails(id:    controller.getreceelistData[index]
-                                                  .id.toString(),));
-                                              },
-                                              child: Text('Full View',
-                                                  style: primaryFonts.copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: AppColors.green)),
+                                            Row(
+                                              children: [
+                                                ksizedbox10w,
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      controller
+                                                          .getreceelistData[index]
+                                                          .clientName,
+                                                      style:
+                                                          primaryFonts.copyWith(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                              color: AppColors
+                                                                  .black),
+                                                    ),
+                                                    // Text(
+                                                    //     controller
+                                                    //         .getreceelistData[index]
+                                                    //         .address,
+                                                    //     style: primaryFonts.copyWith(
+                                                    //         fontSize: 14,
+                                                    //         fontWeight: FontWeight.w400,
+                                                    //         color: AppColors.black
+                                                    //             .withOpacity(.70))),
+                                                    Text(
+                                                        controller
+                                                            .getreceelistData[
+                                                                index]
+                                                            .jobcard,
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: AppColors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        .50))),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                                controller
-                                                    .getreceelistData[index]
-                                                    .createdAt
-                                                    .toString(),
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: AppColors.black)),
-                                            Text(
-                                                controller
-                                                    .getreceelistData[index]
-                                                    .scopeOfWork,
-                                                style: primaryFonts.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                    color: AppColors.black)),
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Get.to(RecceReportDetails(
+                                                          id: controller
+                                                              .getreceelistData[
+                                                                  index]
+                                                              .id
+                                                              .toString(),
+                                                        ));
+                                                      },
+                                                      child: Text('Full View',
+                                                          style: primaryFonts.copyWith(
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                              color: AppColors
+                                                                  .green)),
+                                                    ),
+                                                    Text(
+                                                        controller
+                                                            .getreceelistData[
+                                                                index]
+                                                            .createdAt
+                                                            .toString(),
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: AppColors
+                                                                    .black)),
+                                                    Text(
+                                                        controller
+                                                            .getreceelistData[
+                                                                index]
+                                                            .scopeOfWork,
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: AppColors
+                                                                    .black)),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
-                      );
-                    }));
-          }),
+                            );
+                          }));
+                })
+              : GetBuilder<HomeController>(builder: (context) {
+                  return controller.installerListdata.isEmpty
+                      ? Center(
+                          child: CircularProgressIndicator(
+                          color: AppColors.green,
+                        ))
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.installerListdata.length,
+                          itemBuilder: ((context, index) {
+                            return Card(
+                              child: Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(InstallationReportDetails(
+                                        beforeImages: controller
+                                            .installerListdata[index]
+                                            .receeVerifications[index]
+                                            .beforeImages
+                                            .first,
+                                        id: controller.installerListdata[index].id
+                                            .toString(),
+                                      ));
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 10, top: 4),
+                                      height: 80,
+                                      width: double.infinity,
+                                      decoration:
+                                          BoxDecoration(
+                                          //  color: Colors.grey[200],
+                                            borderRadius: BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                // Container(
+                                                //   height: 65,
+                                                //   width: 65,
+                                                //   alignment: Alignment.center,
+                                                //   decoration: BoxDecoration(
+                                                //     color: AppColors.blue,
+                                                //     borderRadius: BorderRadius.circular(8),
+                                                //   ),
+                                                //   child: Text(
+                                                //     "PN",
+                                                //     style: primaryFonts.copyWith(
+                                                //         fontSize: 26,
+                                                //         fontWeight: FontWeight.w700,
+                                                //         color: AppColors.white),
+                                                //   ),
+                                                // ),
+                                                ksizedbox10w,
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    //Image.network(controller.installerListdata[index].receeVerifications[index].beforeImages.first,height: 50,),
+                                                    Text(
+                                                        controller
+                                                            .installerListdata[
+                                                                index]
+                                                            .clientName,
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: AppColors
+                                                                    .black)),
+                                                    Text(
+                                                        "${controller.installerListdata[index].address}, ${controller.installerListdata[index].city}",
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: AppColors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        .70))),
+                                                    Text(
+                                                        'Job Id:${controller.installerListdata[index].jobcard}}',
+                                                        style:
+                                                            primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: AppColors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        .50))),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Get.to(InstallationReportDetails(
+                                                            beforeImages: controller
+                                                                .installerListdata[
+                                                                    index]
+                                                                .receeVerifications[
+                                                                    index]
+                                                                .beforeImages
+                                                                .first,
+                                                            id: controller
+                                                                .installerListdata[
+                                                                    index]
+                                                                .id
+                                                                .toString()));
+                                                      },
+                                                      child: Text('Full View',
+                                                          style: primaryFonts.copyWith(
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                              color: AppColors
+                                                                  .green)),
+                                                    ),
+                                                    // Text(
+                                                    //     controller
+                                                    //         .installerListdata[index]
+                                                    //         .poDate
+                                                    //         .toString(),
+                                                    //     style: primaryFonts.copyWith(
+                                                    //         fontSize: 12,
+                                                    //         fontWeight: FontWeight.w300,
+                                                    //         color: AppColors.black)),
+                                                    // Text(
+                                                    //     controller
+                                                    //         .installerListdata[index]
+                                                    //         .production,
+                                                    //     style: primaryFonts.copyWith(
+                                                    //         fontSize: 12,
+                                                    //         fontWeight: FontWeight.w300,
+                                                    //         color: AppColors.black)),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }));
+                }),
         ));
   }
 

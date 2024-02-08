@@ -55,11 +55,13 @@ mixin AppConstant {
     required SnackPosition position,
   }) {
     return Get.snackbar(
-      headText,
-      content,
-      duration: const Duration(seconds: 3),
-      snackPosition: position,
-    );
+  headText,
+  content,
+  duration: const Duration(seconds: 3),
+  snackPosition: position,
+  backgroundColor: Colors.green, // Change background color here
+  colorText: Colors.white, // Change text color here
+);
   }
 
   static showSocketExceptionError() {

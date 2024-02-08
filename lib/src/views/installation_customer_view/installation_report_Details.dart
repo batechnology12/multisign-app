@@ -12,7 +12,9 @@ import 'package:multisign_app/src/controllers/home_controller.dart';
 
 class InstallationReportDetails extends StatefulWidget {
   final String id;
-  const InstallationReportDetails({super.key, required this.id});
+  final String beforeImages;
+  const InstallationReportDetails(
+      {super.key, required this.id, required this.beforeImages});
 
   @override
   State<InstallationReportDetails> createState() =>
@@ -20,6 +22,12 @@ class InstallationReportDetails extends StatefulWidget {
 }
 
 class _InstallationReportDetailsState extends State<InstallationReportDetails> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -30,6 +38,9 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   setDefault() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getinstallerdetails(id: widget.id);
+
+      controller.setImagePathEmpty();
+      controller.setImagesEmpty();
     });
   }
 
@@ -78,6 +89,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -111,6 +123,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -143,6 +156,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -175,6 +189,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -207,6 +222,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -239,6 +255,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -271,6 +288,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -303,6 +321,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4)),
                         child: TextFormField(
+                          readOnly: true,
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
@@ -539,7 +558,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       //             borderSide:
                       //                 BorderSide(width: 1, color: AppColors.black))),
                       //   ),
-                      // ),
+                    //  ),
                       // ksizedbox15,
                       // Container(
                       //   height: 45,
@@ -570,177 +589,240 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       //   ),
                       // ),
                       // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "HFE42USD94645",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "GST Number",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "HOARDINGS",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Signage Type",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Expanded(
-                      //       child: Container(
-                      //         margin: EdgeInsets.only(right: 8),
-                      //         height: 45.h,
-                      //         decoration:
-                      //             BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //         child: TextFormField(
-                      //           decoration: InputDecoration(
-                      //               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //               labelText: "Width",
-                      //               labelStyle: primaryFonts.copyWith(
-                      //                   color: AppColors.black,
-                      //                   fontSize: 14,
-                      //                   fontWeight: FontWeight.w600),
-                      //               border: InputBorder.none,
-                      //               enabledBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black)),
-                      //               focusedBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black))),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Expanded(
-                      //       child: Container(
-                      //         height: 45.h,
-                      //         decoration:
-                      //             BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //         child: TextFormField(
-                      //           decoration: InputDecoration(
-                      //               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //               labelText: "Height",
-                      //               labelStyle: primaryFonts.copyWith(
-                      //                   color: AppColors.black,
-                      //                   fontSize: 14,
-                      //                   fontWeight: FontWeight.w600),
-                      //               border: InputBorder.none,
-                      //               enabledBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black)),
-                      //               focusedBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black))),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                              controller.getinstallerdetailsData!.receeVerifications.first.signageType,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getinstallerdetailsData!.receeVerifications.first.signageDetails,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                      ksizedbox15,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child:  Container(
+                               margin: EdgeInsets.only(right: 8),
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                   controller.getinstallerdetailsData!.receeVerifications.first.withColumn,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                          ),
+                          Expanded(
+                            child:  Container(
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getinstallerdetailsData!.receeVerifications.first.heightColumn,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                          ),
+                        ],
+                      ),
                       ksizedbox10,
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Expanded(
-                      //       child: Container(
-                      //         margin: EdgeInsets.only(right: 8),
-                      //         height: 45.h,
-                      //         decoration:
-                      //             BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //         child: TextFormField(
-                      //           decoration: InputDecoration(
-                      //               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //               labelText: "Dimensions",
-                      //               labelStyle: primaryFonts.copyWith(
-                      //                   color: AppColors.black,
-                      //                   fontSize: 14,
-                      //                   fontWeight: FontWeight.w600),
-                      //               border: InputBorder.none,
-                      //               enabledBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black)),
-                      //               focusedBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black))),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     Expanded(
-                      //       child: Container(
-                      //         height: 45.h,
-                      //         decoration:
-                      //             BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //         child: TextFormField(
-                      //           decoration: InputDecoration(
-                      //               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //               labelText: "Square Feet",
-                      //               labelStyle: primaryFonts.copyWith(
-                      //                   color: AppColors.black,
-                      //                   fontSize: 14,
-                      //                   fontWeight: FontWeight.w600),
-                      //               border: InputBorder.none,
-                      //               enabledBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black)),
-                      //               focusedBorder: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.circular(4),
-                      //                   borderSide: BorderSide(
-                      //                       width: 1, color: AppColors.black))),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child:  Container(
+                               margin: EdgeInsets.only(right: 8),
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getinstallerdetailsData!.receeVerifications.first.dimension,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                          ),
+                          Expanded(
+                            child:  Container(
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText:
+                                  controller.getinstallerdetailsData!.receeVerifications.first.squareFit,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Before Image",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.red,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      ksizedbox10,
+
+                      Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                  widget.beforeImages,
+                                ),
+                                fit: BoxFit.cover)),
+                      ),
                       ksizedbox20,
                       Text(
                         "Capture Spaces & My Space",
@@ -753,17 +835,28 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          image == null
-                              ? GestureDetector(
-                                  onTap: () async {
-                                    controller.CameraImage(
-                                        imageSource: ImageSource.camera);
-
-                                    controller.update();
-                                  },
-                                  child: Obx(
-                                    () => Container(
-                                      //   margin: EdgeInsets.only(right: 10),
+                          GestureDetector(
+                            onTap: () async {
+                              controller.CameraImage(
+                                  imageSource: ImageSource.camera);
+                              controller.update();
+                            },
+                            child: Obx(
+                              () => controller.pickedcamerapath == ""
+                                  ? Container(
+                                      height: 115.h,
+                                   decoration: BoxDecoration(
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                        "assets/images/camera.png",
+                                        height: 165,
+                                        width: 185,
+                                      ),
+                                    )
+                                  : Container(width: 200,
                                       height: 115.h,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
@@ -777,100 +870,51 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                               .withOpacity(.20),
                                           borderRadius:
                                               BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                        "assets/images/camera.png",
-                                        height: 165,
-                                        width: 185,
-                                      ),
+                                     
                                     ),
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () async {
-                                    controller.CameraImage(
-                                        imageSource: ImageSource.camera);
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              controller.pickImage(
+                                  imageSource: ImageSource.gallery);
 
-                                    controller.update();
-                                  },
-                                  child: Expanded(
-                                    child: Obx(
-                                      () => Container(
-                                        height: 115.h,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: FileImage(File(
-                                              controller.pickedcamerapath!,
-                                            ))),
-                                            border: Border.all(
-                                                width: 1,
-                                                color: AppColors.lightGrey),
-                                            color: AppColors.lightGrey
-                                                .withOpacity(.20),
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        // child: Image.file(
-                                        //   image!,
-                                        //   height: 165,
-                                        //   width: 185,
-                                        // ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                          photo == null
-                              ? GestureDetector(
-                                  onTap: () async {
-                                    controller.pickImage(
-                                        imageSource: ImageSource.gallery);
-
-                                    controller.update();
-                                  },
-                                  child: Expanded(
-                                    child: Obx(
-                                      () => Container(
-                                        height: 120.h,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: FileImage(File(
-                                              controller.pickedImagePath!,
-                                            ))),
-                                            color: AppColors.lightGrey
-                                                .withOpacity(.20),
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Image.asset(
-                                          "assets/images/gallery.png",
-                                          height: 165,
-                                          width: 185,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () async {
-                                    controller.pickImage(
-                                        imageSource: ImageSource.gallery);
-
-                                    controller.update();
-                                  },
-                                  child: Expanded(
-                                    child: Container(
+                              controller.update();
+                            },
+                            child: Obx(
+                              () => controller.pickedImagePath == ""
+                                  ? Container(
                                       height: 120.h,
                                       decoration: BoxDecoration(
                                           color: AppColors.lightGrey
                                               .withOpacity(.20),
                                           borderRadius:
                                               BorderRadius.circular(6)),
-                                      child: Image.file(
+                                      child: Image.asset(
+                                        "assets/images/gallery.png",
                                         height: 165,
                                         width: 185,
-                                        photo!,
-                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: FileImage(File(
+                                            controller.pickedImagePath!,
+                                          ))),
+                                          color: AppColors.lightGrey
+                                              .withOpacity(.20),
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                        "assets/images/gallery.png",
+                                        height: 165,
+                                        width: 185,
                                       ),
                                     ),
-                                  ),
-                                ),
+                            ),
+                          )
                         ],
                       ),
                       ksizedbox30,
@@ -884,6 +928,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               //  media1: controller.pickedcamerapath!,
                               media: controller.pickedImagePathList!,
                             );
+                            controller.pickedImagePath != '';
                           } else {
                             AppConstant.showSnackbar(
                               headText: "Upload Failed",

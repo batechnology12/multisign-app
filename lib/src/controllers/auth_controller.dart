@@ -82,7 +82,7 @@ class AuthController extends GetxController {
     );
     isLoading(false);
     if (response.statusCode == 200) {
-      // int otp = response.data["otp"];
+       int otp = response.data["otp"];
       //   final prefs = await SharedPreferences.getInstance();
       //   await prefs.setString("auth_token", response.data["token"]);
       //   // await prefs.setString("user_id", response.data["user"]["id"]);
@@ -91,7 +91,7 @@ class AuthController extends GetxController {
       //  Get.find<ProfileController>().checkWhetherHeGo();
       AppConstant.showSnackbar(
         headText: "Successful",
-        content: "OTP has been sent to the registered Email Id.}",
+        content: "OTP has been sent to the registered Email Id.${otp}}",
         position: SnackPosition.BOTTOM,
       );
     } else if (response.statusCode == 401) {

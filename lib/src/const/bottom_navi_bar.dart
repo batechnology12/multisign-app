@@ -5,6 +5,7 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/views/history_view/history_view.dart';
 import 'package:multisign_app/src/views/home_view/home_view.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_customer_view.dart';
+import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/profile/user_profile.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.dart';
 import 'package:multisign_app/src/views/user_view/user_view.dart';
@@ -22,17 +23,20 @@ class _BottomNaviBarState extends State<BottomNaviBar> {
   List iconsList = [
     "assets/icons/home.png",
     "assets/icons/customer.png",
-    "assets/icons/installcustomer.png",
-    "assets/icons/history.png",
+  //  "assets/icons/installcustomer.png",
+    "assets/icons/notification.png",
     "assets/icons/user.png",
   ];
   List screens = [
     HomeScreen(),
     RecceCustomer(),
-    InstallationCustomer(),
-    HistoryScreen(),
+  //  InstallationCustomer(),
+   EmptyNotification(),
     ProfileScreen(),
   ];
+
+
+  
 
   @override
   void initState() {

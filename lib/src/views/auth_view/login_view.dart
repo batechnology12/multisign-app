@@ -249,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: AppColors.green,
                       textColor: Colors.white,
                       child: customtext(
-                        text: 'SIGH IN',
+                        text: 'SIGN IN',
                       ),
                     )),
             ),

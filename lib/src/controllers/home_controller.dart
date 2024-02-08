@@ -175,6 +175,9 @@ class HomeController extends GetxController {
     isLoadingverification(false);
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
+      pickedImagePathList.clear();
+       pickedImagePath!='';
+       update();
       AppConstant.showSnackbar(
         headText: "Successful",
         content: "Uploaded successfull",
@@ -221,8 +224,13 @@ class HomeController extends GetxController {
       //    media1: media1
     );
     isLoadingverification(false);
+
+
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
+       pickedImagePathList.clear();
+       pickedImagePath!.isEmpty;
+       print('======================${pickedImagePath}==========================');
       Get.rawSnackbar(
         messageText: const Text(
           "Uploaded successfull",
@@ -249,7 +257,7 @@ class HomeController extends GetxController {
   File? get pickedcameraimage => cameraimage;
   String? get pickedcamerapath => cameraimagePath.value;
 
-  void setImageEmpty() {
+  void setImagesEmpty() {
     cameraimagePath.value = '';
   }
 
@@ -288,7 +296,9 @@ class HomeController extends GetxController {
 
       cameraimagePath.value = croppedFile1!.path;
       pickedImagePathList.add(croppedFile1!.path);
+       pickedImagePath==null;
       update();
+   //   pickedImagePath==null;
       print(
         'picked image size ${cameraimage!.lengthSync()}',
       );
@@ -345,7 +355,7 @@ class HomeController extends GetxController {
       _pickedImagePath.value = croppedFile!.path;
       pickedImagePathList.add(croppedFile!.path);
       update();
-      print(
+        print(
         'picked image size ${_pickedImage!.lengthSync()}',
       );
     } else {}

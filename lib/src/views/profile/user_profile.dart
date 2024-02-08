@@ -67,10 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 1,
                   ),
                   ksizedbox10,
-                  Image.asset(
-                    'assets/images/Ellipse 40.png',
-                    height: 60,
-                  ),
+             CircleAvatar(backgroundImage: AssetImage('assets/images/blank-profile-picture-973460_1920.png',),radius: 26,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(

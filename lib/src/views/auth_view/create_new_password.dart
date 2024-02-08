@@ -13,7 +13,7 @@ import 'package:multisign_app/src/views/auth_view/splash_loading.dart';
 
 class NewPassword extends StatefulWidget {
   final int userid;
-  NewPassword( {super.key, required this.userid});
+  NewPassword({super.key, required this.userid});
 
   @override
   State<NewPassword> createState() => _NewPasswordState();
@@ -188,8 +188,10 @@ class _NewPasswordState extends State<NewPassword> {
                 width: 1.w,
                 onPressed: () {
                   AppConstant.showLoader(context: context);
-                  controller.newPassword(conformpassword: conformpasswordController.text, password: passwordController.text, userid: widget.userid);
-      
+                  controller.newPassword(
+                      conformpassword: conformpasswordController.text,
+                      password: passwordController.text,
+                      userid: widget.userid);
                 },
                 color: AppColors.green,
                 textColor: Colors.white,

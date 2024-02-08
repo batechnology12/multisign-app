@@ -103,7 +103,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(InstallationReportDetails(
+                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages.first,
                                 id: controller.installerListdata[index].id
                                     .toString(),
                               ));
@@ -144,6 +144,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            //Image.network(controller.installerListdata[index].receeVerifications[index].beforeImages.first,height: 50,),
                                             Text(
                                                 controller
                                                     .installerListdata[index]
@@ -180,7 +181,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(InstallationReportDetails(
+                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages.first,
                                                     id: controller
                                                         .installerListdata[
                                                             index]
