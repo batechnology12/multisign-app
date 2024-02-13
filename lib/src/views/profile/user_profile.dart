@@ -91,18 +91,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
-                          child: TextField(
+                          child: TextField(readOnly: true,
                             //  controller: _controller,
                             decoration: InputDecoration(
                               hintText: controller.getprofileData!.name,
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  // Handle edit icon pressed
-                                  // You can perform actions such as clearing the text or navigating to a different screen
-                                  //     _controller.clear();
-                                },
-                              ),
+                              // suffixIcon: IconButton(
+                              //   icon: Icon(Icons.edit),
+                              //   onPressed: () {
+                              //     // Handle edit icon pressed
+                              //     // You can perform actions such as clearing the text or navigating to a different screen
+                              //     //     _controller.clear();
+                              //   },
+                              // ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(12.0),
@@ -135,18 +135,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
-                          child: TextField(
+                          child: TextField(readOnly: true,
                             //  controller: _controller,
                             decoration: InputDecoration(
                               hintText:   controller.getprofileData!.email,
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  // Handle edit icon pressed
-                                  // You can perform actions such as clearing the text or navigating to a different screen
-                                  //     _controller.clear();
-                                },
-                              ),
+                              // suffixIcon: IconButton(
+                              //   icon: Icon(Icons.edit),
+                              //   onPressed: () {
+                              //     // Handle edit icon pressed
+                              //     // You can perform actions such as clearing the text or navigating to a different screen
+                              //     //     _controller.clear();
+                              //   },
+                              // ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(12.0),
@@ -179,18 +179,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.white,
                           ),
-                          child: TextField(
+                          child: TextField(readOnly: true,
                             //  controller: _controller,
                             decoration: InputDecoration(
                               hintText:controller.getprofileData!.mobile,
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  // Handle edit icon pressed
-                                  // You can perform actions such as clearing the text or navigating to a different screen
-                                  //     _controller.clear();
-                                },
-                              ),
+                              // suffixIcon: IconButton(
+                              //   icon: Icon(Icons.edit),
+                              //   onPressed: () {
+                              //     // Handle edit icon pressed
+                              //     // You can perform actions such as clearing the text or navigating to a different screen
+                              //     //     _controller.clear();
+                              //   },
+                              // ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(12.0),

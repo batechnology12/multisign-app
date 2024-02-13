@@ -251,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: customtext(
                         text: 'SIGN IN',
                       ),
-                    )),
+                    ),),
             ),
           ],
         ),

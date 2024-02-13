@@ -19,6 +19,9 @@ class GetReceeApiServices extends BaseApiService {
       final prefs = await SharedPreferences.getInstance();
       String? authtoken = prefs.getString("auth_token");
 
+      print('-------------------------------------${authtoken}=========================================');
+      print(authtoken);
+
       var response = await dio.get(
         getreceeURI,
         options: Options(

@@ -32,7 +32,7 @@ class VerifyReceeApiServices extends BaseApiService {
         "client_id": client_id,
         for (int i = 0; i < media.length; i++)
           "before_images[$i]":
-              await MultipartFile.fromFile(media[i], filename: "image"),
+              await MultipartFile.fromFile(media[i], filename: "image$i"),
       });
 
       var response = await dio.post(receeverificationURI,
@@ -46,7 +46,7 @@ class VerifyReceeApiServices extends BaseApiService {
                 return status! <= 500;
               }),
           data: formData);
-      print("::::::::<Upload post>::::::::status code::::::::::");
+      print("::::::::<Upload post>::::::::status code:::::${job_card}::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

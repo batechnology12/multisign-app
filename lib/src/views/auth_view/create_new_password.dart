@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/const/custom_button.dart';
 import 'package:multisign_app/src/controllers/auth_controller.dart';
 import 'package:multisign_app/src/views/auth_view/login_view.dart';
-import 'package:multisign_app/src/views/auth_view/splash_loading.dart';
+
 
 class NewPassword extends StatefulWidget {
   final int userid;

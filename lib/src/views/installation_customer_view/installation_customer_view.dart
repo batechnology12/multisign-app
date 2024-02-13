@@ -4,7 +4,7 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
-import 'package:multisign_app/src/views/installation_customer_view/installation_store_name.dart';
+
 
 class InstallationCustomer extends StatefulWidget {
   const InstallationCustomer({super.key});
@@ -103,7 +103,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages.first,
+                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages,
                                 id: controller.installerListdata[index].id
                                     .toString(),
                               ));
@@ -181,7 +181,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages.first,
+                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages,
                                                     id: controller
                                                         .installerListdata[
                                                             index]

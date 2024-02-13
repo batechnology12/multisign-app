@@ -17,13 +17,48 @@ class RecceCustomer extends StatefulWidget {
 }
 
 class _RecceCustomerState extends State<RecceCustomer> {
+  // Declare a variable to store the filtered list
+  List<dynamic> filteredList = [];
+
+// In your _RecceCustomerState class, add a TextEditingController
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller.getRecee();
-    prfilecontroller.getprofile();
+    setDefau();
+    filteredList = controller.getreceelistData;
   }
+
+  setDefau(){
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+       controller.getRecee();
+    prfilecontroller.getprofile();
+    });
+   
+  }
+
+// Add a method to perform the search
+  void performSearch(String query) {
+    // Check if the query is empty
+    if (query.isEmpty) {
+      // If it is, reset the filteredList to the original list
+      setState(() {
+        filteredList = controller.getreceelistData;
+      });
+      return;
+    }
+
+    // Perform the filtering based on the query
+    setState(() {
+      filteredList = controller.getreceelistData.where((item) {
+        // Implement your filtering logic here, for example, checking if the client name contains the query
+        return item.clientName.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    });
+  }
+
 //String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
   final controller = Get.find<HomeController>();
 
@@ -32,7 +67,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: Size.fromHeight(126),
           child: Column(
             children: [
               AppBar(
@@ -52,42 +87,39 @@ class _RecceCustomerState extends State<RecceCustomer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                                    onTap: () {
-                                      Get.to(EmptyNotification());
-                                    },
-                                    child: Image.asset(
-                                      "assets/icons/notification.png",
-                                      height: 22,
-                                      width: 22,
-                                    ),
-                                  ),
+                      onTap: () {
+                        Get.to(EmptyNotification());
+                      },
+                      child: Image.asset(
+                        "assets/icons/notification.png",
+                        height: 22,
+                        width: 22,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 15),
-              //   height: 45,
-              //   decoration: BoxDecoration(
-              //       color: AppColors.black.withOpacity(.02),
-              //       borderRadius: BorderRadius.circular(6)),
-              //   child: TextFormField(
-              //     decoration: InputDecoration(
-              //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-              //         hintText: "Search",
-              //         hintStyle: primaryFonts.copyWith(
-              //             color: AppColors.black.withOpacity(.50)),
-              //         border: InputBorder.none,
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(6),
-              //             borderSide: BorderSide(
-              //                 width: 1,
-              //                 color: AppColors.black.withOpacity(.20))),
-              //         focusedBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(6),
-              //             borderSide:
-              //                 BorderSide(width: 1, color: AppColors.grey))),
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15,),
+                child:TextField(
+  controller: searchController,
+  onChanged: performSearch,
+  decoration: InputDecoration(
+    hintText: 'Search by client name...',
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(30.0), // Adjust the radius as needed
+    ),
+    suffixIcon: IconButton(
+      icon: Icon(Icons.clear),
+      onPressed: () {
+        // Clear the search field and reset the filtered list to the original list
+        searchController.clear();
+        performSearch('');
+      },
+    ),
+  ),
+),
+              ),
             ],
           ),
         ),
@@ -95,9 +127,10 @@ class _RecceCustomerState extends State<RecceCustomer> {
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: prfilecontroller.getprofileData!.roleId == '2'
               ? GetBuilder<HomeController>(builder: (context) {
-                  return controller.getreceelistData.isEmpty
-                      ? Center(
-                          child: Image.asset('assets/icons/fi_6598519.png'))
+                  return filteredList.isEmpty
+                  ? Center(
+                      child: Image.asset('assets/icons/fi_6598519.png'))
+                 
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: controller.getreceelistData.length,
@@ -108,18 +141,20 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(RecceReportDetails(
-                                        id: controller.getreceelistData[index].id
+                                        id: controller
+                                            .getreceelistData[index].id
                                             .toString(),
                                       ));
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10, top: 4),
+                                      margin:
+                                          EdgeInsets.only(bottom: 10, top: 4),
                                       height: 80,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                         // color: Colors.grey[200]
-                                          ),
+                                        borderRadius: BorderRadius.circular(10),
+                                        // color: Colors.grey[200]
+                                      ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -137,13 +172,15 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   children: [
                                                     Text(
                                                       controller
-                                                          .getreceelistData[index]
+                                                          .getreceelistData[
+                                                              index]
                                                           .clientName,
                                                       style:
                                                           primaryFonts.copyWith(
                                                               fontSize: 15,
                                                               fontWeight:
-                                                                  FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                               color: AppColors
                                                                   .black),
                                                     ),
@@ -161,8 +198,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                             .getreceelistData[
                                                                 index]
                                                             .jobcard,
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -171,10 +208,20 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                     .black
                                                                     .withOpacity(
                                                                         .50))),
+                                                                          if (controller
+                                                                              .getreceelistData[index]
+                                                                              .isReceeVerrified ==
+                                                                          "1")
+                                                                          Text(
+                                                                            'Completed',
+                                                                            style:
+                                                                                TextStyle(color: Colors.green),
+                                                                          )
                                                   ],
                                                 ),
                                               ],
                                             ),
+                                             
                                             Row(
                                               children: [
                                                 Column(
@@ -185,7 +232,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        Get.to(RecceReportDetails(
+                                                        Get.to(
+                                                            RecceReportDetails(
                                                           id: controller
                                                               .getreceelistData[
                                                                   index]
@@ -200,7 +248,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                       .underline,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                                  FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                               color: AppColors
                                                                   .green)),
                                                     ),
@@ -210,8 +259,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                 index]
                                                             .createdAt
                                                             .toString(),
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -222,16 +271,26 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                         controller
                                                             .getreceelistData[
                                                                 index]
-                                                            .scopeOfWork,
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                            .address,
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w300,
                                                                 color: AppColors
                                                                     .black)),
-                                                  ],
+                                              //  if (controller
+                                              //                                 .getreceelistData[index]
+                                              //                                 .isReceeVerrified ==
+                                              //                             "1")
+                                              //                           Text(
+                                              //                             "completed",
+                                              //                             style: TextStyle(
+                                              //                                 color:
+                                              //                                     Colors.green),
+                                              //                           ),  
+                                                                          ],
                                                 ),
                                               ],
                                             )
@@ -246,8 +305,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                           }));
                 })
               : GetBuilder<HomeController>(builder: (context) {
-                  return controller.installerListdata.isEmpty
-                      ? Center(
+                  return  filteredList.isEmpty? 
+                       Center(
                           child: CircularProgressIndicator(
                           color: AppColors.green,
                         ))
@@ -265,19 +324,21 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                             .installerListdata[index]
                                             .receeVerifications[index]
                                             .beforeImages
-                                            .first,
-                                        id: controller.installerListdata[index].id
+                                          ,
+                                        id: controller
+                                            .installerListdata[index].id
                                             .toString(),
                                       ));
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(bottom: 10, top: 4),
+                                      margin:
+                                          EdgeInsets.only(bottom: 10, top: 4),
                                       height: 80,
                                       width: double.infinity,
-                                      decoration:
-                                          BoxDecoration(
+                                      decoration: BoxDecoration(
                                           //  color: Colors.grey[200],
-                                            borderRadius: BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -315,8 +376,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                             .installerListdata[
                                                                 index]
                                                             .clientName,
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
@@ -325,8 +386,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                     .black)),
                                                     Text(
                                                         "${controller.installerListdata[index].address}, ${controller.installerListdata[index].city}",
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
@@ -337,8 +398,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                         .70))),
                                                     Text(
                                                         'Job Id:${controller.installerListdata[index].jobcard}}',
-                                                        style:
-                                                            primaryFonts.copyWith(
+                                                        style: primaryFonts
+                                                            .copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -368,7 +429,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                 .receeVerifications[
                                                                     index]
                                                                 .beforeImages
-                                                                .first,
+                                                                ,
                                                             id: controller
                                                                 .installerListdata[
                                                                     index]
@@ -382,7 +443,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                       .underline,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                                  FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                               color: AppColors
                                                                   .green)),
                                                     ),

@@ -53,7 +53,7 @@ class AuthController extends GetxController {
     } else if (response.statusCode == 401) {
       Get.rawSnackbar(
         messageText: Text(
-          response.data["error"],
+          response.data["message"],
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,

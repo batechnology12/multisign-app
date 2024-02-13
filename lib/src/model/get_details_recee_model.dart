@@ -50,12 +50,15 @@ class Data {
     String production;
     String designing;
     String data;
-    String installerId;
+    dynamic installerId;
     String installerStatus;
     String status;
     String isReceeVerrified;
     DateTime createdAt;
     DateTime updatedAt;
+    String isDeleted;
+    dynamic deletedAt;
+    List<ReceeVerification> receeVerifications;
 
     Data({
         required this.id,
@@ -85,36 +88,42 @@ class Data {
         required this.isReceeVerrified,
         required this.createdAt,
         required this.updatedAt,
+        required this.isDeleted,
+        required this.deletedAt,
+        required this.receeVerifications,
     });
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        jobcard: json["jobcard"],
-        clientName: json["client_name"],
-        scopeOfWork: json["scope_of_work"],
-        address: json["address"],
-        city: json["city"],
-        state: json["state"],
-        gstNumber: json["gst_number"],
-        estimateNumber: json["estimate_number"],
-        poNumber: json["po_number"],
-        poDate: DateTime.parse(json["po_date"]),
-        targetCompletionDate: DateTime.parse(json["target_completion_date"]),
-        particular: json["particular"],
-        qty: json["qty"],
-        rate: json["rate"],
-        value: json["value"],
-        marketterId: json["marketter_id"],
-        recceId: json["recce_id"],
-        production: json["production"],
-        designing: json["designing"],
-        data: json["data"],
-        installerId: json["installer_id"],
-        installerStatus: json["installer_status"],
-        status: json["status"],
-        isReceeVerrified: json["is_recee_verrified"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        id: json["id"]??"",
+        jobcard: json["jobcard"]??"",
+        clientName: json["client_name"]??"",
+        scopeOfWork: json["scope_of_work"]??"",
+        address: json["address"]??"",
+        city: json["city"]??"",
+        state: json["state"]??"",
+        gstNumber: json["gst_number"]??"",
+        estimateNumber: json["estimate_number"]??"",
+        poNumber: json["po_number"]??"",
+        poDate: DateTime.parse(json["po_date"]??""),
+        targetCompletionDate: DateTime.parse(json["target_completion_date"]??""),
+        particular: json["particular"]??"",
+        qty: json["qty"]??"",
+        rate: json["rate"]??"",
+        value: json["value"]??"",
+        marketterId: json["marketter_id"]??"",
+        recceId: json["recce_id"]??"",
+        production: json["production"]??"",
+        designing: json["designing"]??"",
+        data: json["data"]??"",
+        installerId: json["installer_id"]??"",
+        installerStatus: json["installer_status"]??"",
+        status: json["status"]??"",
+        isReceeVerrified: json["is_recee_verrified"]??"",
+        createdAt: DateTime.parse(json["created_at"]??""),
+        updatedAt: DateTime.parse(json["updated_at"]??""),
+        isDeleted: json["is_deleted"]??"",
+        deletedAt: json["deleted_at"]??"",
+        receeVerifications: List<ReceeVerification>.from(json["recee_verifications"].map((x) => ReceeVerification.fromJson(x))??""),
     );
 
     Map<String, dynamic> toJson() => {
@@ -143,6 +152,89 @@ class Data {
         "installer_status": installerStatus,
         "status": status,
         "is_recee_verrified": isReceeVerrified,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "is_deleted": isDeleted,
+        "deleted_at": deletedAt,
+        "recee_verifications": List<dynamic>.from(receeVerifications.map((x) => x.toJson())),
+    };
+}
+
+class ReceeVerification {
+    int id;
+    String userId;
+    String clientId;
+    dynamic installerId;
+    String jobCard;
+    String withColumn;
+    String heightColumn;
+    String squareFit;
+    String dimension;
+    String signageType;
+    String signageDetails;
+    dynamic beforeImages;
+    dynamic afterImages;
+    String isReceeVerrified;
+    String isJobCompleted;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    ReceeVerification({
+        required this.id,
+        required this.userId,
+        required this.clientId,
+        required this.installerId,
+        required this.jobCard,
+        required this.withColumn,
+        required this.heightColumn,
+        required this.squareFit,
+        required this.dimension,
+        required this.signageType,
+        required this.signageDetails,
+        required this.beforeImages,
+        required this.afterImages,
+        required this.isReceeVerrified,
+        required this.isJobCompleted,
+        required this.createdAt,
+        required this.updatedAt,
+    });
+
+    factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
+        id: json["id"],
+        userId: json["user_id"],
+        clientId: json["client_id"],
+        installerId: json["installer_id"],
+        jobCard: json["job_card"],
+        withColumn: json["with_column"],
+        heightColumn: json["height_column"],
+        squareFit: json["square_fit"],
+        dimension: json["dimension"],
+        signageType: json["signage_type"],
+        signageDetails: json["signage_details"],
+        beforeImages: json["before_images"],
+        afterImages: json["after_images"],
+        isReceeVerrified: json["is_recee_verrified"],
+        isJobCompleted: json["is_job_completed"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "client_id": clientId,
+        "installer_id": installerId,
+        "job_card": jobCard,
+        "with_column": withColumn,
+        "height_column": heightColumn,
+        "square_fit": squareFit,
+        "dimension": dimension,
+        "signage_type": signageType,
+        "signage_details": signageDetails,
+        "before_images": beforeImages,
+        "after_images": afterImages,
+        "is_recee_verrified": isReceeVerrified,
+        "is_job_completed": isJobCompleted,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

@@ -31,7 +31,7 @@ class GetInstallerApiServices extends BaseApiService {
               return status! <= 500;
             }),
       );
-      print("::::::::<get all post Api>::::::::status code::::::::::");
+      print("::::::::<get Installer List>::::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

@@ -47,10 +47,27 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     setDefault();
   }
 
-  setDefault() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.getReceedetails(id: widget.id);
-      
+  setDefault() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await controller.getReceedetails(id: widget.id);
+      if (controller.getreceedetailsData!.receeVerifications.isNotEmpty) {
+        job_cardContoller.text =
+            controller.getreceedetailsData!.jobcard.toString();
+
+        widthController.text =
+            controller.getreceedetailsData!.receeVerifications.last.withColumn;
+        heightController.text = controller
+            .getreceedetailsData!.receeVerifications.last.heightColumn;
+        squrefitController.text =
+            controller.getreceedetailsData!.receeVerifications.last.squareFit;
+        dimensionController.text =
+            controller.getreceedetailsData!.receeVerifications.last.dimension;
+        signage_typeController.text =
+            controller.getreceedetailsData!.receeVerifications.last.signageType;
+        signage_detailsController.text = controller
+            .getreceedetailsData!.receeVerifications.last.signageDetails;
+      }
+
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
@@ -97,7 +114,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           child: TextFormField(
                             //obscureText: false,
                             //       autofocus: true,
-                               readOnly: true,
+                            readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -129,7 +146,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                             //  autofocus: false, // Disable autofocus
                             readOnly:
                                 true, // Readonly will ensure the text field doesn't lose focus
-                            
+
                             onTap: () =>
                                 _focusNode.requestFocus(), // Focus when tapped
                             decoration: InputDecoration(
@@ -162,7 +179,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
                             autofocus: false,
-                              readOnly: true,
+                            readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -198,7 +215,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
                             autofocus: true,
-                                    readOnly: true,
+                            readOnly: true,
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
@@ -315,7 +332,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           height: 45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField( readOnly: true,
+                          child: TextFormField(
+                            readOnly: true,
                             controller: job_cardContoller,
                             //   keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -348,7 +366,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           height: 45,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField( readOnly: true,
+                          child: TextFormField(
+                            readOnly: true,
                             keyboardType: TextInputType.number,
                             controller: client_idController,
                             decoration: InputDecoration(
@@ -376,278 +395,38 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           ),
                         ),
                         ksizedbox15,
-                        Container(
-                          height: 55.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField(
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            //  keyboardType: TextInputType.number,
-                            controller: signage_detailsController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Signage Details';
-                              }
-                              // You can add more validation rules here if needed
-                              return null; // Return null if the input is valid
-                            },
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.only(top: 5, left: 10),
-                                hintText: "HFE42USD94645",
-                                hintStyle: primaryFonts.copyWith(
-                                    color: AppColors.black.withOpacity(.20),
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600),
-                                labelText: "Signage Details",
-                                labelStyle: primaryFonts.copyWith(
-                                    color: AppColors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide(
-                                        width: 1, color: AppColors.black)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide(
-                                        width: 1, color: AppColors.black))),
-                          ),
-                        ),
-                        //    ksizedbox10,
-                        Container(
-                          height: 55.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4)),
-                          child: TextFormField(
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            controller: signage_typeController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Signage Type';
-                              }
-                              // You can add more validation rules here if needed
-                              return null; // Return null if the input is valid
-                            },
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.only(top: 5, left: 10),
-                                hintText: "HOARDINGS",
-                                hintStyle: primaryFonts.copyWith(
-                                    color: AppColors.black.withOpacity(.20),
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600),
-                                labelText: "Signage Type",
-                                labelStyle: primaryFonts.copyWith(
-                                    color: AppColors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide(
-                                        width: 1, color: AppColors.black)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: BorderSide(
-                                        width: 1, color: AppColors.black))),
-                          ),
-                        ),
-                        ksizedbox5,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //  controller.getreceedetailsData!.receeVerifications.isEmpty?Container():
+                        Column(
                           children: [
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(right: 8),
-                                height: 55.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: TextFormField(
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  keyboardType: TextInputType.number,
-                                  controller: widthController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Width';
-                                    }
-                                    // You can add more validation rules here if needed
-                                    return null; // Return null if the input is valid
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(top: 5, left: 10),
-                                      labelText: "Width",
-                                      labelStyle: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black))),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 55.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: TextFormField(
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  keyboardType: TextInputType.number,
-                                  controller: heightController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Height';
-                                    }
-                                    // You can add more validation rules here if needed
-                                    return null; // Return null if the input is valid
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(top: 5, left: 10),
-                                      labelText: "Height",
-                                      labelStyle: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black))),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        ksizedbox5,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(right: 8),
-                                height: 55.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: TextFormField(
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  keyboardType: TextInputType.number,
-                                  controller: dimensionController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Dimensions';
-                                    }
-                                    // You can add more validation rules here if needed
-                                    return null; // Return null if the input is valid
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(top: 5, left: 10),
-                                      labelText: "Dimensions",
-                                      labelStyle: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.black,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black))),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 55.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: TextFormField(
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  keyboardType: TextInputType.number,
-                                  controller: squrefitController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter Square Feet';
-                                    }
-                                    // You can add more validation rules here if needed
-                                    return null; // Return null if the input is valid
-                                  },
-                                  decoration: InputDecoration(
+                            Container(
+                              height: 55.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                //  keyboardType: TextInputType.number,
+                                controller: signage_detailsController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Signage Details';
+                                  }
+                                  // You can add more validation rules here if needed
+                                  return null; // Return null if the input is valid
+                                },
+                                decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
-                                    labelText: "Square Feet",
+                                    hintText: "HFE42USD94645",
+                                    hintStyle: primaryFonts.copyWith(
+                                        color: AppColors.black.withOpacity(.20),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600),
+                                    labelText: 'Signage Details',
                                     labelStyle: primaryFonts.copyWith(
-                                      color: AppColors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(4),
                                       borderSide: BorderSide(
@@ -656,25 +435,278 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                            //    ksizedbox10,
+                            Container(
+                              height: 55.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                controller: signage_typeController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter Signage Type';
+                                  }
+                                  // You can add more validation rules here if needed
+                                  return null; // Return null if the input is valid
+                                },
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    hintText: "HOARDINGS",
+                                    hintStyle: primaryFonts.copyWith(
+                                        color: AppColors.black.withOpacity(.20),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600),
+                                    labelText: 'Signage Type',
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(4),
                                       borderSide: BorderSide(
                                         width: 1,
                                         color: AppColors.black,
                                       ),
                                     ),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
                                     focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
+                            ksizedbox5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 8),
+                                    height: 55.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4)),
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      keyboardType: TextInputType.number,
+                                      controller: widthController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Width';
+                                        }
+                                        // You can add more validation rules here if needed
+                                        return null; // Return null if the input is valid
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Width',
+                                          labelStyle: primaryFonts.copyWith(
+                                              color: AppColors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black))),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 55.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4)),
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      keyboardType: TextInputType.number,
+                                      controller: heightController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Height';
+                                        }
+                                        // You can add more validation rules here if needed
+                                        return null; // Return null if the input is valid
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Height',
+                                          labelStyle: primaryFonts.copyWith(
+                                              color: AppColors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black))),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            ksizedbox5,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 8),
+                                    height: 55.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4)),
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      keyboardType: TextInputType.number,
+                                      controller: dimensionController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Dimensions';
+                                        }
+                                        // You can add more validation rules here if needed
+                                        return null; // Return null if the input is valid
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Dimensions',
+                                          labelStyle: primaryFonts.copyWith(
+                                              color: AppColors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black))),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    height: 55.h,
+                                    decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.black,
+                                    ),
+                                    child: TextFormField(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      keyboardType: TextInputType.number,
+                                      controller: squrefitController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter Square Feet';
+                                        }
+                                        // You can add more validation rules here if needed
+                                        return null; // Return null if the input is valid
+                                      },
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(top: 5, left: 10),
+                                        labelText: 'Square Feet',
+                                        labelStyle: primaryFonts.copyWith(
+                                          color: AppColors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
+
+                  
                         ksizedbox20,
                         Text(
                           "Capture Spaces & My Space",
@@ -684,92 +716,190 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               fontWeight: FontWeight.w600),
                         ),
                         ksizedbox15,
-                         Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              controller.CameraImage(
-                                  imageSource: ImageSource.camera);
-                              controller.update();
-                            },
-                            child: Obx(
-                              () => controller.pickedcamerapath == ""
-                                  ? Container(
-                                      height: 115.h,
-                                   decoration: BoxDecoration(
-                                          color: AppColors.lightGrey
-                                              .withOpacity(.20),
-                                          borderRadius:
-                                              BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                        "assets/images/camera.png",
-                                        height: 165,
-                                        width: 185,
-                                      ),
-                                    )
-                                  : Container(width: 200,
-                                      height: 115.h,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: FileImage(File(
-                                            controller.pickedcamerapath!,
-                                          ))),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: AppColors.lightGrey),
-                                          color: AppColors.lightGrey
-                                              .withOpacity(.20),
-                                          borderRadius:
-                                              BorderRadius.circular(6)),
-                                     
-                                    ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              controller.pickImage(
-                                  imageSource: ImageSource.gallery);
+                     controller
+                                        .getreceedetailsData?.isReceeVerrified =="1"?      Container(
+                          height: 200,
+                         
+                          child: ListView.builder(
+                              itemCount: controller
+                                        .getreceedetailsData
+                                        ?.receeVerifications!.last.beforeImages.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index2) {
+                                return Card(
+                                  child: Container(
+                                   width: 200,
+                                    child: Image.network(controller
+                                        .getreceedetailsData
+                                        ?.receeVerifications.last
+                                        .beforeImages[index2]),
+                                  ),
+                                );
+                              }),
+                        ):
+   Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                                onTap: () async {
+                                  controller.CameraImage(
+                                      imageSource: ImageSource.camera);
+                                  controller.update();
+                                },
+                                child:
+                                    //  Obx(
+                                    //   () => controller.pickedcamerapath == ""
+                                    //       ?
+                                    Container(
+                                  height: 115.h,
+                                  decoration: BoxDecoration(
+                                      color:
+                                          AppColors.lightGrey.withOpacity(.20),
+                                      borderRadius: BorderRadius.circular(6)),
+                                  child: Image.asset(
+                                    "assets/images/camera.png",
+                                    height: 165,
+                                    width: 185,
+                                  ),
+                                )
+                                // : Container(
+                                //     width: 200,
+                                //     height: 115.h,
+                                //     decoration: BoxDecoration(
+                                //         image: DecorationImage(
+                                //             image: FileImage(File(
+                                //           controller.pickedcamerapath!,
+                                //         ))),
+                                //         border: Border.all(
+                                //             width: 1,
+                                //             color: AppColors.lightGrey),
+                                //         color: AppColors.lightGrey
+                                //             .withOpacity(.20),
+                                //         borderRadius:
+                                //             BorderRadius.circular(6)),
+                                //   ),
+                                //    ),
+                                ),
+                            GestureDetector(
+                                onTap: () async {
+                                  controller.pickImage(
+                                      imageSource: ImageSource.gallery);
 
-                              controller.update();
-                            },
-                            child: Obx(
-                              () => controller.pickedImagePath == ""
-                                  ? Container(
-                                      height: 120.h,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.lightGrey
-                                              .withOpacity(.20),
-                                          borderRadius:
-                                              BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                        "assets/images/gallery.png",
-                                        height: 165,
-                                        width: 185,
-                                      ),
-                                    )
-                                  : Container(
-                                      height: 120.h,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: FileImage(File(
-                                            controller.pickedImagePath!,
-                                          ))),
-                                          color: AppColors.lightGrey
-                                              .withOpacity(.20),
-                                          borderRadius:
-                                              BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                        "assets/images/gallery.png",
-                                        height: 165,
-                                        width: 185,
+                                  controller.update();
+                                },
+                                child:
+                                    //Obx(
+                                    //() => controller.pickedImagePath == ""
+                                    //?
+                                    Container(
+                                  height: 120.h,
+                                  decoration: BoxDecoration(
+                                      color:
+                                          AppColors.lightGrey.withOpacity(.20),
+                                      borderRadius: BorderRadius.circular(6)),
+                                  child: Image.asset(
+                                    "assets/images/gallery.png",
+                                    height: 165,
+                                    width: 185,
+                                  ),
+                                )
+                                // : Container(
+                                //     height: 120.h,
+                                //     decoration: BoxDecoration(
+                                //         // image: DecorationImage(
+                                //         //     image: FileImage(File(
+                                //         //   controller.pickedImagePath!,
+                                //         // )
+                                //         // )),
+                                //         color: AppColors.lightGrey
+                                //             .withOpacity(.20),
+                                //         borderRadius:
+                                //             BorderRadius.circular(6)),
+                                //     child: Image.asset(
+                                //       "assets/images/gallery.png",
+                                //       height: 165,
+                                //       width: 185,
+                                //     ),
+                                //   ),
+                                //  ),
+                                )
+                          ],
+                        ),
+                        ksizedbox10,
+
+
+
+
+
+                        Container(
+                          height: 100,
+                          child: ListView.builder(
+                            itemCount: controller.pickedImagePathList!.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.file(
+                                              File(controller
+                                                  .pickedImagePathList[index]),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                            ),
-                          )
-                        ],
-                      ),
-                        ksizedbox20,
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: CircleAvatar(
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: AppColors.red,
+                                          ),
+                                          onPressed: () {
+                                            // Add your delete logic here
+                                            // For example, you can remove the image path from the list
+                                            setState(() {
+                                              controller.pickedImagePathList
+                                                  .removeAt(index);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        ksizedbox20, controller
+                                        .getreceedetailsData?.isReceeVerrified =="1"? Container(
+                              alignment: Alignment.center,
+                              height: 45,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: AppColors.green,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child:Text(
+                                      "Completed",
+                                      style: primaryFonts.copyWith(
+                                          color: AppColors.white,
+                                          fontSize: 23,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                            ):
                         InkWell(
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
@@ -786,8 +916,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   signage_type: signage_typeController.text,
                                   signage_details:
                                       signage_detailsController.text,
-                                  client_id:
-                                      controller.getreceedetailsData!.id.toString(),
+                                  client_id: controller.getreceedetailsData!.id
+                                      .toString(),
                                   media: controller.pickedImagePathList!,
                                 );
                               } else {
