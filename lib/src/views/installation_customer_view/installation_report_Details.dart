@@ -866,7 +866,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
    controller.getinstallerdetailsData?.installerStatus == "1"
                           ?  Container(
                         height: 200,
-                        child: ListView.builder(
+                        child: controller.getinstallerdetailsData?.receeVerifications.last.afterImages == null ? Container(): ListView.builder(
                             itemCount: controller.getinstallerdetailsData?.receeVerifications.last.afterImages.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index2) {
@@ -966,7 +966,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ),
                       ksizedbox30,
 
-                      Container(
+                  if(controller.pickedImagePathList!.isNotEmpty)    Container(
                         height: 100,
                         child: ListView.builder(
                           itemCount: controller.pickedImagePathList!.length,

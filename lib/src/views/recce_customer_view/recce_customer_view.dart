@@ -305,7 +305,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                           }));
                 })
               : GetBuilder<HomeController>(builder: (context) {
-                  return  filteredList.isEmpty? 
+                  return controller.installerListdata.isEmpty? 
                        Center(
                           child: CircularProgressIndicator(
                           color: AppColors.green,
@@ -322,7 +322,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                       Get.to(InstallationReportDetails(
                                         beforeImages: controller
                                             .installerListdata[index]
-                                            .receeVerifications[index]
+                                            .receeVerifications.last
                                             .beforeImages
                                           ,
                                         id: controller
@@ -426,8 +426,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                             beforeImages: controller
                                                                 .installerListdata[
                                                                     index]
-                                                                .receeVerifications[
-                                                                    index]
+                                                                .receeVerifications.last
+                                                                    
                                                                 .beforeImages
                                                                 ,
                                                             id: controller

@@ -551,8 +551,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             beforeImages: multisign
                                                                 .installerListdata[
                                                                     index]
-                                                                .receeVerifications[
-                                                                    index]
+                                                                .receeVerifications.last
+                                                                    
                                                                 .beforeImages
                                                                 ,
                                                             id: multisign
@@ -653,7 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               () {
                                                                             Get.to(InstallationReportDetails(
                                                                               id: multisign.installerListdata[index].id.toString(),
-                                                                              beforeImages: multisign.installerListdata[index].receeVerifications[index].beforeImages,
+                                                                              beforeImages: multisign.installerListdata[index].receeVerifications.last.beforeImages,
                                                                             ));
                                                                           },
                                                                           child: Text(

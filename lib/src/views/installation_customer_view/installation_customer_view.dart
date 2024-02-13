@@ -103,7 +103,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages,
+                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
                                 id: controller.installerListdata[index].id
                                     .toString(),
                               ));
@@ -181,7 +181,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications[index].beforeImages,
+                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
                                                     id: controller
                                                         .installerListdata[
                                                             index]
