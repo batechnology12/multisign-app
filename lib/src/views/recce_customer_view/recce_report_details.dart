@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -75,6 +76,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -727,102 +729,144 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index2) {
                                 return Card(
-                                  child: Container(
-                                   width: 200,
-                                    child: Image.network(controller
-                                        .getreceedetailsData
-                                        ?.receeVerifications.last
-                                        .beforeImages[index2]),
+                                  child: InkWell(
+                                    onTap: (){
+                                      showImageViewer(
+                    context,
+                    Image.network(controller
+                                          .getreceedetailsData
+                                          ?.receeVerifications.last
+                                          .beforeImages[index2])
+                        .image,
+                    swipeDismissible: true,
+                    doubleTapZoomable: true);
+                                    },
+                                    child: Container(
+                                     width: 200,
+                                      child: Image.network(controller
+                                          .getreceedetailsData
+                                          ?.receeVerifications.last
+                                          .beforeImages[index2]),
+                                    ),
                                   ),
                                 );
                               }),
                         ):
-   Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+   Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                                onTap: () async {
-                                  controller.CameraImage(
-                                      imageSource: ImageSource.camera);
-                                  controller.update();
-                                },
-                                child:
-                                    //  Obx(
-                                    //   () => controller.pickedcamerapath == ""
-                                    //       ?
-                                    Container(
-                                  height: 115.h,
-                                  decoration: BoxDecoration(
-                                      color:
-                                          AppColors.lightGrey.withOpacity(.20),
-                                      borderRadius: BorderRadius.circular(6)),
-                                  child: Image.asset(
-                                    "assets/images/camera.png",
-                                    height: 165,
-                                    width: 185,
-                                  ),
-                                )
-                                // : Container(
-                                //     width: 200,
-                                //     height: 115.h,
-                                //     decoration: BoxDecoration(
-                                //         image: DecorationImage(
-                                //             image: FileImage(File(
-                                //           controller.pickedcamerapath!,
-                                //         ))),
-                                //         border: Border.all(
-                                //             width: 1,
-                                //             color: AppColors.lightGrey),
-                                //         color: AppColors.lightGrey
-                                //             .withOpacity(.20),
-                                //         borderRadius:
-                                //             BorderRadius.circular(6)),
-                                //   ),
-                                //    ),
-                                ),
-                            GestureDetector(
-                                onTap: () async {
-                                  controller.pickImage(
-                                      imageSource: ImageSource.gallery);
-
-                                  controller.update();
-                                },
-                                child:
-                                    //Obx(
-                                    //() => controller.pickedImagePath == ""
-                                    //?
-                                    Container(
-                                  height: 120.h,
-                                  decoration: BoxDecoration(
-                                      color:
-                                          AppColors.lightGrey.withOpacity(.20),
-                                      borderRadius: BorderRadius.circular(6)),
-                                  child: Image.asset(
-                                    "assets/images/gallery.png",
-                                    height: 165,
-                                    width: 185,
-                                  ),
-                                )
-                                // : Container(
-                                //     height: 120.h,
-                                //     decoration: BoxDecoration(
-                                //         // image: DecorationImage(
-                                //         //     image: FileImage(File(
-                                //         //   controller.pickedImagePath!,
-                                //         // )
-                                //         // )),
-                                //         color: AppColors.lightGrey
-                                //             .withOpacity(.20),
-                                //         borderRadius:
-                                //             BorderRadius.circular(6)),
-                                //     child: Image.asset(
-                                //       "assets/images/gallery.png",
-                                //       height: 165,
-                                //       width: 185,
-                                //     ),
-                                //   ),
-                                //  ),
-                                )
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                    onTap: () async {
+                                      controller.CameraImage(
+                                          imageSource: ImageSource.camera);
+                                      controller.update();
+                                    },
+                                    child:
+                                        //  Obx(
+                                        //   () => controller.pickedcamerapath == ""
+                                        //       ?
+                                        Column(
+                                          children: [
+                                            Container(
+                                      height: 115.h,
+                                      decoration: BoxDecoration(
+                                              color:
+                                                  AppColors.lightGrey.withOpacity(.20),
+                                              borderRadius: BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                            "assets/images/camera.png",
+                                            height: 165,
+                                            width: 185,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text("Camera",style: primaryFonts.copyWith(
+                                      fontWeight: FontWeight.bold
+                                    ),)
+                                          ],
+                                        )
+                                    // : Container(
+                                    //     width: 200,
+                                    //     height: 115.h,
+                                    //     decoration: BoxDecoration(
+                                    //         image: DecorationImage(
+                                    //             image: FileImage(File(
+                                    //           controller.pickedcamerapath!,
+                                    //         ))),
+                                    //         border: Border.all(
+                                    //             width: 1,
+                                    //             color: AppColors.lightGrey),
+                                    //         color: AppColors.lightGrey
+                                    //             .withOpacity(.20),
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(6)),
+                                    //   ),
+                                    //    ),
+                                    ),
+                              ),
+                            ),
+                           Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                    onTap: () async {
+                                      controller.pickImage(
+                                          imageSource: ImageSource.gallery);
+                                                          
+                                      controller.update();
+                                    },
+                                    child:
+                                        //Obx(
+                                        //() => controller.pickedImagePath == ""
+                                        //?
+                                        Column(
+                                          children: [
+                                            Container(
+                                      height: 120.h,
+                                      decoration: BoxDecoration(
+                                              color:
+                                                  AppColors.lightGrey.withOpacity(.20),
+                                              borderRadius: BorderRadius.circular(6)),
+                                      child: Image.asset(
+                                            "assets/images/gallery.png",
+                                            height: 165,
+                                            width: 185,
+                                      ),
+                                    ),
+                                     const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text("Gallery",style: primaryFonts.copyWith(
+                                      fontWeight: FontWeight.bold
+                                    ),)
+                                          ],
+                                        )
+                                    // : Container(
+                                    //     height: 120.h,
+                                    //     decoration: BoxDecoration(
+                                    //         // image: DecorationImage(
+                                    //         //     image: FileImage(File(
+                                    //         //   controller.pickedImagePath!,
+                                    //         // )
+                                    //         // )),
+                                    //         color: AppColors.lightGrey
+                                    //             .withOpacity(.20),
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(6)),
+                                    //     child: Image.asset(
+                                    //       "assets/images/gallery.png",
+                                    //       height: 165,
+                                    //       width: 185,
+                                    //     ),
+                                    //   ),
+                                    //  ),
+                                    ),
+                              ),
+                            )
                           ],
                         ),
                         ksizedbox10,
@@ -831,55 +875,54 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
 
 
 
-                        Container(
-                          height: 100,
+                    if(controller.pickedImagePathList.isNotEmpty)    Container(
+                          height: 150,
                           child: ListView.builder(
-                            itemCount: controller.pickedImagePathList!.length,
+                            itemCount: controller.pickedImagePathList.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return Card(
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Image.file(
-                                              File(controller
-                                                  .pickedImagePathList[index]),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                        child: IconButton(
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color: AppColors.red,
-                                          ),
-                                          onPressed: () {
-                                            // Add your delete logic here
-                                            // For example, you can remove the image path from the list
-                                            setState(() {
-                                              controller.pickedImagePathList
-                                                  .removeAt(index);
-                                            });
-                                          },
+                              return Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: (){
+                                             showImageViewer(
+                    context,
+                    Image.file( File(controller
+                                              .pickedImagePathList[index])).image);
+                                      },
+                                      child: Container(
+                                           height: 150,
+                                        child: Image.file(
+                                          File(controller
+                                              .pickedImagePathList[index]),
+                                          fit: BoxFit.fitHeight,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: CircleAvatar(
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: AppColors.red,
+                                        ),
+                                        onPressed: () {
+                                          // Add your delete logic here
+                                          // For example, you can remove the image path from the list
+                                          setState(() {
+                                            controller.pickedImagePathList
+                                                .removeAt(index);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                           ),
@@ -904,8 +947,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               // Validate media (picked images)
-                              if (controller.pickedImagePathList != null &&
-                                  controller.pickedImagePathList!.isNotEmpty) {
+                              if (signage_detailsController.text.isNotEmpty &&signage_typeController.text.isNotEmpty &&heightController.text.isNotEmpty &&squrefitController.text.isNotEmpty &&dimensionController.text.isNotEmpty &&widthController.text.isNotEmpty &&
+                                  controller.pickedImagePathList.isNotEmpty) {
                                 controller.verifyRecee(
                                   job_card:
                                       controller.getreceedetailsData!.jobcard,
@@ -918,12 +961,12 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       signage_detailsController.text,
                                   client_id: controller.getreceedetailsData!.id
                                       .toString(),
-                                  media: controller.pickedImagePathList!,
+                                  media: controller.pickedImagePathList,
                                 );
                               } else {
                                 AppConstant.showSnackbar(
-                                  headText: "Upload Failed",
-                                  content: "Please pick at least one image.",
+                                  headText: "Fill All Details",
+                                  content: "Please fill all the details before continue.",
                                   position: SnackPosition.BOTTOM,
                                 );
                               }
@@ -938,7 +981,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   color: AppColors.green,
                                   borderRadius: BorderRadius.circular(8)),
                               child: controller.isLoadingverification.isTrue
-                                  ? Center(
+                                  ? const Center(
                                       child: CircularProgressIndicator(
                                         color: AppColors.white,
                                       ),

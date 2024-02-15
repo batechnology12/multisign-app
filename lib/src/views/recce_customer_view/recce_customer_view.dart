@@ -126,8 +126,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
           child: prfilecontroller.getprofileData!.roleId == '2'
-              ? GetBuilder<HomeController>(builder: (context) {
-                  return filteredList.isEmpty
+              ? GetBuilder<HomeController>(builder: (_) {
+                  return controller.getreceelistData.isEmpty
                   ? Center(
                       child: Image.asset('assets/icons/fi_6598519.png'))
                  
@@ -304,12 +304,10 @@ class _RecceCustomerState extends State<RecceCustomer> {
                             );
                           }));
                 })
-              : GetBuilder<HomeController>(builder: (context) {
+              : GetBuilder<HomeController>(builder: (_) {
                   return controller.installerListdata.isEmpty? 
                        Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.green,
-                        ))
+                      child: Image.asset('assets/icons/fi_6598519.png'))
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: controller.installerListdata.length,

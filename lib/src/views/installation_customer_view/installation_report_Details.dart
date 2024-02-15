@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,6 +54,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -687,11 +689,11 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 1, color: AppColors.black)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 1, color: AppColors.black))),
                               ),
                             ),
@@ -707,7 +709,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                 controller: job_cardContoller,
                                 decoration: InputDecoration(
                                     contentPadding:
-                                        EdgeInsets.only(top: 5, left: 10),
+                                        const EdgeInsets.only(top: 5, left: 10),
                                     hintText: controller
                                         .getinstallerdetailsData!
                                         .receeVerifications
@@ -725,11 +727,11 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 1, color: AppColors.black)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 1, color: AppColors.black))),
                               ),
                             ),
@@ -835,10 +837,19 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index2) {
                               return Card(
-                                child: Container(
-                                  width: 200,
-                                  child: Image.network(
-                                      widget.beforeImages[index2]),
+                                child: InkWell(
+                                  onTap: () {
+                                    showImageViewer(
+                                        context,
+                                        Image.network(
+                                                widget.beforeImages[index2])
+                                            .image);
+                                  },
+                                  child: Container(
+                                    width: 200,
+                                    child: Image.network(
+                                        widget.beforeImages[index2]),
+                                  ),
                                 ),
                               );
                             }),
@@ -863,134 +874,199 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             fontWeight: FontWeight.w600),
                       ),
                       ksizedbox15,
-   controller.getinstallerdetailsData?.installerStatus == "1"
-                          ?  Container(
-                        height: 200,
-                        child: controller.getinstallerdetailsData?.receeVerifications.last.afterImages == null ? Container(): ListView.builder(
-                            itemCount: controller.getinstallerdetailsData?.receeVerifications.last.afterImages.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index2) {
-                              return Card(
-                                child: Container(
-                                  width: 200,
-                                  child: Image.network(
-                                    controller.getinstallerdetailsData?.receeVerifications.last.afterImages[index2]),
-                                ),
-                              );
-                            }),
-                      ):
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              onTap: () async {
-                                controller.CameraImage(
-                                    imageSource: ImageSource.camera);
-                                controller.update();
-                              },
-                              child:
-                                  // Obx(
-                                  //   () => controller.pickedcamerapath == ""
-                                  //       ?
-                                  Container(
-                                height: 115.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.lightGrey.withOpacity(.20),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Image.asset(
-                                  "assets/images/camera.png",
-                                  height: 165,
-                                  width: 185,
-                                ),
-                              )
-                              // : Container(width: 200,
-                              //     height: 115.h,
-                              //     decoration: BoxDecoration(
-                              //         image: DecorationImage(
-                              //             image: FileImage(File(
-                              //           controller.pickedcamerapath!,
-                              //         ))),
-                              //         border: Border.all(
-                              //             width: 1,
-                              //             color: AppColors.lightGrey),
-                              //         color: AppColors.lightGrey
-                              //             .withOpacity(.20),
-                              //         borderRadius:
-                              //             BorderRadius.circular(6)),
-
-                              //   ),
-                              //       ),
-                              ),
-                          GestureDetector(
-                              onTap: () async {
-                                controller.pickImage(
-                                    imageSource: ImageSource.gallery);
-
-                                controller.update();
-                              },
-                              child:
-                                  //  Obx(
-                                  //   () => controller.pickedImagePath == ""
-                                  //       ?
-                                  Container(
-                                height: 120.h,
-                                decoration: BoxDecoration(
-                                    color: AppColors.lightGrey.withOpacity(.20),
-                                    borderRadius: BorderRadius.circular(6)),
-                                child: Image.asset(
-                                  "assets/images/gallery.png",
-                                  height: 165,
-                                  width: 185,
-                                ),
-                              )
-                              // : Container(
-                              //     height: 120.h,
-                              //     decoration: BoxDecoration(
-                              //         image: DecorationImage(
-                              //             image: FileImage(File(
-                              //           controller.pickedImagePath!,
-                              //         ))),
-                              //         color: AppColors.lightGrey
-                              //             .withOpacity(.20),
-                              //         borderRadius:
-                              //             BorderRadius.circular(6)),
-                              //     child: Image.asset(
-                              //       "assets/images/gallery.png",
-                              //       height: 165,
-                              //       width: 185,
-                              //     ),
-                              //   ),
-                              //     ),
-                              )
-                        ],
-                      ),
-                      ksizedbox30,
-
-                  if(controller.pickedImagePathList!.isNotEmpty)    Container(
-                        height: 100,
-                        child: ListView.builder(
-                          itemCount: controller.pickedImagePathList!.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 100,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Image.file(
-                                            File(controller
-                                                .pickedImagePathList[index]),
-                                            fit: BoxFit.cover,
+                      controller.getinstallerdetailsData?.installerStatus == "1"
+                          ? Container(
+                              height: 200,
+                              child: controller
+                                          .getinstallerdetailsData
+                                          ?.receeVerifications
+                                          .last
+                                          .afterImages ==
+                                      null
+                                  ? Container()
+                                  : ListView.builder(
+                                      itemCount: controller
+                                          .getinstallerdetailsData
+                                          ?.receeVerifications
+                                          .last
+                                          .afterImages
+                                          .length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index2) {
+                                        return InkWell(
+                                          onTap: () {
+                                             showImageViewer(
+                                        context,
+                                        Image.network(
+                                                controller
+                                                  .getinstallerdetailsData
+                                                  ?.receeVerifications
+                                                  .last
+                                                  .afterImages[index2])
+                                            .image);
+                                          },
+                                          child: Card(
+                                            child: Container(
+                                              width: 200,
+                                              child: Image.network(controller
+                                                  .getinstallerdetailsData
+                                                  ?.receeVerifications
+                                                  .last
+                                                  .afterImages[index2]),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () async {
+                                          controller.CameraImage(
+                                              imageSource: ImageSource.camera);
+                                          controller.update();
+                                        },
+                                        child:
+                                            // Obx(
+                                            //   () => controller.pickedcamerapath == ""
+                                            //       ?
+                                            Column(
+                                              children: [
+                                                Container(
+                                          height: 115.h,
+                                          decoration: BoxDecoration(
+                                                  color: AppColors.lightGrey
+                                                      .withOpacity(.20),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                          child: Image.asset(
+                                                "assets/images/camera.png",
+                                                height: 165,
+                                                width: 185,
                                           ),
                                         ),
-                                      ],
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Camera",style: primaryFonts.copyWith(
+                                          fontWeight: FontWeight.bold
+                                        ),),
+                                              ],
+                                            )
+                                        // : Container(width: 200,
+                                        //     height: 115.h,
+                                        //     decoration: BoxDecoration(
+                                        //         image: DecorationImage(
+                                        //             image: FileImage(File(
+                                        //           controller.pickedcamerapath!,
+                                        //         ))),
+                                        //         border: Border.all(
+                                        //             width: 1,
+                                        //             color: AppColors.lightGrey),
+                                        //         color: AppColors.lightGrey
+                                        //             .withOpacity(.20),
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(6)),
+                                                                  
+                                        //   ),
+                                        //       ),
+                                        ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () async {
+                                          controller.pickImage(
+                                              imageSource: ImageSource.gallery);
+                                                                  
+                                          controller.update();
+                                        },
+                                        child:
+                                            //  Obx(
+                                            //   () => controller.pickedImagePath == ""
+                                            //       ?
+                                            Column(
+                                              children: [
+                                                Container(
+                                          height: 120.h,
+                                          decoration: BoxDecoration(
+                                                  color: AppColors.lightGrey
+                                                      .withOpacity(.20),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                          child: Image.asset(
+                                                "assets/images/gallery.png",
+                                                height: 165,
+                                                width: 185,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text("Gallery",style: primaryFonts.copyWith(
+                                          fontWeight: FontWeight.bold
+                                        ),),
+                                              ],
+                                            )
+                                        // : Container(
+                                        //     height: 120.h,
+                                        //     decoration: BoxDecoration(
+                                        //         image: DecorationImage(
+                                        //             image: FileImage(File(
+                                        //           controller.pickedImagePath!,
+                                        //         ))),
+                                        //         color: AppColors.lightGrey
+                                        //             .withOpacity(.20),
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(6)),
+                                        //     child: Image.asset(
+                                        //       "assets/images/gallery.png",
+                                        //       height: 165,
+                                        //       width: 185,
+                                        //     ),
+                                        //   ),
+                                        //     ),
+                                        ),
+                                  ),
+                                )
+                              ],
+                            ),
+                      ksizedbox30,
+                      if (controller.pickedImagePathList.isNotEmpty)
+                        Container(
+                          height: 150,
+                          child: ListView.builder(
+                            itemCount: controller.pickedImagePathList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      showImageViewer(
+                                        context,
+                                        Image.file(
+                                               File(controller
+                                                  .pickedImagePathList[index]))
+                                            .image);
+                                    },
+                                    child: Container(
+                                      width: size.width * 0.8,
+                                      height: 150,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.file(
+                                          File(controller
+                                              .pickedImagePathList[index]),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   Positioned(
@@ -998,7 +1074,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     right: 0,
                                     child: CircleAvatar(
                                       child: IconButton(
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.delete,
                                           color: AppColors.red,
                                         ),
@@ -1014,11 +1090,10 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     ),
                                   ),
                                 ],
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
-                      ),
                       ksizedbox15,
                       controller.getinstallerdetailsData?.installerStatus == "1"
                           ? Container(
@@ -1038,14 +1113,12 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             )
                           : InkWell(
                               onTap: () {
-                                if (controller.pickedImagePathList != null &&
-                                    controller
-                                        .pickedImagePathList!.isNotEmpty) {
+                                if (controller.pickedImagePathList.isNotEmpty) {
                                   controller.verifyInstall(
                                     job_card: controller
                                         .getinstallerdetailsData!.jobcard,
                                     //  media1: controller.pickedcamerapath!,
-                                    media: controller.pickedImagePathList!,
+                                    media: controller.pickedImagePathList,
                                   );
                                   controller.pickedImagePath != '';
                                 } else {
@@ -1064,7 +1137,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       color: AppColors.green,
                                       borderRadius: BorderRadius.circular(8)),
                                   child: controller.isLoadingverification.isTrue
-                                      ? Center(
+                                      ? const Center(
                                           child: CircularProgressIndicator(
                                             color: AppColors.white,
                                           ),

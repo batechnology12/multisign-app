@@ -35,13 +35,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
-          children: [  controller.getprofileData == null
+          children: [
+            controller.getprofileData == null
                     ? Center(
                         child: CircularProgressIndicator(
                           color: AppColors.red,
                         ),):
             Container(
-              height: 550,
+         
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Colors.grey[300],
@@ -67,14 +68,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 1,
                   ),
                   ksizedbox10,
-             CircleAvatar(backgroundImage: AssetImage('assets/images/blank-profile-picture-973460_1920.png',),radius: 26,),
+            //  CircleAvatar(backgroundImage: AssetImage('assets/images/blank-profile-picture-973460_1920.png',),radius: 26,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
                         ksizedbox20,
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                       const Padding(
+                          padding:  EdgeInsets.all(8.0),
                           child: Row(
                             children: [
                               Text(
@@ -205,25 +206,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         ksizedbox20,
-                        CustomElevatedButton(
-                          height: 45,
-                          width: 1,
-                          onPressed: () {
-                            //   Get.to(BottomNaviBar());
-                            // ProfileUpdateModel profileUpdateModel =
-                            // ProfileUpdateModel(
-                            // email: emailController.text,
-                            // mobilenumber: mobileController.text,
-                            // name: nameController.text);
-                            // profileController.updateprofile(profileUpdateModel: profileUpdateModel);
-                            // profileController.isEdited(true);
-                            // profileController.update();
-                            // Get.back();
-                          },
+                        // CustomElevatedButton(
+                        //   height: 45,
+                        //   width: 1,
+                        //   onPressed: () {
+                        //     //   Get.to(BottomNaviBar());
+                        //     // ProfileUpdateModel profileUpdateModel =
+                        //     // ProfileUpdateModel(
+                        //     // email: emailController.text,
+                        //     // mobilenumber: mobileController.text,
+                        //     // name: nameController.text);
+                        //     // profileController.updateprofile(profileUpdateModel: profileUpdateModel);
+                        //     // profileController.isEdited(true);
+                        //     // profileController.update();
+                        //     // Get.back();
+                        //   },
                         
-                          color: AppColors.green,
-                          textColor: Colors.white, child: customtext(text: 'Update'),
-                        ),
+                        //   color: AppColors.green,
+                        //   textColor: Colors.white, child: customtext(text: 'Update'),
+                        // ),
                       ],
                     ),
                   )

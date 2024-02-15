@@ -80,7 +80,7 @@ class HomeController extends GetxController {
         await getInstallerApiServices.getInstallerApiServices();
     isLoading(false);
     update();
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       GetInstallerModel getInstallerModel =
           GetInstallerModel.fromJson(response.data);
       installerListdata = getInstallerModel.data;
@@ -295,7 +295,8 @@ class HomeController extends GetxController {
       //cameraimage = File(pickedCamerafile.path);
 
       cameraimagePath.value = croppedFile1!.path;
-      pickedImagePathList.add(croppedFile1!.path);
+      pickedImagePathList = [croppedFile1.path];
+      // pickedImagePathList.add(croppedFile1!.path);
        pickedImagePath==null;
       update();
    //   pickedImagePath==null;
@@ -353,7 +354,9 @@ class HomeController extends GetxController {
       //  _pickedImage = File(pickedFile.path);
 
       _pickedImagePath.value = croppedFile!.path;
-      pickedImagePathList.add(croppedFile!.path);
+
+      // pickedImagePathList.add(croppedFile!.path);
+      pickedImagePathList = [croppedFile.path];
       update();
         print(
         'picked image size ${_pickedImage!.lengthSync()}',
