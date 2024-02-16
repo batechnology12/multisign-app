@@ -52,6 +52,7 @@ dependencies:
   easy_image_viewer: ^1.4.1
   flutter_painter_v2: ^2.0.1
   phosphor_flutter: ^2.0.1
+  flutter_phosphor_icons: ^0.0.1+6
   
 
 

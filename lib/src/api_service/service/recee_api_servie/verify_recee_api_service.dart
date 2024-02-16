@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +14,7 @@ class VerifyReceeApiServices extends BaseApiService {
     required String signage_type,
     required String signage_details,
     required String client_id,
-    required List<String> media,
+    required List<Uint8List?> media,
   }) async {
     dynamic responseJson;
     try {
@@ -32,7 +33,7 @@ class VerifyReceeApiServices extends BaseApiService {
         "client_id": client_id,
         for (int i = 0; i < media.length; i++)
           "before_images[$i]":
-              await MultipartFile.fromFile(media[i], filename: "image$i"),
+               MultipartFile.fromBytes(media[i]!, filename: "image$i"),
       });
 
       var response = await dio.post(receeverificationURI,

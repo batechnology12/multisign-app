@@ -94,7 +94,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Center(
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                            children: <Widget>[    Row(
+                              children: [
+                                ShimmerPro.sized(
+                                          light: shimmerlight,
+                                          scaffoldBackgroundColor: bgColor,
+                                          height: 100,
+                                          width: 100,
+                                          borderRadius: 50,
+                                        ),
+                               ShimmerPro.text(
+                              light: shimmerlight,
+                              width: 250,
+                              scaffoldBackgroundColor: bgColor,
+                            ),  ],
+                            ),
                             const SizedBox(height: 20),
                             ShimmerPro.text(
                               light: shimmerlight,
@@ -119,25 +133,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: 450,
                               scaffoldBackgroundColor: bgColor,
                             ),
-                            // ShimmerPro.generated(
-                            //     light: shimmerlight,
-                            //     scaffoldBackgroundColor: bgColor,
-                            //     child: Row(
-                            //       children: [
-                            //         ShimmerPro.sized(
-                            //           light: shimmerlight,
-                            //           scaffoldBackgroundColor: bgColor,
-                            //           height: 100,
-                            //           width: 100,
-                            //           borderRadius: 50,
-                            //         ),
-                            //         ShimmerPro.text(
-                            //           light: shimmerlight,
-                            //           scaffoldBackgroundColor: bgColor,
-                            //           width: 270,
-                            //         )
-                            //       ],
-                            //     ))
+                            ShimmerPro.generated(
+                                light: shimmerlight,
+                                scaffoldBackgroundColor: bgColor,
+                                child: Row(
+                                  children: [
+                                
+                                    ShimmerPro.text(
+                                      light: shimmerlight,
+                                      scaffoldBackgroundColor: bgColor,
+                                      width: 270,
+                                    )
+                                  ],
+                                ))
                           ]))
                     :  RefreshIndicator(
                        onRefresh: () async{
@@ -168,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           InkWell(
                                             onTap: (){
-                                              Get.to(()=> ExampleWidget());
+                                              // Get.to(()=> FlutterPainterExample());
                                             },
                                             child: Text(
                                               "Hello,",

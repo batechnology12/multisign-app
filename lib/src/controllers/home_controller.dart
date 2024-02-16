@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import 'package:multisign_app/src/model/get_details_recee_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/home_model.dart';
+import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 
 class HomeController extends GetxController {
   List letters = ["AK", "WA", "JR", "JR"];
@@ -156,7 +158,7 @@ class HomeController extends GetxController {
     required String signage_type,
     required String signage_details,
     required String client_id,
-    required List<String> media,
+    required List<Uint8List?> media,
   }) async {
     isLoadingverification(true);
     update();
@@ -174,6 +176,7 @@ class HomeController extends GetxController {
     );
     isLoadingverification(false);
     if (response.data['status'] == true) {
+     pickedEditedImagePathList.clear();
       Get.to(BottomNaviBar());
       pickedImagePathList.clear();
        pickedImagePath!='';
@@ -192,8 +195,8 @@ class HomeController extends GetxController {
       // );
     } else {
       AppConstant.showSnackbar(
-        headText: "Failed",
-        content: "Something went wrong",
+        headText: "Upload Failed",
+        content: response.data['message'],
         position: SnackPosition.BOTTOM,
       );
       // Get.showSnackbar(
@@ -270,9 +273,12 @@ class HomeController extends GetxController {
 
     if (pickedCamerafile != null) {
       print('=========================================');
+
+     
       final croppedcam = await ImageCropper().cropImage(
         sourcePath: pickedCamerafile!.path,
-        aspectRatioPresets: [CropAspectRatioPreset.ratio7x5],
+        compressQuality: 50,
+        aspectRatioPresets: [CropAspectRatioPreset.ratio4x3,CropAspectRatioPreset.original,],
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
@@ -294,20 +300,25 @@ class HomeController extends GetxController {
 
       //cameraimage = File(pickedCamerafile.path);
 
-      cameraimagePath.value = croppedFile1!.path;
-      pickedImagePathList = [croppedFile1.path];
+      // cameraimagePath.value = croppedFile1!.path;
+       Get.to(()=> FlutterPainterExample(
+        image: croppedFile1.path,
+      ));
+      // pickedImagePathList = [croppedFile1.path];
+      // pickedEditedImagePathList = []
       // pickedImagePathList.add(croppedFile1!.path);
        pickedImagePath==null;
       update();
    //   pickedImagePath==null;
-      print(
-        'picked image size ${cameraimage!.lengthSync()}',
-      );
+      // print(
+      //   'picked image size ${cameraimage!.lengthSync()}',
+      // );
     } else {}
   }
 
   final picker = ImagePicker();
   List<String> pickedImagePathList = [];
+  List<Uint8List?> pickedEditedImagePathList = [];
   File? _pickedImage;
   final _pickedImagePath = ''.obs;
 
@@ -326,9 +337,11 @@ class HomeController extends GetxController {
     );
 
     if (pickedFile != null) {
+     
       final croppedImage = await ImageCropper().cropImage(
         sourcePath: pickedFile!.path,
-        aspectRatioPresets: [CropAspectRatioPreset.ratio7x5],
+        compressQuality: 70,
+        aspectRatioPresets: [CropAspectRatioPreset.ratio7x5,CropAspectRatioPreset.original],
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
@@ -348,19 +361,21 @@ class HomeController extends GetxController {
       if (croppedImage == null) return;
 
       final croppedFile = File(croppedImage.path);
+  Get.to(()=> FlutterPainterExample(
+        image: croppedFile.path,
+      ));
+      // //  image = croppedFile;
 
-      //  image = croppedFile;
+      // //  _pickedImage = File(pickedFile.path);
 
-      //  _pickedImage = File(pickedFile.path);
+      // _pickedImagePath.value = croppedFile!.path;
 
-      _pickedImagePath.value = croppedFile!.path;
-
-      // pickedImagePathList.add(croppedFile!.path);
-      pickedImagePathList = [croppedFile.path];
-      update();
-        print(
-        'picked image size ${_pickedImage!.lengthSync()}',
-      );
+      // // pickedImagePathList.add(croppedFile!.path);
+      // pickedImagePathList = [croppedFile.path];
+      // update();
+      //   print(
+      //   'picked image size ${_pickedImage!.lengthSync()}',
+      // );
     } else {}
   }
 

@@ -10,6 +10,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 
 class RecceReportDetails extends StatefulWidget {
   final String id;
@@ -34,6 +35,10 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       TextEditingController();
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
+
+
+var selectedDimension;
+
 // String? cameraImages;
   final _ImagePath = ''.obs;
   String? get ImagePath => _ImagePath.value;
@@ -599,55 +604,68 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 8),
-                                    height: 55.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4)),
-                                    child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      keyboardType: TextInputType.number,
-                                      controller: dimensionController,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter Dimensions';
-                                        }
-                                        // You can add more validation rules here if needed
-                                        return null; // Return null if the input is valid
-                                      },
-                                      decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.only(top: 5, left: 10),
-                                          labelText: 'Dimensions',
-                                          labelStyle: primaryFonts.copyWith(
-                                              color: AppColors.black,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black,
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              borderSide: BorderSide(
-                                                  width: 1,
-                                                  color: AppColors.black)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              borderSide: BorderSide(
-                                                  width: 1,
-                                                  color: AppColors.black))),
-                                    ),
-                                  ),
-                                ),
+                              Expanded(
+  child: Container(
+    margin: EdgeInsets.only(right: 8),
+    height: 55.h,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: DropdownButtonFormField<String>(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      value: selectedDimension,
+      onChanged: (String? newValue) {
+        setState(() {
+          selectedDimension = newValue;
+          dimensionController.text=newValue!;
+        });
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please select a dimension';
+        }
+        return null; // Return null if the input is valid
+      },
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(top: 5, left: 10),
+        labelText: 'Dimensions',
+        labelStyle: primaryFonts.copyWith(
+          color: AppColors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.black,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.black,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.black,
+          ),
+        ),
+      ),
+      items: <String>['mm', 'Inch', 'Feet'] // Replace with your dropdown options
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    ),
+  ),
+),
                                 Expanded(
                                   child: Container(
                                     height: 55.h,
@@ -708,7 +726,6 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           ],
                         ),
 
-                  
                         ksizedbox20,
                         Text(
                           "Capture Spaces & My Space",
@@ -718,284 +735,313 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               fontWeight: FontWeight.w600),
                         ),
                         ksizedbox15,
-                     controller
-                                        .getreceedetailsData?.isReceeVerrified =="1"?      Container(
-                          height: 200,
-                         
-                          child: ListView.builder(
-                              itemCount: controller
+                        controller.getreceedetailsData?.isReceeVerrified == "1"
+                            ? Container(
+                                height: 200,
+                                child: ListView.builder(
+                                    itemCount: controller
                                         .getreceedetailsData
-                                        ?.receeVerifications!.last.beforeImages.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index2) {
-                                return Card(
-                                  child: InkWell(
-                                    onTap: (){
-                                      showImageViewer(
-                    context,
-                    Image.network(controller
-                                          .getreceedetailsData
-                                          ?.receeVerifications.last
-                                          .beforeImages[index2])
-                        .image,
-                    swipeDismissible: true,
-                    doubleTapZoomable: true);
-                                    },
-                                    child: Container(
-                                     width: 200,
-                                      child: Image.network(controller
-                                          .getreceedetailsData
-                                          ?.receeVerifications.last
-                                          .beforeImages[index2]),
+                                        ?.receeVerifications!
+                                        .last
+                                        .beforeImages
+                                        .length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index2) {
+                                      return Card(
+                                        child: InkWell(
+                                          onTap: () {
+                                            showImageViewer(
+                                                context,
+                                                Image.network(controller
+                                                        .getreceedetailsData
+                                                        ?.receeVerifications
+                                                        .last
+                                                        .beforeImages[index2])
+                                                    .image,
+                                                swipeDismissible: true,
+                                                doubleTapZoomable: true);
+                                          },
+                                          child: Container(
+                                            width: 200,
+                                            child: Image.network(controller
+                                                .getreceedetailsData
+                                                ?.receeVerifications
+                                                .last
+                                                .beforeImages[index2]),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                          onTap: () async {
+                                            controller.CameraImage(
+                                                imageSource:
+                                                    ImageSource.camera);
+                                            controller.update();
+                                          },
+                                          child:
+                                              //  Obx(
+                                              //   () => controller.pickedcamerapath == ""
+                                              //       ?
+                                              Column(
+                                            children: [
+                                              Container(
+                                                height: 115.h,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.lightGrey
+                                                        .withOpacity(.20),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: Image.asset(
+                                                  "assets/images/camera.png",
+                                                  height: 165,
+                                                  width: 185,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "Camera",
+                                                style: primaryFonts.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )
+                                          // : Container(
+                                          //     width: 200,
+                                          //     height: 115.h,
+                                          //     decoration: BoxDecoration(
+                                          //         image: DecorationImage(
+                                          //             image: FileImage(File(
+                                          //           controller.pickedcamerapath!,
+                                          //         ))),
+                                          //         border: Border.all(
+                                          //             width: 1,
+                                          //             color: AppColors.lightGrey),
+                                          //         color: AppColors.lightGrey
+                                          //             .withOpacity(.20),
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(6)),
+                                          //   ),
+                                          //    ),
+                                          ),
                                     ),
                                   ),
-                                );
-                              }),
-                        ):
-   Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                    onTap: () async {
-                                      controller.CameraImage(
-                                          imageSource: ImageSource.camera);
-                                      controller.update();
-                                    },
-                                    child:
-                                        //  Obx(
-                                        //   () => controller.pickedcamerapath == ""
-                                        //       ?
-                                        Column(
-                                          children: [
-                                            Container(
-                                      height: 115.h,
-                                      decoration: BoxDecoration(
-                                              color:
-                                                  AppColors.lightGrey.withOpacity(.20),
-                                              borderRadius: BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                            "assets/images/camera.png",
-                                            height: 165,
-                                            width: 185,
-                                      ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                          onTap: () async {
+                                            controller.pickImage(
+                                                imageSource:
+                                                    ImageSource.gallery);
+
+                                            controller.update();
+                                          },
+                                          child:
+                                              //Obx(
+                                              //() => controller.pickedImagePath == ""
+                                              //?
+                                              Column(
+                                            children: [
+                                              Container(
+                                                height: 120.h,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.lightGrey
+                                                        .withOpacity(.20),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: Image.asset(
+                                                  "assets/images/gallery.png",
+                                                  height: 165,
+                                                  width: 185,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "Gallery",
+                                                style: primaryFonts.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )
+                                          // : Container(
+                                          //     height: 120.h,
+                                          //     decoration: BoxDecoration(
+                                          //         // image: DecorationImage(
+                                          //         //     image: FileImage(File(
+                                          //         //   controller.pickedImagePath!,
+                                          //         // )
+                                          //         // )),
+                                          //         color: AppColors.lightGrey
+                                          //             .withOpacity(.20),
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(6)),
+                                          //     child: Image.asset(
+                                          //       "assets/images/gallery.png",
+                                          //       height: 165,
+                                          //       width: 185,
+                                          //     ),
+                                          //   ),
+                                          //  ),
+                                          ),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Camera",style: primaryFonts.copyWith(
-                                      fontWeight: FontWeight.bold
-                                    ),)
-                                          ],
-                                        )
-                                    // : Container(
-                                    //     width: 200,
-                                    //     height: 115.h,
-                                    //     decoration: BoxDecoration(
-                                    //         image: DecorationImage(
-                                    //             image: FileImage(File(
-                                    //           controller.pickedcamerapath!,
-                                    //         ))),
-                                    //         border: Border.all(
-                                    //             width: 1,
-                                    //             color: AppColors.lightGrey),
-                                    //         color: AppColors.lightGrey
-                                    //             .withOpacity(.20),
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(6)),
-                                    //   ),
-                                    //    ),
-                                    ),
+                                  )
+                                ],
                               ),
-                            ),
-                           Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                    onTap: () async {
-                                      controller.pickImage(
-                                          imageSource: ImageSource.gallery);
-                                                          
-                                      controller.update();
-                                    },
-                                    child:
-                                        //Obx(
-                                        //() => controller.pickedImagePath == ""
-                                        //?
-                                        Column(
-                                          children: [
-                                            Container(
-                                      height: 120.h,
-                                      decoration: BoxDecoration(
-                                              color:
-                                                  AppColors.lightGrey.withOpacity(.20),
-                                              borderRadius: BorderRadius.circular(6)),
-                                      child: Image.asset(
-                                            "assets/images/gallery.png",
-                                            height: 165,
-                                            width: 185,
-                                      ),
-                                    ),
-                                     const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Gallery",style: primaryFonts.copyWith(
-                                      fontWeight: FontWeight.bold
-                                    ),)
-                                          ],
-                                        )
-                                    // : Container(
-                                    //     height: 120.h,
-                                    //     decoration: BoxDecoration(
-                                    //         // image: DecorationImage(
-                                    //         //     image: FileImage(File(
-                                    //         //   controller.pickedImagePath!,
-                                    //         // )
-                                    //         // )),
-                                    //         color: AppColors.lightGrey
-                                    //             .withOpacity(.20),
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(6)),
-                                    //     child: Image.asset(
-                                    //       "assets/images/gallery.png",
-                                    //       height: 165,
-                                    //       width: 185,
-                                    //     ),
-                                    //   ),
-                                    //  ),
-                                    ),
-                              ),
-                            )
-                          ],
-                        ),
                         ksizedbox10,
 
-
-
-
-
-                    if(controller.pickedImagePathList.isNotEmpty)    Container(
-                          height: 150,
-                          child: ListView.builder(
-                            itemCount: controller.pickedImagePathList.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: (){
-                                             showImageViewer(
-                    context,
-                    Image.file( File(controller
-                                              .pickedImagePathList[index])).image);
-                                      },
-                                      child: Container(
-                                           height: 150,
-                                        child: Image.file(
-                                          File(controller
-                                              .pickedImagePathList[index]),
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: CircleAvatar(
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: AppColors.red,
-                                        ),
-                                        onPressed: () {
-                                          // Add your delete logic here
-                                          // For example, you can remove the image path from the list
-                                          setState(() {
-                                            controller.pickedImagePathList
-                                                .removeAt(index);
-                                          });
+                        if (controller.pickedEditedImagePathList.isNotEmpty)
+                          Container(
+                            height: 150,
+                            child: ListView.builder(
+                              itemCount: controller.pickedEditedImagePathList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          showImageViewer(
+                                              context,
+                                              Image.memory( controller
+                                                .pickedEditedImagePathList[index]!)
+                                                  .image);
                                         },
+                                        child: Container(
+                                          height: 150,
+                                          child: Image.memory(
+                                            controller
+                                                .pickedEditedImagePathList[index]!,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                        ksizedbox20, controller
-                                        .getreceedetailsData?.isReceeVerrified =="1"? Container(
-                              alignment: Alignment.center,
-                              height: 45,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: AppColors.green,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child:Text(
-                                      "Completed",
-                                      style: primaryFonts.copyWith(
-                                          color: AppColors.white,
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                            ):
-                        InkWell(
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              // Validate media (picked images)
-                              if (signage_detailsController.text.isNotEmpty &&signage_typeController.text.isNotEmpty &&heightController.text.isNotEmpty &&squrefitController.text.isNotEmpty &&dimensionController.text.isNotEmpty &&widthController.text.isNotEmpty &&
-                                  controller.pickedImagePathList.isNotEmpty) {
-                                controller.verifyRecee(
-                                  job_card:
-                                      controller.getreceedetailsData!.jobcard,
-                                  width: widthController.text,
-                                  height: heightController.text,
-                                  squrefit: squrefitController.text,
-                                  dimension: dimensionController.text,
-                                  signage_type: signage_typeController.text,
-                                  signage_details:
-                                      signage_detailsController.text,
-                                  client_id: controller.getreceedetailsData!.id
-                                      .toString(),
-                                  media: controller.pickedImagePathList,
-                                );
-                              } else {
-                                AppConstant.showSnackbar(
-                                  headText: "Fill All Details",
-                                  content: "Please fill all the details before continue.",
-                                  position: SnackPosition.BOTTOM,
-                                );
-                              }
-                            }
-                          },
-                          child: Obx(
-                            () => Container(
-                              alignment: Alignment.center,
-                              height: 45,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: AppColors.green,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: controller.isLoadingverification.isTrue
-                                  ? const Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppColors.white,
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: CircleAvatar(
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: AppColors.red,
+                                          ),
+                                          onPressed: () {
+                                            // Add your delete logic here
+                                            // For example, you can remove the image path from the list
+                                            setState(() {
+                                              controller.pickedEditedImagePathList
+                                                  .removeAt(index);
+                                            });
+                                          },
+                                        ),
                                       ),
-                                    )
-                                  : Text(
-                                      "Submit",
-                                      style: primaryFonts.copyWith(
-                                          color: AppColors.white,
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.w600),
                                     ),
+                                  ],
+                                );
+                              },
                             ),
                           ),
-                        ),
+                        ksizedbox20,
+                        controller.getreceedetailsData?.isReceeVerrified == "1"
+                            ? Container(
+                                alignment: Alignment.center,
+                                height: 45,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: AppColors.green,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Text(
+                                  "Completed",
+                                  style: primaryFonts.copyWith(
+                                      color: AppColors.white,
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // Validate media (picked images)
+                                    if (signage_detailsController
+                                            .text.isNotEmpty &&
+                                        signage_typeController
+                                            .text.isNotEmpty &&
+                                        heightController.text.isNotEmpty &&
+                                        squrefitController.text.isNotEmpty &&
+                                        dimensionController.text.isNotEmpty &&
+                                        widthController.text.isNotEmpty &&
+                                        controller
+                                            .pickedEditedImagePathList.isNotEmpty) {
+                                      controller.verifyRecee(
+                                        job_card: controller
+                                            .getreceedetailsData!.jobcard,
+                                        width: widthController.text,
+                                        height: heightController.text,
+                                        squrefit: squrefitController.text,
+                                        dimension: dimensionController.text,
+                                        signage_type:
+                                            signage_typeController.text,
+                                        signage_details:
+                                            signage_detailsController.text,
+                                        client_id: controller
+                                            .getreceedetailsData!.id
+                                            .toString(),
+                                        media: controller.pickedEditedImagePathList,
+                                      );
+                                    } else {
+                                      AppConstant.showSnackbar(
+                                        headText: "Fill All Details",
+                                        content:
+                                            "Please fill all the details before continue.",
+                                        position: SnackPosition.BOTTOM,
+                                      );
+                                    }
+                                  }
+                                },
+                                child: Obx(
+                                  () => Container(
+                                    alignment: Alignment.center,
+                                    height: 45,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.green,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: controller
+                                            .isLoadingverification.isTrue
+                                        ? const Center(
+                                            child: CircularProgressIndicator(
+                                              color: AppColors.white,
+                                            ),
+                                          )
+                                        : Text(
+                                            "Submit",
+                                            style: primaryFonts.copyWith(
+                                                color: AppColors.white,
+                                                fontSize: 23,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                  ),
+                                ),
+                              ),
                         ksizedbox20,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
