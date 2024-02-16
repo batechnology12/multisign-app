@@ -214,7 +214,7 @@ class HomeController extends GetxController {
 
   verifyInstall({
     required String job_card,
-    required List<String> media,
+    required List<Uint8List?> media,
     //  required String media1,
   }) async {
     isLoadingverification(true);
@@ -231,7 +231,7 @@ class HomeController extends GetxController {
 
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
-       pickedImagePathList.clear();
+       pickedEditedImagePathList.clear();
        pickedImagePath!.isEmpty;
        print('======================${pickedImagePath}==========================');
       Get.rawSnackbar(
@@ -261,8 +261,10 @@ class HomeController extends GetxController {
   String? get pickedcamerapath => cameraimagePath.value;
 
   void setImagesEmpty() {
-    cameraimagePath.value = '';
+    pickedEditedImagePathList. isEmpty;
+    update();
   }
+  
 
   Future CameraImage({
     required ImageSource imageSource,

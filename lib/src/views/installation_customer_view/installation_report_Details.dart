@@ -9,6 +9,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:shimmer_pro/shimmer_pro.dart';
 
 class InstallationReportDetails extends StatefulWidget {
   final String id;
@@ -33,6 +34,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
     // TODO: implement initState
     super.initState();
     setDefault();
+    _themeMode();
+   
   }
 
   setDefault() {
@@ -51,6 +54,25 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   File? photo;
   File? image;
   ImagePicker imagePicker = ImagePicker();
+    late Color bgColor;
+  bool isThemeDark = true;
+
+  late ShimmerProLight shimmerlight;
+
+  void _themeMode() {
+    isThemeDark = !isThemeDark;
+    if (isThemeDark) {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 50, 50, 50);
+        shimmerlight = ShimmerProLight.lighter;
+      });
+    } else {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 240, 240, 240);
+        shimmerlight = ShimmerProLight.darker;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +91,47 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
         child: SingleChildScrollView(
           child: GetBuilder<HomeController>(builder: (context) {
             return controller.getinstallerdetailsData == null
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.green,
-                    ),
-                  )
+                ? Column(
+                  children: [
+                    ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10,      ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10,      ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10, 
+                  ],
+                )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -848,7 +906,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                   child: Container(
                                     width: 200,
                                     child: Image.network(
-                                        widget.beforeImages[index2]),
+                                        widget.beforeImages[index2]
+                                        ),
                                   ),
                                 ),
                               );
@@ -1038,62 +1097,64 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ],
                             ),
                       ksizedbox30,
-                      if (controller.pickedImagePathList.isNotEmpty)
-                        Container(
-                          height: 150,
-                          child: ListView.builder(
-                            itemCount: controller.pickedImagePathList.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  InkWell(
-                                    onTap: (){
-                                      showImageViewer(
-                                        context,
-                                        Image.file(
-                                               File(controller
-                                                  .pickedImagePathList[index]))
-                                            .image);
-                                    },
-                                    child: Container(
-                                      width: size.width * 0.8,
-                                      height: 150,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.file(
-                                          File(controller
-                                              .pickedImagePathList[index]),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: CircleAvatar(
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: AppColors.red,
-                                        ),
-                                        onPressed: () {
-                                          // Add your delete logic here
-                                          // For example, you can remove the image path from the list
-                                          setState(() {
-                                            controller.pickedImagePathList
-                                                .removeAt(index);
-                                          });
+                         if (controller.pickedEditedImagePathList.isNotEmpty)
+                          Container(
+                            height: 150,
+                            child: ListView.builder(
+                              itemCount:
+                                  controller.pickedEditedImagePathList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          showImageViewer(
+                                              context,
+                                              Image.memory(controller
+                                                          .pickedEditedImagePathList[
+                                                      index]!)
+                                                  .image);
                                         },
+                                        child: Container(
+                                          height: 150,
+                                          child: Image.memory(
+                                            controller
+                                                    .pickedEditedImagePathList[
+                                                index]!,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              );
-                            },
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: CircleAvatar(
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: AppColors.red,
+                                          ),
+                                          onPressed: () {
+                                            // Add your delete logic here
+                                            // For example, you can remove the image path from the list
+                                            setState(() {
+                                              controller
+                                                  .pickedEditedImagePathList
+                                                  .removeAt(index);
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                           ),
-                        ),
                       ksizedbox15,
                       controller.getinstallerdetailsData?.installerStatus == "1"
                           ? Container(
@@ -1113,12 +1174,12 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             )
                           : InkWell(
                               onTap: () {
-                                if (controller.pickedImagePathList.isNotEmpty) {
+                                if (controller.pickedEditedImagePathList.isNotEmpty) {
                                   controller.verifyInstall(
                                     job_card: controller
                                         .getinstallerdetailsData!.jobcard,
                                     //  media1: controller.pickedcamerapath!,
-                                    media: controller.pickedImagePathList,
+                                    media: controller.pickedEditedImagePathList,
                                   );
                                   controller.pickedImagePath != '';
                                 } else {

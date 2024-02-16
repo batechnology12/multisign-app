@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class VerifyInstallationApiServices extends BaseApiService {
   Future varifyInastallatinApi({
     required String job_card,
-    required List<String> media,
+    required List<Uint8List?> media,
   }) async {
     dynamic responseJson;
     try {
@@ -18,7 +19,7 @@ class VerifyInstallationApiServices extends BaseApiService {
         "job_card": job_card,
         for (int i = 0; i < media.length; i++)
           "after_images[$i]":
-              await MultipartFile.fromFile(media[i], filename: "image$i"),
+               MultipartFile.fromBytes(media[i]!, filename: "image$i"),
       });
 
       var response = await dio.post(installerVerificationURI,

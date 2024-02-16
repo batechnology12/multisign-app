@@ -8,7 +8,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
-import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
@@ -22,14 +21,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   late Color bgColor;
   bool isThemeDark = true;
-
   late ShimmerProLight shimmerlight;
-  // var projectDetails = ProjectDetails();
   final controller = Get.find<ProfileController>();
   final multisign = Get.find<HomeController>();
   int activeIndex = 0;
+  
   @override
   void initState() {
     super.initState();
@@ -38,29 +37,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getdata() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
-    await controller.getprofile();
-    if(controller.getprofileData!.roleId == '2'){
-    multisign.getRecee();
-    }else{
-    multisign.getinstallation();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await controller.getprofile();
+      if (controller.getprofileData!.roleId == '2') {
+        multisign.getRecee();
+      } else {
+        multisign.getinstallation();
+      }
     });
-   
   }
- 
 
- refreshData() async{
-  await controller.getprofile();
-    if(controller.getprofileData!.roleId == '2'){
-    multisign.getRecee();
-    }else{
-    multisign.getinstallation();
+  refreshData() async {
+    await controller.getprofile();
+    if (controller.getprofileData!.roleId == '2') {
+      multisign.getRecee();
+    } else {
+      multisign.getinstallation();
     }
-   
-   
- }
-
+  }
 
   void _themeMode() {
     isThemeDark = !isThemeDark;
@@ -84,30 +78,32 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.only(left: 15, right: 15, top: 8),
         child: SafeArea(
           child: RefreshIndicator(
-                 onRefresh: () {
-                   return refreshData();
-                 },
+            onRefresh: () {
+              return refreshData();
+            },
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: GetBuilder<ProfileController>(builder: (_) {
                 return controller.getprofileData == null
                     ? Center(
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[    Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
                               children: [
                                 ShimmerPro.sized(
-                                          light: shimmerlight,
-                                          scaffoldBackgroundColor: bgColor,
-                                          height: 100,
-                                          width: 100,
-                                          borderRadius: 50,
-                                        ),
-                               ShimmerPro.text(
-                              light: shimmerlight,
-                              width: 250,
-                              scaffoldBackgroundColor: bgColor,
-                            ),  ],
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  height: 80,
+                                  width: 80,
+                                  borderRadius: 50,
+                                ),
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  width: 250,
+                                  scaffoldBackgroundColor: bgColor,
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 20),
                             ShimmerPro.text(
@@ -128,36 +124,45 @@ class _HomeScreenState extends State<HomeScreen> {
                               scaffoldBackgroundColor: bgColor,
                             ),
                             ksizedbox10,
+                            ShimmerPro.sized(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              height: 60,
+                              width: 450,
+                            ),
+                            ksizedbox10,
                             ShimmerPro.text(
                               light: shimmerlight,
                               width: 450,
                               scaffoldBackgroundColor: bgColor,
                             ),
                             ShimmerPro.generated(
-                                light: shimmerlight,
-                                scaffoldBackgroundColor: bgColor,
-                                child: Row(
-                                  children: [
-                                
-                                    ShimmerPro.text(
-                                      light: shimmerlight,
-                                      scaffoldBackgroundColor: bgColor,
-                                      width: 270,
-                                    )
-                                  ],
-                                ))
-                          ]))
-                    :  RefreshIndicator(
-                       onRefresh: () async{
-                        await Future.delayed(Duration(seconds: 2));
-          
-                       },
-                      child: SingleChildScrollView(
-                        child: Column(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              child: Row(
+                                children: [
+                                  ShimmerPro.text(
+                                    light: shimmerlight,
+                                    scaffoldBackgroundColor: bgColor,
+                                    width: 270,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                          await Future.delayed(Duration(seconds: 2));
+                        },
+                        child: SingleChildScrollView(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -175,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           InkWell(
-                                            onTap: (){
+                                            onTap: () {
                                               // Get.to(()=> FlutterPainterExample());
                                             },
                                             child: Text(
@@ -189,11 +194,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           controller.getprofileData == null
                                               ? Text('No Name ')
                                               : Text(
-                                                  controller.getprofileData!.name,
+                                                  controller
+                                                      .getprofileData!.name,
                                                   style: primaryFonts.copyWith(
                                                       color: AppColors.black,
                                                       fontSize: 17,
-                                                      fontWeight: FontWeight.w300),
+                                                      fontWeight:
+                                                          FontWeight.w300),
                                                 ),
                                         ],
                                       ),
@@ -230,7 +237,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     });
                                   },
                                 ),
-                                items: [Image.asset("assets/images/printer.png")],
+                                items: [
+                                  Image.asset("assets/images/printer.png")
+                                ],
                               ),
                               ksizedbox5,
                               Center(
@@ -273,23 +282,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ));
                                                   },
                                                   child: Container(
-                                                    margin:
-                                                        EdgeInsets.only(right: 8),
+                                                    margin: EdgeInsets.only(
+                                                        right: 8),
                                                     padding: EdgeInsets.all(5),
                                                     height: 50.h,
                                                     decoration: BoxDecoration(
                                                         color: AppColors.blue,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10)),
+                                                            BorderRadius
+                                                                .circular(10)),
                                                     child: Row(
                                                       children: [
                                                         Container(
                                                             height: 40.h,
                                                             width: 40.w,
                                                             decoration: BoxDecoration(
-                                                                color:
-                                                                    AppColors.white,
+                                                                color: AppColors
+                                                                    .white,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -299,11 +308,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ksizedbox20w,
                                                         Text(
                                                           "Recce",
-                                                          style:
-                                                              primaryFonts.copyWith(
-                                                                  color: AppColors
-                                                                      .white,
-                                                                  fontSize: 16.sp,
+                                                          style: primaryFonts
+                                                              .copyWith(
+                                                                  color:
+                                                                      AppColors
+                                                                          .white,
+                                                                  fontSize:
+                                                                      16.sp,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500),
@@ -326,16 +337,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration(
                                                         color: AppColors.blue,
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10)),
+                                                            BorderRadius
+                                                                .circular(10)),
                                                     child: Row(
                                                       children: [
                                                         Container(
                                                             height: 40.h,
                                                             width: 40.w,
                                                             decoration: BoxDecoration(
-                                                                color:
-                                                                    AppColors.white,
+                                                                color: AppColors
+                                                                    .white,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -345,11 +356,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ksizedbox20w,
                                                         Text(
                                                           "Installation",
-                                                          style:
-                                                              primaryFonts.copyWith(
-                                                                  color: AppColors
-                                                                      .white,
-                                                                  fontSize: 16.sp,
+                                                          style: primaryFonts
+                                                              .copyWith(
+                                                                  color:
+                                                                      AppColors
+                                                                          .white,
+                                                                  fontSize:
+                                                                      16.sp,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500),
@@ -363,7 +376,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                               ksizedbox20,
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Recent Project Details",
@@ -395,173 +409,131 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ? Center(
                                               child: Image.asset(
                                                   'assets/icons/fi_6598519.png'))
-                                          : RefreshIndicator(onRefresh: ()=>  multisign.getRecee(),
-                                            child: ListView.builder(
-                                                physics: BouncingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount:
-                                                    multisign.getreceelistData.length,
-                                                itemBuilder: ((context, index) {
-                                                  return Card(
-                                                    child: Column(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Get.to(RecceReportDetails(
-                                                              id: multisign
-                                                                  .getreceelistData[
-                                                                      index]
-                                                                  .id
-                                                                  .toString(),
-                                                            ));
-                                                          },
-                                                          child: Container(
-                                                            margin: EdgeInsets.only(
-                                                                bottom: 10, top: 4),
-                                                            height: 80,
-                                                            width: double.infinity,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(5),
-                                                              // color: AppColors.darkGrey
-                                                              //     .withOpacity(.05
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Row(
-                                                                    children: [
-                                                                      ksizedbox10w,
-                                                                      Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment
-                                                                                .start,
-                                                                        children: [
-                                                                          Text(
-                                                                            multisign
-                                                                                .getreceelistData[
-                                                                                    index]
-                                                                                .clientName,
-                                                                            style: primaryFonts.copyWith(
-                                                                                fontSize:
-                                                                                    15,
-                                                                                fontWeight: FontWeight
-                                                                                    .w600,
-                                                                                color:
-                                                                                    AppColors.black),
-                                                                          ),
-                                                                          // Text(
-                                                                          //     controller
-                                                                          //         .getreceelistData[index]
-                                                                          //         .address,
-                                                                          //     style: primaryFonts.copyWith(
-                                                                          //         fontSize: 14,
-                                                                          //         fontWeight: FontWeight.w400,
-                                                                          //         color: AppColors.black
-                                                                          //             .withOpacity(.70))),
-                                                                          Text(
-                                                                              multisign
-                                                                                  .getreceelistData[
-                                                                                      index]
-                                                                                  .jobcard,
-                                                                              style: primaryFonts.copyWith(
-                                                                                  fontSize:
-                                                                                      12,
-                                                                                  fontWeight:
-                                                                                      FontWeight.w400,
-                                                                                  color: AppColors.black.withOpacity(.50))),
-                                                                          if (multisign
-                                                                                  .getreceelistData[index]
-                                                                                  .isReceeVerrified ==
-                                                                              "1")
+                                          : RefreshIndicator(
+                                              onRefresh: () =>
+                                                  multisign.getRecee(),
+                                              child: ListView.builder(
+                                                  physics:
+                                                      BouncingScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: multisign
+                                                      .getreceelistData.length,
+                                                  itemBuilder:
+                                                      ((context, index) {
+                                                    return Card(
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(
+                                                                  RecceReportDetails(
+                                                                id: multisign
+                                                                    .getreceelistData[
+                                                                        index]
+                                                                    .id
+                                                                    .toString(),
+                                                              ));
+                                                            },
+                                                            child: Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      bottom:
+                                                                          10,
+                                                                      top: 4),
+                                                              height: 80,
+                                                              width: double
+                                                                  .infinity,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                // color: AppColors.darkGrey
+                                                                //     .withOpacity(.05
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        8.0),
+                                                                child: Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        ksizedbox10w,
+                                                                        Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
                                                                             Text(
-                                                                              "completed",
-                                                                              style: TextStyle(
-                                                                                  color:
-                                                                                      Colors.green),
-                                                                            )
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Row(
-                                                                    children: [
-                                                                      Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment
-                                                                                .center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment
-                                                                                .end,
-                                                                        children: [
-                                                                          GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              Get.to(
-                                                                                  RecceReportDetails(
-                                                                                id: multisign
-                                                                                    .getreceelistData[index]
-                                                                                    .id
-                                                                                    .toString(),
-                                                                              ));
-                                                                            },
-                                                                            child: Text(
-                                                                                'Full View',
-                                                                                style: primaryFonts.copyWith(
-                                                                                    decoration: TextDecoration.underline,
-                                                                                    fontSize: 12,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    color: AppColors.green)),
-                                                                          ),
-                                                                          Text(
-                                                                              multisign
-                                                                                  .getreceelistData[
-                                                                                      index]
-                                                                                  .createdAt
-                                                                                  .toString(),
-                                                                              style: primaryFonts.copyWith(
-                                                                                  fontSize:
-                                                                                      12,
-                                                                                  fontWeight:
-                                                                                      FontWeight.w300,
-                                                                                  color: AppColors.black)),
-                                                                          Text(
-                                                                              multisign
-                                                                                  .getreceelistData[
-                                                                                      index]
-                                                                                  .address,
-                                                                              style: primaryFonts.copyWith(
-                                                                                  fontSize:
-                                                                                      12,
-                                                                                  fontWeight:
-                                                                                      FontWeight.w300,
-                                                                                  color: AppColors.black)),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  )
-                                                                ],
+                                                                              multisign.getreceelistData[index].clientName,
+                                                                              style: primaryFonts.copyWith(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.black),
+                                                                            ),
+                                                                            // Text(
+                                                                            //     controller
+                                                                            //         .getreceelistData[index]
+                                                                            //         .address,
+                                                                            //     style: primaryFonts.copyWith(
+                                                                            //         fontSize: 14,
+                                                                            //         fontWeight: FontWeight.w400,
+                                                                            //         color: AppColors.black
+                                                                            //             .withOpacity(.70))),
+                                                                            Text(multisign.getreceelistData[index].jobcard,
+                                                                                style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.50))),
+                                                                            if (multisign.getreceelistData[index].isReceeVerrified ==
+                                                                                "1")
+                                                                              Text(
+                                                                                "completed",
+                                                                                style: TextStyle(color: Colors.green),
+                                                                              )
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            GestureDetector(
+                                                                              onTap: () {
+                                                                                Get.to(RecceReportDetails(
+                                                                                  id: multisign.getreceelistData[index].id.toString(),
+                                                                                ));
+                                                                              },
+                                                                              child: Text('Full View', style: primaryFonts.copyWith(decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),
+                                                                            ),
+                                                                            Text(multisign.getreceelistData[index].createdAt.toString(),
+                                                                                style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w300, color: AppColors.black)),
+                                                                            Text(multisign.getreceelistData[index].address,
+                                                                                style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w300, color: AppColors.black)),
+                                                                          ],
+                                                                        ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                })),
-                                          );
+                                                        ],
+                                                      ),
+                                                    );
+                                                  })),
+                                            );
                                     })
-                                  : GetBuilder<HomeController>(builder: (context) {
+                                  : GetBuilder<HomeController>(
+                                      builder: (context) {
                                       return multisign.installerListdata.isEmpty
                                           ? Center(
                                               child: Image.asset(
@@ -574,8 +546,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   itemCount:
                                                       //4,
                                                       multisign
-                                                          .installerListdata.length,
-                                                  itemBuilder: ((context, index) {
+                                                          .installerListdata
+                                                          .length,
+                                                  itemBuilder:
+                                                      ((context, index) {
                                                     return Card(
                                                       child: Column(
                                                         children: [
@@ -586,10 +560,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 beforeImages: multisign
                                                                     .installerListdata[
                                                                         index]
-                                                                    .receeVerifications.last
-                                                                        
-                                                                    .beforeImages
-                                                                    ,
+                                                                    .receeVerifications
+                                                                    .last
+                                                                    .beforeImages,
                                                                 id: multisign
                                                                     .installerListdata[
                                                                         index]
@@ -598,13 +571,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               ));
                                                             },
                                                             child: Container(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      bottom: 10,
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      bottom:
+                                                                          10,
                                                                       top: 4),
                                                               height: 80,
-                                                              width:
-                                                                  double.infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               decoration: BoxDecoration(
                                                                   // color: AppColors.darkGrey
                                                                   //     .withOpacity(.05)
@@ -612,7 +586,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               child: Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(8.0),
+                                                                        .all(
+                                                                        8.0),
                                                                 child: Row(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -642,32 +617,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         ksizedbox10w,
                                                                         Column(
                                                                           crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .start,
+                                                                              CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(multisign.installerListdata[index].clientName,
-                                                                                style: primaryFonts.copyWith(
-                                                                                    fontSize: 15,
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                    color: AppColors.black)),
-                                                                            Text(
-                                                                                "${multisign.installerListdata[index].address}, ${multisign.installerListdata[index].city}",
-                                                                                style: primaryFonts.copyWith(
-                                                                                    fontSize: 14,
-                                                                                    fontWeight: FontWeight.w400,
-                                                                                    color: AppColors.black.withOpacity(.70))),
-                                                                            Text(
-                                                                                'Job Id:${multisign.installerListdata[index].jobcard}}',
-                                                                                style: primaryFonts.copyWith(
-                                                                                    fontSize: 12,
-                                                                                    fontWeight: FontWeight.w400,
-                                                                                    color: AppColors.black.withOpacity(.50))),
+                                                                                style: primaryFonts.copyWith(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.black)),
+                                                                            Text("${multisign.installerListdata[index].address}, ${multisign.installerListdata[index].city}",
+                                                                                style: primaryFonts.copyWith(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.70))),
+                                                                            Text('Job Id:${multisign.installerListdata[index].jobcard}}',
+                                                                                style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.50))),
                                                                             if (multisign.installerListdata[index].installerStatus ==
                                                                                 "1")
                                                                               Text(
                                                                                 'Completed',
-                                                                                style:
-                                                                                    TextStyle(color: Colors.green),
+                                                                                style: TextStyle(color: Colors.green),
                                                                               )
                                                                           ],
                                                                         ),
@@ -677,23 +639,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       children: [
                                                                         Column(
                                                                           mainAxisAlignment:
-                                                                              MainAxisAlignment
-                                                                                  .center,
+                                                                              MainAxisAlignment.center,
                                                                           crossAxisAlignment:
-                                                                              CrossAxisAlignment
-                                                                                  .end,
+                                                                              CrossAxisAlignment.end,
                                                                           children: [
                                                                             GestureDetector(
-                                                                              onTap:
-                                                                                  () {
+                                                                              onTap: () {
                                                                                 Get.to(InstallationReportDetails(
                                                                                   id: multisign.installerListdata[index].id.toString(),
                                                                                   beforeImages: multisign.installerListdata[index].receeVerifications.last.beforeImages,
                                                                                 ));
                                                                               },
-                                                                              child: Text(
-                                                                                  'Full View',
-                                                                                  style: primaryFonts.copyWith(decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),
+                                                                              child: Text('Full View', style: primaryFonts.copyWith(decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),
                                                                             ),
                                                                             // Text(
                                                                             //     controller
@@ -727,13 +684,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   })),
                                             );
                                     }),
-                                    const SizedBox(
-                                      height: 250,
+                              const SizedBox(
+                                height: 250,
                               )
                             ],
                           ),
-                      ),
-                    );
+                        ),
+                      );
               }),
             ),
           ),

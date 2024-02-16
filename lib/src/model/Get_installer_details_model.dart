@@ -106,7 +106,7 @@ class installerData {
         qty: json["qty"],
         rate: json["rate"],
         value: json["value"],
-        marketterId: json["marketter_id"],
+        marketterId: json["marketter_id"]??"",
         recceId: json["recce_id"],
         production: json["production"],
         designing: json["designing"],

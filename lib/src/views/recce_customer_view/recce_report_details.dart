@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,6 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
-import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 
 class RecceReportDetails extends StatefulWidget {
   final String id;
@@ -24,6 +22,8 @@ class RecceReportDetails extends StatefulWidget {
 }
 
 class _RecceReportDetailsState extends State<RecceReportDetails> {
+
+
   final _focusNode = FocusNode();
   final TextEditingController job_cardContoller = TextEditingController();
   final TextEditingController widthController = TextEditingController();
@@ -31,25 +31,25 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController squrefitController = TextEditingController();
   final TextEditingController dimensionController = TextEditingController();
   final TextEditingController signage_typeController = TextEditingController();
-  final TextEditingController signage_detailsController =
-      TextEditingController();
+  final TextEditingController signage_detailsController = TextEditingController();
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
 
+  var selectedDimension;
 
-var selectedDimension;
-
-// String? cameraImages;
-  final _ImagePath = ''.obs;
-  String? get ImagePath => _ImagePath.value;
   File? photo;
   File? image;
   ImagePicker imagePicker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
+
+  //String selectedDimension = 'Feet';
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    widthController.addListener(calculateSquareFeet);
+    heightController.addListener(calculateSquareFeet);
     setDefault();
   }
 
@@ -77,6 +77,20 @@ var selectedDimension;
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
+  }
+
+  void calculateSquareFeet() {
+    double width = double.tryParse(widthController.text) ?? 0;
+    double height = double.tryParse(heightController.text) ?? 0;
+    double squareFeet = width * height;
+    squrefitController.text = squareFeet.toString();
+  }
+
+  @override
+  void dispose() {
+    widthController.dispose();
+    heightController.dispose();
+    super.dispose();
   }
 
   @override
@@ -604,68 +618,78 @@ var selectedDimension;
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                              Expanded(
-  child: Container(
-    margin: EdgeInsets.only(right: 8),
-    height: 55.h,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: DropdownButtonFormField<String>(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      value: selectedDimension,
-      onChanged: (String? newValue) {
-        setState(() {
-          selectedDimension = newValue;
-          dimensionController.text=newValue!;
-        });
-      },
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please select a dimension';
-        }
-        return null; // Return null if the input is valid
-      },
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 5, left: 10),
-        labelText: 'Dimensions',
-        labelStyle: primaryFonts.copyWith(
-          color: AppColors.black,
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(
-            width: 1,
-            color: AppColors.black,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(
-            width: 1,
-            color: AppColors.black,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(
-            width: 1,
-            color: AppColors.black,
-          ),
-        ),
-      ),
-      items: <String>['mm', 'Inch', 'Feet'] // Replace with your dropdown options
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    ),
-  ),
-),
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 8),
+                                    height: 55.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: DropdownButtonFormField<String>(
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      value: selectedDimension,
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          selectedDimension = newValue;
+                                          dimensionController.text = newValue!;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please select a dimension';
+                                        }
+                                        return null; // Return null if the input is valid
+                                      },
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(top: 5, left: 10),
+                                        labelText: 'Dimensions',
+                                        labelStyle: primaryFonts.copyWith(
+                                          color: AppColors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                      ),
+                                      items: <String>[
+                                        'mm',
+                                        'Inch',
+                                        'Feet'
+                                      ] // Replace with your dropdown options
+                                          .map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Container(
                                     height: 55.h,
@@ -910,7 +934,8 @@ var selectedDimension;
                           Container(
                             height: 150,
                             child: ListView.builder(
-                              itemCount: controller.pickedEditedImagePathList.length,
+                              itemCount:
+                                  controller.pickedEditedImagePathList.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return Stack(
@@ -921,15 +946,17 @@ var selectedDimension;
                                         onTap: () {
                                           showImageViewer(
                                               context,
-                                              Image.memory( controller
-                                                .pickedEditedImagePathList[index]!)
+                                              Image.memory(controller
+                                                          .pickedEditedImagePathList[
+                                                      index]!)
                                                   .image);
                                         },
                                         child: Container(
                                           height: 150,
                                           child: Image.memory(
                                             controller
-                                                .pickedEditedImagePathList[index]!,
+                                                    .pickedEditedImagePathList[
+                                                index]!,
                                             fit: BoxFit.fitHeight,
                                           ),
                                         ),
@@ -948,7 +975,8 @@ var selectedDimension;
                                             // Add your delete logic here
                                             // For example, you can remove the image path from the list
                                             setState(() {
-                                              controller.pickedEditedImagePathList
+                                              controller
+                                                  .pickedEditedImagePathList
                                                   .removeAt(index);
                                             });
                                           },
@@ -989,8 +1017,8 @@ var selectedDimension;
                                         squrefitController.text.isNotEmpty &&
                                         dimensionController.text.isNotEmpty &&
                                         widthController.text.isNotEmpty &&
-                                        controller
-                                            .pickedEditedImagePathList.isNotEmpty) {
+                                        controller.pickedEditedImagePathList
+                                            .isNotEmpty) {
                                       controller.verifyRecee(
                                         job_card: controller
                                             .getreceedetailsData!.jobcard,
@@ -1005,7 +1033,8 @@ var selectedDimension;
                                         client_id: controller
                                             .getreceedetailsData!.id
                                             .toString(),
-                                        media: controller.pickedEditedImagePathList,
+                                        media: controller
+                                            .pickedEditedImagePathList,
                                       );
                                     } else {
                                       AppConstant.showSnackbar(
