@@ -76,6 +76,7 @@ class HomeController extends GetxController {
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
   List<intallerListData> installerListdata = [];
   getinstallation() async {
+    installerListdata.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =
@@ -93,6 +94,7 @@ class HomeController extends GetxController {
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
   List<GetReceDataList> getreceelistData = [];
   getRecee() async {
+    getreceelistData.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =

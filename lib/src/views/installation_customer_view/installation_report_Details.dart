@@ -1157,21 +1157,23 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           ),
                       ksizedbox15,
                       controller.getinstallerdetailsData?.installerStatus == "1"
-                          ? Container(
-                              alignment: Alignment.center,
-                              height: 45,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: AppColors.green,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Text(
-                                "Completed",
-                                style: primaryFonts.copyWith(
-                                    color: AppColors.white,
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w600),
+                          ? InkWell(onTap: (){Get.to(BottomNaviBar());},
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: 45,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: AppColors.green,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Text(
+                                  "Completed",
+                                  style: primaryFonts.copyWith(
+                                      color: AppColors.white,
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            )
+                          )
                           : InkWell(
                               onTap: () {
                                 if (controller.pickedEditedImagePathList.isNotEmpty) {

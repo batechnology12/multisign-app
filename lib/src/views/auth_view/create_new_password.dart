@@ -23,7 +23,7 @@ class _NewPasswordState extends State<NewPassword> {
   var passwordController = TextEditingController();
   final controller = Get.find<AuthController>();
   var nameController = TextEditingController();
-
+final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,166 +37,174 @@ class _NewPasswordState extends State<NewPassword> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/6321602.jpg'),
-              ksizedbox10,
-              Obx(
-                () => TextFormField(
-                  controller: passwordController,
-                  obscureText: controller.isHidden,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontSize: 15.sp,
-                        color: Colors.black,
-                      ),
-                  autofocus: false,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(
-                        right: 10.w,
-                      ),
-                      child: IconButton(
-                          onPressed: () {
-                            controller.togglePasswordView();
-                          },
-                          icon: controller.isHidden
-                              ? Icon(Icons.remove_red_eye)
-                              : Image.asset(
-                                  'assets/icons/hide_icon_184088.png',
-                                  height: 30,
-                                )),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.5,
-                        color: Colors.black,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        60.r,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.only(
-                      left: 20,
-                      right: 25,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.2,
-                        color: Colors.black,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        60.r,
-                      ),
-                    ),
-                    filled: true,
-                    hintText: "••••••••••",
-                    hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 15.sp,
-                          color: const Color.fromARGB(255, 104, 104, 104),
-                        ),
-                    fillColor: Colors.white,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Password can't be empty";
-                    } else if (value.length < 4) {
-                      return "Password must be of four characters";
-                    }
-                    return null;
-                  },
+          child: Form(  key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/6321602.jpg'),
+                ksizedbox10,
+               Obx(
+              () => TextFormField(
+                controller: passwordController,
+                obscureText: controller.isHidden,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontSize: 15.sp,
+                  color: Colors.black,
                 ),
-              ),
-              ksizedbox20,
-              Obx(
-                () => TextFormField(
-                  controller: conformpasswordController,
-                  obscureText: controller.isHidden,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontSize: 15.sp,
-                        color: Colors.black,
-                      ),
-                  autofocus: false,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: EdgeInsets.only(
-                        right: 10.w,
-                      ),
-                      child: IconButton(
-                          onPressed: () {
-                            controller.togglePasswordView();
-                          },
-                          icon: controller.isHidden
-                              ? Icon(Icons.remove_red_eye)
-                              : Image.asset(
-                                  'assets/icons/hide_icon_184088.png',
-                                  height: 30,
-                                )),
+                autofocus: false,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(
+            right: 10.w,
                     ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.5,
-                        color: Colors.black,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        60.r,
-                      ),
+                    child: IconButton(
+            onPressed: () {
+              controller.togglePasswordView();
+            },
+            icon: controller.isHidden
+                ? Icon(Icons.remove_red_eye)
+                : Image.asset(
+              'assets/icons/hide_icon_184088.png',
+              height: 30,
+            ),
                     ),
-                    contentPadding: const EdgeInsets.only(
-                      left: 20,
-                      right: 25,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.2,
-                        color: Colors.black,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        60.r,
-                      ),
-                    ),
-                    filled: true,
-                    hintText: "••••••••••",
-                    hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: 15.sp,
-                          color: const Color.fromARGB(255, 104, 104, 104),
-                        ),
-                    fillColor: Colors.white,
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Password can't be empty";
-                    } else if (value.length < 4) {
-                      return "Password must be of four characters";
-                    }
-                    return null;
-                  },
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+            width: 1.5,
+            color: Colors.black,
+            style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(
+            60.r,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.only(
+                    left: 20,
+                    right: 25,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+            width: 1.2,
+            color: Colors.black,
+            style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(
+            60.r,
+                    ),
+                  ),
+                  filled: true,
+                  hintText: "New Password",
+                  hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontSize: 15.sp,
+                    color: const Color.fromARGB(255, 104, 104, 104),
+                  ),
+                  fillColor: Colors.white,
                 ),
-              ),
-              ksizedbox40,
-              ksizedbox40,
-              ksizedbox40,
-              CustomElevatedButton(
-                height: 45.h,
-                width: 1.w,
-                onPressed: () {
-                  AppConstant.showLoader(context: context);
-                  controller.newPassword(
-                      conformpassword: conformpasswordController.text,
-                      password: passwordController.text,
-                      userid: widget.userid);
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password can't be empty";
+                  } else if (value.length < 4) {
+                    return "Password must be of four characters";
+                  } else if (value != passwordController.text) {
+                    return "Passwords do not match";
+                  }
+                  return null;
                 },
-                color: AppColors.green,
-                textColor: Colors.white,
-                child: customtext(text: 'Submit'),
               ),
-            ],
+            ),
+                ksizedbox20,
+                Obx(
+              () => TextFormField(
+                controller: conformpasswordController,
+                obscureText: controller.isHidden,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontSize: 15.sp,
+                  color: Colors.black,
+                ),
+                autofocus: false,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(
+            right: 10.w,
+                    ),
+                    child: IconButton(
+            onPressed: () {
+              controller.togglePasswordView();
+            },
+            icon: controller.isHidden
+                ? Icon(Icons.remove_red_eye)
+                : Image.asset(
+              'assets/icons/hide_icon_184088.png',
+              height: 30,
+            ),
+                    ),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+            width: 1.5,
+            color: Colors.black,
+            style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(
+            60.r,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.only(
+                    left: 20,
+                    right: 25,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+            width: 1.2,
+            color: Colors.black,
+            style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(
+            60.r,
+                    ),
+                  ),
+                  filled: true,
+                  hintText: "Confirm Password",
+                  hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontSize: 15.sp,
+                    color: const Color.fromARGB(255, 104, 104, 104),
+                  ),
+                  fillColor: Colors.white,
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Password can't be empty";
+                  } else if (value.length < 4) {
+                    return "Password must be of four characters";
+                  } else if (value != passwordController.text) {
+                    return "Passwords do not match";
+                  }
+                  return null;
+                },
+              ),
+            ),
+                ksizedbox40,
+                ksizedbox40,
+                ksizedbox40,
+                CustomElevatedButton(
+                  height: 45.h,
+                  width: 1.w,
+                  onPressed: () { if (_formKey.currentState!.validate()) {
+                    AppConstant.showLoader(context: context);
+                    controller.newPassword(
+                        conformpassword: conformpasswordController.text,
+                        password: passwordController.text,
+                        userid: widget.userid);}
+                  },
+                  color: AppColors.green,
+                  textColor: Colors.white,
+                  child: customtext(text: 'Submit'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

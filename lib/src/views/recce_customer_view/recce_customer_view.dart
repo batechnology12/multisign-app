@@ -7,7 +7,7 @@ import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
-
+import 'package:shimmer_pro/shimmer_pro.dart';
 
 class RecceCustomer extends StatefulWidget {
   RecceCustomer({super.key});
@@ -17,26 +17,24 @@ class RecceCustomer extends StatefulWidget {
 }
 
 class _RecceCustomerState extends State<RecceCustomer> {
-  // Declare a variable to store the filtered list
   List<dynamic> filteredList = [];
-
-// In your _RecceCustomerState class, add a TextEditingController
   final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _themeMode();
     setDefau();
-    filteredList = controller.getreceelistData;
   }
 
-  setDefau(){
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-       controller.getRecee();
-    prfilecontroller.getprofile();
+  setDefau() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getRecee();
+      prfilecontroller.getprofile();
+      filteredList = controller.getreceelistData;
+      filteredList = controller.installerListdata;
     });
-   
   }
 
 // Add a method to perform the search
@@ -46,6 +44,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
       // If it is, reset the filteredList to the original list
       setState(() {
         filteredList = controller.getreceelistData;
+        filteredList = controller.installerListdata;
       });
       return;
     }
@@ -56,7 +55,32 @@ class _RecceCustomerState extends State<RecceCustomer> {
         // Implement your filtering logic here, for example, checking if the client name contains the query
         return item.clientName.toLowerCase().contains(query.toLowerCase());
       }).toList();
+
+      filteredList = controller.installerListdata.where((item) {
+        // Implement your filtering logic here, for example, checking if the client name contains the query
+        return item.clientName.toLowerCase().contains(query.toLowerCase());
+      }).toList();
     });
+  }
+
+  late Color bgColor;
+  bool isThemeDark = true;
+
+  late ShimmerProLight shimmerlight;
+
+  void _themeMode() {
+    isThemeDark = !isThemeDark;
+    if (isThemeDark) {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 50, 50, 50);
+        shimmerlight = ShimmerProLight.lighter;
+      });
+    } else {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 240, 240, 240);
+        shimmerlight = ShimmerProLight.darker;
+      });
+    }
   }
 
 //String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
@@ -100,106 +124,166 @@ class _RecceCustomerState extends State<RecceCustomer> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15,),
-                child:TextField(
-  controller: searchController,
-  onChanged: performSearch,
-  decoration: InputDecoration(
-    hintText: 'Search by client name...',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30.0), // Adjust the radius as needed
-    ),
-    suffixIcon: IconButton(
-      icon: Icon(Icons.clear),
-      onPressed: () {
-        // Clear the search field and reset the filtered list to the original list
-        searchController.clear();
-        performSearch('');
-      },
-    ),
-  ),
-),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                ),
+                child: TextField(
+                  controller: searchController,
+                  onChanged: performSearch,
+                  decoration: InputDecoration(
+                    hintText: 'Search by client name...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                          30.0), // Adjust the radius as needed
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      onPressed: () {
+                        // Clear the search field and reset the filtered list to the original list
+                        searchController.clear();
+                        performSearch('');
+                      },
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
-          child: prfilecontroller.getprofileData!.roleId == '2'
-              ? GetBuilder<HomeController>(builder: (_) {
-                  return controller.getreceelistData.isEmpty
-                  ? Center(
-                      child: Image.asset('assets/icons/fi_6598519.png'))
-                 
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: controller.getreceelistData.length,
-                          itemBuilder: ((context, index) {
-                            return Card(
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(RecceReportDetails(
-                                        id: controller
-                                            .getreceelistData[index].id
-                                            .toString(),
-                                      ));
-                                    },
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.only(bottom: 10, top: 4),
-                                      height: 80,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        // color: Colors.grey[200]
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
+          child: prfilecontroller.getprofileData == null
+              ? Column(
+                  children: [
+                    ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                      width: 450,
+                    ),
+                    ksizedbox10,
+                    ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                      width: 450,
+                      height: 50,
+                    ),
+                    ksizedbox10,
+                  ],
+                )
+              : prfilecontroller.getprofileData!.roleId == '2'
+                  ? GetBuilder<HomeController>(builder: (_) {
+                      return controller.getreceelistData.isEmpty
+                          ? Column(
+                              children: [
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                              ],
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.getreceelistData.length,
+                              itemBuilder: ((context, index) {
+                                return Card(
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(RecceReportDetails(
+                                            id: controller
+                                                .getreceelistData[index].id
+                                                .toString(),
+                                          ));
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: 10, top: 4),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            // color: Colors.grey[200]
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                ksizedbox10w,
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                Row(
                                                   children: [
-                                                    Text(
-                                                      controller
-                                                          .getreceelistData[
-                                                              index]
-                                                          .clientName,
-                                                      style:
-                                                          primaryFonts.copyWith(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: AppColors
-                                                                  .black),
-                                                    ),
-                                                    // Text(
-                                                    //     controller
-                                                    //         .getreceelistData[index]
-                                                    //         .address,
-                                                    //     style: primaryFonts.copyWith(
-                                                    //         fontSize: 14,
-                                                    //         fontWeight: FontWeight.w400,
-                                                    //         color: AppColors.black
-                                                    //             .withOpacity(.70))),
-                                                    Text(
-                                                        controller
-                                                            .getreceelistData[
-                                                                index]
-                                                            .jobcard,
-                                                        style: primaryFonts
-                                                            .copyWith(
+                                                    ksizedbox10w,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .getreceelistData[
+                                                                  index]
+                                                              .clientName,
+                                                          style: primaryFonts
+                                                              .copyWith(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: AppColors
+                                                                      .black),
+                                                        ),
+                                                        // Text(
+                                                        //     controller
+                                                        //         .getreceelistData[index]
+                                                        //         .address,
+                                                        //     style: primaryFonts.copyWith(
+                                                        //         fontSize: 14,
+                                                        //         fontWeight: FontWeight.w400,
+                                                        //         color: AppColors.black
+                                                        //             .withOpacity(.70))),
+                                                        Text(
+                                                            "JOB ID : ${controller.getreceelistData[index].jobcard}",
+                                                            style: primaryFonts.copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -208,184 +292,232 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                     .black
                                                                     .withOpacity(
                                                                         .50))),
-                                                                          if (controller
-                                                                              .getreceelistData[index]
-                                                                              .isReceeVerrified ==
-                                                                          "1")
-                                                                          Text(
-                                                                            'Completed',
-                                                                            style:
-                                                                                TextStyle(color: Colors.green),
-                                                                          )
+                                                        if (controller
+                                                                .getreceelistData[
+                                                                    index]
+                                                                .isReceeVerrified ==
+                                                            "1")
+                                                          Text(
+                                                            'Completed',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .green),
+                                                          )
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Get.to(
+                                                                RecceReportDetails(
+                                                              id: controller
+                                                                  .getreceelistData[
+                                                                      index]
+                                                                  .id
+                                                                  .toString(),
+                                                            ));
+                                                          },
+                                                          child: Text(
+                                                              'Full View',
+                                                              style: primaryFonts.copyWith(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                  decorationColor:
+                                                                      AppColors
+                                                                          .green,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: AppColors
+                                                                      .green)),
+                                                        ),
+                                                        Text(
+                                                            controller
+                                                                .getreceelistData[
+                                                                    index]
+                                                                .createdAt
+                                                                .toString(),
+                                                            style: primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: AppColors
+                                                                    .black)),
+                                                        Text(
+                                                            controller
+                                                                .getreceelistData[
+                                                                    index]
+                                                                .address,
+                                                            style: primaryFonts.copyWith(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: AppColors
+                                                                    .black)),
+                                                        //  if (controller
+                                                        //                                 .getreceelistData[index]
+                                                        //                                 .isReceeVerrified ==
+                                                        //                             "1")
+                                                        //                           Text(
+                                                        //                             "completed",
+                                                        //                             style: TextStyle(
+                                                        //                                 color:
+                                                        //                                     Colors.green),
+                                                        //                           ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
-                                             
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Get.to(
-                                                            RecceReportDetails(
-                                                          id: controller
-                                                              .getreceelistData[
-                                                                  index]
-                                                              .id
-                                                              .toString(),
-                                                        ));
-                                                      },
-                                                      child: Text('Full View',
-                                                          style: primaryFonts.copyWith(
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .underline,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: AppColors
-                                                                  .green)),
-                                                    ),
-                                                    Text(
-                                                        controller
-                                                            .getreceelistData[
-                                                                index]
-                                                            .createdAt
-                                                            .toString(),
-                                                        style: primaryFonts
-                                                            .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                color: AppColors
-                                                                    .black)),
-                                                    Text(
-                                                        controller
-                                                            .getreceelistData[
-                                                                index]
-                                                            .address,
-                                                        style: primaryFonts
-                                                            .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                color: AppColors
-                                                                    .black)),
-                                              //  if (controller
-                                              //                                 .getreceelistData[index]
-                                              //                                 .isReceeVerrified ==
-                                              //                             "1")
-                                              //                           Text(
-                                              //                             "completed",
-                                              //                             style: TextStyle(
-                                              //                                 color:
-                                              //                                     Colors.green),
-                                              //                           ),  
-                                                                          ],
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          }));
-                })
-              : GetBuilder<HomeController>(builder: (_) {
-                  return controller.installerListdata.isEmpty? 
-                       Center(
-                      child: Image.asset('assets/icons/fi_6598519.png'))
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: controller.installerListdata.length,
-                          itemBuilder: ((context, index) {
-                            return Card(
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.to(InstallationReportDetails(
-                                        beforeImages: controller
-                                            .installerListdata[index]
-                                            .receeVerifications.last
-                                            .beforeImages
-                                          ,
-                                        id: controller
-                                            .installerListdata[index].id
-                                            .toString(),
-                                      ));
-                                    },
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.only(bottom: 10, top: 4),
-                                      height: 80,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          //  color: Colors.grey[200],
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
+                                );
+                              }));
+                    })
+                  : GetBuilder<HomeController>(builder: (_) {
+                      return controller.installerListdata.isEmpty
+                          ?
+                          // filteredList.isEmpty?
+                          Column(
+                              children: [
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                ),
+                                ksizedbox10,
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  width: 450,
+                                  height: 50,
+                                ),
+                                ksizedbox10,
+                              ],
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.installerListdata.length,
+                              itemBuilder: ((context, index) {
+                                return Card(
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(InstallationReportDetails(
+                                            beforeImages: controller
+                                                .installerListdata[index]
+                                                .receeVerifications
+                                                .last
+                                                .beforeImages,
+                                            id: controller
+                                                .installerListdata[index].id
+                                                .toString(),
+                                          ));
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: 10, top: 4),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              //  color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                // Container(
-                                                //   height: 65,
-                                                //   width: 65,
-                                                //   alignment: Alignment.center,
-                                                //   decoration: BoxDecoration(
-                                                //     color: AppColors.blue,
-                                                //     borderRadius: BorderRadius.circular(8),
-                                                //   ),
-                                                //   child: Text(
-                                                //     "PN",
-                                                //     style: primaryFonts.copyWith(
-                                                //         fontSize: 26,
-                                                //         fontWeight: FontWeight.w700,
-                                                //         color: AppColors.white),
-                                                //   ),
-                                                // ),
-                                                ksizedbox10w,
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                Row(
                                                   children: [
-                                                    //Image.network(controller.installerListdata[index].receeVerifications[index].beforeImages.first,height: 50,),
-                                                    Text(
-                                                        controller
-                                                            .installerListdata[
-                                                                index]
-                                                            .clientName,
-                                                        style: primaryFonts
-                                                            .copyWith(
+                                                    // Container(
+                                                    //   height: 65,
+                                                    //   width: 65,
+                                                    //   alignment: Alignment.center,
+                                                    //   decoration: BoxDecoration(
+                                                    //     color: AppColors.blue,
+                                                    //     borderRadius: BorderRadius.circular(8),
+                                                    //   ),
+                                                    //   child: Text(
+                                                    //     "PN",
+                                                    //     style: primaryFonts.copyWith(
+                                                    //         fontSize: 26,
+                                                    //         fontWeight: FontWeight.w700,
+                                                    //         color: AppColors.white),
+                                                    //   ),
+                                                    // ),
+                                                    ksizedbox10w,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        //Image.network(controller.installerListdata[index].receeVerifications[index].beforeImages.first,height: 50,),
+                                                        Text(
+                                                            controller
+                                                                .installerListdata[
+                                                                    index]
+                                                                .clientName,
+                                                            style: primaryFonts.copyWith(
                                                                 fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
                                                                 color: AppColors
                                                                     .black)),
-                                                    Text(
-                                                        "${controller.installerListdata[index].address}, ${controller.installerListdata[index].city}",
-                                                        style: primaryFonts
-                                                            .copyWith(
+                                                        Text(
+                                                            "${controller.installerListdata[index].address}, ${controller.installerListdata[index].city}",
+                                                            style: primaryFonts.copyWith(
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
@@ -394,10 +526,9 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                     .black
                                                                     .withOpacity(
                                                                         .70))),
-                                                    Text(
-                                                        'Job Id:${controller.installerListdata[index].jobcard}}',
-                                                        style: primaryFonts
-                                                            .copyWith(
+                                                        Text(
+                                                            'Job Id : ${controller.installerListdata[index].jobcard}',
+                                                            style: primaryFonts.copyWith(
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -406,77 +537,90 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                     .black
                                                                     .withOpacity(
                                                                         .50))),
+                                                        if (controller
+                                                                .installerListdata[
+                                                                    index]
+                                                                .installerStatus ==
+                                                            "1")
+                                                          Text(
+                                                            'Completed',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .green),
+                                                          )
+                                                      ],
+                                                    ),
                                                   ],
                                                 ),
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Get.to(InstallationReportDetails(
+                                                                beforeImages: controller
+                                                                    .installerListdata[
+                                                                        index]
+                                                                    .receeVerifications
+                                                                    .last
+                                                                    .beforeImages,
+                                                                id: controller
+                                                                    .installerListdata[
+                                                                        index]
+                                                                    .id
+                                                                    .toString()));
+                                                          },
+                                                          child: Text(
+                                                              'Full View',
+                                                              style: primaryFonts.copyWith(
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: AppColors
+                                                                      .green)),
+                                                        ),
+                                                        // Text(
+                                                        //     controller
+                                                        //         .installerListdata[index]
+                                                        //         .poDate
+                                                        //         .toString(),
+                                                        //     style: primaryFonts.copyWith(
+                                                        //         fontSize: 12,
+                                                        //         fontWeight: FontWeight.w300,
+                                                        //         color: AppColors.black)),
+                                                        // Text(
+                                                        //     controller
+                                                        //         .installerListdata[index]
+                                                        //         .production,
+                                                        //     style: primaryFonts.copyWith(
+                                                        //         fontSize: 12,
+                                                        //         fontWeight: FontWeight.w300,
+                                                        //         color: AppColors.black)),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Get.to(InstallationReportDetails(
-                                                            beforeImages: controller
-                                                                .installerListdata[
-                                                                    index]
-                                                                .receeVerifications.last
-                                                                    
-                                                                .beforeImages
-                                                                ,
-                                                            id: controller
-                                                                .installerListdata[
-                                                                    index]
-                                                                .id
-                                                                .toString()));
-                                                      },
-                                                      child: Text('Full View',
-                                                          style: primaryFonts.copyWith(
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .underline,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: AppColors
-                                                                  .green)),
-                                                    ),
-                                                    // Text(
-                                                    //     controller
-                                                    //         .installerListdata[index]
-                                                    //         .poDate
-                                                    //         .toString(),
-                                                    //     style: primaryFonts.copyWith(
-                                                    //         fontSize: 12,
-                                                    //         fontWeight: FontWeight.w300,
-                                                    //         color: AppColors.black)),
-                                                    // Text(
-                                                    //     controller
-                                                    //         .installerListdata[index]
-                                                    //         .production,
-                                                    //     style: primaryFonts.copyWith(
-                                                    //         fontSize: 12,
-                                                    //         fontWeight: FontWeight.w300,
-                                                    //         color: AppColors.black)),
-                                                  ],
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            );
-                          }));
-                }),
+                                );
+                              }));
+                    }),
         ));
   }
 

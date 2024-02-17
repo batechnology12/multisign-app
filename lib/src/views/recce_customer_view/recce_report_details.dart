@@ -9,6 +9,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:shimmer_pro/shimmer_pro.dart';
 
 class RecceReportDetails extends StatefulWidget {
   final String id;
@@ -51,6 +52,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     widthController.addListener(calculateSquareFeet);
     heightController.addListener(calculateSquareFeet);
     setDefault();
+    _themeMode();
   }
 
   setDefault() async {
@@ -66,7 +68,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
             .getreceedetailsData!.receeVerifications.last.heightColumn;
         squrefitController.text =
             controller.getreceedetailsData!.receeVerifications.last.squareFit;
-        dimensionController.text =
+        selectedDimension =
             controller.getreceedetailsData!.receeVerifications.last.dimension;
         signage_typeController.text =
             controller.getreceedetailsData!.receeVerifications.last.signageType;
@@ -93,6 +95,28 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     super.dispose();
   }
 
+
+    late Color bgColor;
+  bool isThemeDark = true;
+
+  late ShimmerProLight shimmerlight;
+  void _themeMode() {
+    isThemeDark = !isThemeDark;
+    if (isThemeDark) {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 50, 50, 50);
+        shimmerlight = ShimmerProLight.lighter;
+      });
+    } else {
+      setState(() {
+        bgColor = const Color.fromARGB(255, 240, 240, 240);
+        shimmerlight = ShimmerProLight.darker;
+      });
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -110,11 +134,47 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
         child: SingleChildScrollView(
           child: GetBuilder<HomeController>(builder: (context) {
             return controller.isLoadingdatails.isTrue
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.green,
-                    ),
-                  )
+                ? Column(
+                  children: [
+                    ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10,      ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10,      ShimmerPro.text(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,
+                    ),  
+                            ksizedbox10,
+                                ShimmerPro.sized(
+                      light: shimmerlight,
+                      scaffoldBackgroundColor: bgColor,
+                  
+                      width: 450,height: 50,
+                    ), ksizedbox10, 
+                  ],
+                )
                 : Form(
                     key: _formKey,
                     child: Column(
@@ -631,7 +691,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       value: selectedDimension,
                                       onChanged: (String? newValue) {
                                         setState(() {
-                                          selectedDimension = newValue;
+                                          selectedDimension = newValue!;
                                           dimensionController.text = newValue!;
                                         });
                                       },
@@ -990,21 +1050,23 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           ),
                         ksizedbox20,
                         controller.getreceedetailsData?.isReceeVerrified == "1"
-                            ? Container(
-                                alignment: Alignment.center,
-                                height: 45,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: AppColors.green,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Text(
-                                  "Completed",
-                                  style: primaryFonts.copyWith(
-                                      color: AppColors.white,
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.w600),
+                            ? InkWell(onTap: (){Get.to(BottomNaviBar());},
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: 45,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.green,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Text(
+                                    "Completed",
+                                    style: primaryFonts.copyWith(
+                                        color: AppColors.white,
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                              )
+                            )
                             : InkWell(
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {

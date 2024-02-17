@@ -60,8 +60,8 @@ class AuthController extends GetxController {
       );
     } else {
       Get.rawSnackbar(
-        messageText: const Text(
-          "Invalid User name / Password",
+        messageText:  Text(
+         response.data["message"],
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
@@ -97,7 +97,7 @@ class AuthController extends GetxController {
     } else if (response.statusCode == 401) {
       Get.rawSnackbar(
         messageText: Text(
-          response.data["error"],
+        response.data["message"],
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
@@ -105,7 +105,7 @@ class AuthController extends GetxController {
     } else {
       Get.rawSnackbar(
         messageText: const Text(
-          "Invalid User name ",
+          "Invalid OTP ",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
@@ -133,15 +133,15 @@ class AuthController extends GetxController {
     } else if (response.statusCode == 401) {
       Get.rawSnackbar(
         messageText: Text(
-          response.data["error"],
+         response.data["message"],
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
       );
     } else {
       Get.rawSnackbar(
-        messageText: const Text(
-          "Invalid User name / Password",
+        messageText: Text(
+        response.data["message"],
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
@@ -162,28 +162,28 @@ class AuthController extends GetxController {
     dio.Response<dynamic> response =
         await newPasswordServicesApi.newpasswordApi( password: password, conformpassword: conformpassword, userid: userid);
     isLoading(false);
-    if (response.statusCode == 200) {
+    if (response.data ['status'] == true) {
     
       Get.to( Onbording(),);
       //  Get.find<ProfileController>().checkWhetherHeGo();
       AppConstant.showSnackbar(
         headText: "Successful",
-        content: "New Password Has Been Created",
+        content: response.data ['message'] ,
         position: SnackPosition.BOTTOM,
       );
     } else if (response.statusCode == 401) {
       Get.rawSnackbar(
         messageText: Text(
-          response.data["error"],
+          response.data["message"],
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
       );
     } else {
       Get.rawSnackbar(
-        messageText: const Text(
-          "Invalid User name / Password",
-          style: TextStyle(color: Colors.white),
+        messageText: Text(
+          response.data["message"],
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.red,
       );
