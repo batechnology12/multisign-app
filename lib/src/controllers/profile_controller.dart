@@ -16,7 +16,7 @@ class ProfileController extends GetxController{
    // isLoadingdatails(false);
     update();
     print('========================data==2=================================');
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       GetProfileModel getProfileModel =
           GetProfileModel.fromJson(response.data);
       getprofileData = getProfileModel.data;

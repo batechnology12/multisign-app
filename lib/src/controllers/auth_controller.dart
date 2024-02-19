@@ -38,7 +38,7 @@ class AuthController extends GetxController {
     dio.Response<dynamic> response =
         await loginServicesApi.loginApi(username: username, password: password);
     isLoading(false);
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("auth_token", response.data["token"]);
       // await prefs.setString("user_id", response.data["user"]["id"]);
@@ -81,7 +81,7 @@ class AuthController extends GetxController {
       username: username,
     );
     isLoading(false);
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
        int otp = response.data["otp"];
       //   final prefs = await SharedPreferences.getInstance();
       //   await prefs.setString("auth_token", response.data["token"]);
@@ -120,7 +120,7 @@ class AuthController extends GetxController {
     dio.Response<dynamic> response =
         await verifyOtpServicesApi.verfyotpApi(username: username, otp: otp);
     isLoading(false);
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       VerifyOtpModel verifyOtpModel = VerifyOtpModel.fromJson(response.data);
       verifydata = verifyOtpModel.data;
       update();

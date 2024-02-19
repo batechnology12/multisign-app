@@ -76,7 +76,7 @@ class HomeController extends GetxController {
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
   List<intallerListData> installerListdata = [];
   getinstallation() async {
-    installerListdata.clear();
+   // installerListdata.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =
@@ -94,14 +94,14 @@ class HomeController extends GetxController {
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
   List<GetReceDataList> getreceelistData = [];
   getRecee() async {
-    getreceelistData.clear();
+  //  getreceelistData.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =
         await getReceeApiServices.getReceeApiServices();
     isLoading(false);
     update();
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       GetReceeModel geRreceeModel = GetReceeModel.fromJson(response.data);
       getreceelistData = geRreceeModel.data;
     }
@@ -120,7 +120,7 @@ class HomeController extends GetxController {
     isLoadingdatails(false);
     update();
     print('========================data==2=================================');
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       GetIReceeDetailsModel geRreceedetailModel =
           GetIReceeDetailsModel.fromJson(response.data);
       getreceedetailsData = geRreceedetailModel.data;
@@ -141,7 +141,7 @@ class HomeController extends GetxController {
     isLoadingdatails(false);
     update();
     print('========================data==2=================================');
-    if (response.statusCode == 200) {
+    if (response.data["status"] == true) {
       GetIInstallerDetailsModel geInstallerdetailModel =
           GetIInstallerDetailsModel.fromJson(response.data);
       getinstallerdetailsData = geInstallerdetailModel.data;
