@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +13,7 @@ import 'package:multisign_app/src/api_service/service/installer_api_service/get_
 import 'package:multisign_app/src/api_service/service/installer_api_service/verify_installation_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
+import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/verify_recee_api_service.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
@@ -22,8 +22,10 @@ import 'package:multisign_app/src/model/Get_installer_details_model.dart';
 import 'package:multisign_app/src/model/get_details_recee_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
+import 'package:multisign_app/src/model/get_recee_sub_job.dart';
 import 'package:multisign_app/src/model/home_model.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 
 class HomeController extends GetxController {
   List letters = ["AK", "WA", "JR", "JR"];
@@ -109,6 +111,8 @@ class HomeController extends GetxController {
   }
 
   ReceeDetailsServicesApi receeDetailsServicesApi = ReceeDetailsServicesApi();
+
+
   Data? getreceedetailsData;
   getReceedetails({required String id}) async {
     print(
@@ -127,6 +131,41 @@ class HomeController extends GetxController {
     }
     update();
   }
+
+
+
+
+GetReceeSubjobApiServices getReceeSubjobApiServices = GetReceeSubjobApiServices();
+ 
+
+
+    List<Datum> getreceedsubjobData = [];
+  getReceesubjob({required String id}) async {
+    print(
+        '========================data==1==========${id}=======================');
+    isLoadingdatails(true);
+    update();
+    dio.Response<dynamic> response =
+        await getReceeSubjobApiServices.getReceesubjobApiServices(id: id);
+    isLoadingdatails(false);
+    update();
+    print('========================data==2=================================');
+    if (response.data["status"] == true) {
+      GetReceeSubjob getReceeSubjob =
+          GetReceeSubjob.fromJson(response.data);
+      getreceedsubjobData = getReceeSubjob.data;
+    }else{Get.offAll(RecceReportDetails(id:id,));}
+    update();
+  }
+
+
+
+
+
+
+
+
+
 
   InstallerDetailsServicesApi installerDetailsServicesApi =
       InstallerDetailsServicesApi();
@@ -387,4 +426,32 @@ class HomeController extends GetxController {
   //  cameraImages.
   //   update();
   // }
+
+
+
+ List<Datum> searchList = [];
+
+   searchCookBook({required String query}) {
+    if (searchList.isEmpty) {
+      // Store the original list if it's empty
+      searchList = getreceedsubjobData;
+      update();
+      
+    }
+
+    if (query.isEmpty) {
+      // If the query is empty, restore the original list
+     getreceedsubjobData = searchList;
+    } else {
+      // If the query is not empty, filter the original list based on the query
+      List<Datum> searchResults = searchList
+          .where((obj) => obj.clientName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      getreceedsubjobData = searchResults;
+      update();
+    }
+
+    getreceedsubjobData;
+    update();
+}
 }

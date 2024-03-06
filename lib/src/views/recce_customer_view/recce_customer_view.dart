@@ -4,8 +4,10 @@ import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
+import 'package:multisign_app/src/model/get_recee_sub_job.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
+import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
 
@@ -19,6 +21,7 @@ class RecceCustomer extends StatefulWidget {
 class _RecceCustomerState extends State<RecceCustomer> {
   List<dynamic> installerfilteredList = [];
   List<dynamic> receefilteredList = [];
+  //
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -28,6 +31,9 @@ class _RecceCustomerState extends State<RecceCustomer> {
     _themeMode();
     setDefau();
   }
+
+
+
 
   setDefau() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -84,10 +90,21 @@ class _RecceCustomerState extends State<RecceCustomer> {
     }
   }
 
-//String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+
+
+
+//String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);\
+
+
+
   final controller = Get.find<HomeController>();
 
+
+
   final prfilecontroller = Get.find<ProfileController>();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,24 +145,30 @@ class _RecceCustomerState extends State<RecceCustomer> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,
                 ),
-                child: TextField(
-                  controller: searchController,
-                  onChanged: performSearch,
-                  decoration: InputDecoration(
-                    hintText: 'Search by client name...',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          30.0), // Adjust the radius as needed
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear),
-                      onPressed: () {
-                        // Clear the search field and reset the filtered list to the original list
-                        searchController.clear();
-                        performSearch('');
-                      },
-                    ),
-                  ),
+                child: GetBuilder<HomeController>(
+                  builder: (_) {
+                    return TextField(
+                      controller: searchController,
+                      onChanged: (query) {
+                               controller.  searchCookBook(query: query);
+                                },
+                      decoration: InputDecoration(
+                        hintText: 'Search by client name...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                              30.0), // Adjust the radius as needed
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.clear),
+                          onPressed: () {
+                            // Clear the search field and reset the filtered list to the original list
+                            searchController.clear();
+                           
+                          },
+                        ),
+                      ),
+                    );
+                  }
                 ),
               ),
             ],
@@ -232,7 +255,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  Get.to(RecceReportDetails(
+                                                  Get.to(GetReceeSubJob(
                                                     id: controller
                                                         .getreceelistData[index]
                                                         .id
@@ -762,8 +785,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: 350),
-                        primary: AppColors.green,
+                        textStyle: TextStyle(fontSize: 350), backgroundColor: AppColors.green,
                         minimumSize: Size(300, 45)),
                     onPressed: () {},
                     child: Text(

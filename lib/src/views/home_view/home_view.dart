@@ -9,36 +9,24 @@ import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
+import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
-
-
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
-
 }
 
-
-
-
 class _HomeScreenState extends State<HomeScreen> {
-
-
   late Color bgColor;
   bool isThemeDark = true;
   late ShimmerProLight shimmerlight;
   final controller = Get.find<ProfileController>();
   final multisign = Get.find<HomeController>();
   int activeIndex = 0;
-
-
-
-
 
   @override
   void initState() {
@@ -48,10 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     multisign.getreceelistData.clear();
     multisign.installerListdata.clear();
   }
-
-
-
-
 
   getdata() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -64,9 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-
-
   refreshData() async {
     await controller.getprofile();
     if (controller.getprofileData!.roleId == '2') {
@@ -75,10 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
       multisign.getinstallation();
     }
   }
-
-
-
-
 
   void _themeMode() {
     isThemeDark = !isThemeDark;
@@ -95,15 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-
-
-
   // String selectdt1 = formatDate(
   //     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
   //     [yyyy, "-", mm, "-", dd]);
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -183,9 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Row(
-
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
@@ -199,11 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               //     Image.asset("assets/images/profile.png"),
                               ,
                               ksizedbox10w,
-
-
-
-
-
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -234,23 +198,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                 ],
                               ),
-
-
-
-
                             ],
                           ),
-
-
-
-
-
-
-
-
-
-
-
                           Row(
                             children: [
                               GestureDetector(
@@ -265,14 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-
-
-
-
-
-
-
-
                         ],
                       ),
                       ksizedbox10,
@@ -291,17 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         items: [
-
-
                           Image.asset("assets/images/printer.png"),
-
-
                           Image.asset("assets/images/Rectangle 36.png"),
-
-
                           Image.asset("assets/images/Rectangle 37.png"),
-
-
                         ],
                       ),
                       ksizedbox5,
@@ -513,7 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   Get.to(
-                                                                      RecceReportDetails(
+                                                                      GetReceeSubJob(
                                                                     id: item.id
                                                                         .toString(),
                                                                   ));
@@ -762,7 +695,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       beforeImages: item1.receeVerifications.last.beforeImages,
                                                                                     ));
                                                                                   },
-                                                                                  child: Text('Full View', style: primaryFonts.copyWith(decoration: TextDecoration.underline, decorationColor: AppColors.green, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),
+                                                                                  child: Text(
+                                                                                    'Full View',
+                                                                                    style: primaryFonts.copyWith(decoration: TextDecoration.underline, decorationColor: AppColors.green, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green),
+                                                                                  ),
                                                                                 ),
                                                                                 // Text(
                                                                                 //     controller

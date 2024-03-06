@@ -179,28 +179,28 @@
 //                       ),
 //                     ),
 //                     ksizedbox20,
-//                     // Container(
-//                     //   padding: EdgeInsets.symmetric(horizontal: 10),
-//                     //   height: 40,
-//                     //   width: double.infinity,
-//                     //   decoration: BoxDecoration(
-//                     //       color: AppColors.lightGrey.withOpacity(.30),
-//                     //       borderRadius: BorderRadius.circular(8)),
-//                     //   child: Row(
-//                     //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     //     children: [
-//                     //       Text(
-//                     //         "Pavi Vivo Mobile",
-//                     //         style: primaryFonts.copyWith(
-//                     //             color: AppColors.black,
-//                     //             fontSize: 12,
-//                     //             fontWeight: FontWeight.w400),
-//                     //       ),
-//                     //       IconButton(
-//                     //           onPressed: () {}, icon: Icon(Icons.arrow_forward))
-//                     //     ],
-//                     //   ),
-//                     // ),
+//                     Container(
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       height: 40,
+//                       width: double.infinity,
+//                       decoration: BoxDecoration(
+//                           color: AppColors.lightGrey.withOpacity(.30),
+//                           borderRadius: BorderRadius.circular(8)),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Text(
+//                             "Pavi Vivo Mobile",
+//                             style: primaryFonts.copyWith(
+//                                 color: AppColors.black,
+//                                 fontSize: 12,
+//                                 fontWeight: FontWeight.w400),
+//                           ),
+//                           IconButton(
+//                               onPressed: () {}, icon: Icon(Icons.arrow_forward))
+//                         ],
+//                       ),
+//                     ),
 //                     // ksizedbox20,
 //                     // Container(
 //                     //   padding: EdgeInsets.symmetric(horizontal: 10),

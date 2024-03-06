@@ -342,8 +342,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: 350),
-                        primary: AppColors.green,
+                        textStyle: TextStyle(fontSize: 350), backgroundColor: AppColors.green,
                         minimumSize: Size(300, 45)),
                     onPressed: () {},
                     child: Text(
