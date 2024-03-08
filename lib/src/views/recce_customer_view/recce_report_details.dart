@@ -13,9 +13,11 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 
 class RecceReportDetails extends StatefulWidget {
   final String id;
+  final bool flag;
   const RecceReportDetails({
     super.key,
     required this.id,
+    required this.flag,
   });
 
   @override
@@ -23,8 +25,6 @@ class RecceReportDetails extends StatefulWidget {
 }
 
 class _RecceReportDetailsState extends State<RecceReportDetails> {
-
-
   final _focusNode = FocusNode();
   final TextEditingController job_cardContoller = TextEditingController();
   final TextEditingController widthController = TextEditingController();
@@ -32,7 +32,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController squrefitController = TextEditingController();
   final TextEditingController dimensionController = TextEditingController();
   final TextEditingController signage_typeController = TextEditingController();
-  final TextEditingController signage_detailsController = TextEditingController();
+  final TextEditingController signage_detailsController =
+      TextEditingController();
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
 
@@ -57,7 +58,13 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
 
   setDefault() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await controller.getReceedetails(id: widget.id);
+      //
+      if (widget.flag == true) {
+        await controller.getReceesubjobDetails(id: widget.id);
+      } else {
+        await controller.getReceedetails(id: widget.id);
+      }
+
       if (controller.getreceedetailsData!.receeVerifications.isNotEmpty) {
         job_cardContoller.text =
             controller.getreceedetailsData!.jobcard.toString();
@@ -95,8 +102,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     super.dispose();
   }
 
-
-    late Color bgColor;
+  late Color bgColor;
   bool isThemeDark = true;
 
   late ShimmerProLight shimmerlight;
@@ -114,8 +120,6 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,46 +139,48 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
           child: GetBuilder<HomeController>(builder: (context) {
             return controller.isLoadingdatails.isTrue
                 ? Column(
-                  children: [
-                    ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10,      ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10,      ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10, 
-                  ],
-                )
+                    children: [
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                    ],
+                  )
                 : Form(
                     key: _formKey,
                     child: Column(
@@ -1050,8 +1056,11 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                           ),
                         ksizedbox20,
                         controller.getreceedetailsData?.isReceeVerrified == "1"
-                            ? InkWell(onTap: (){Get.to(BottomNaviBar());},
-                              child: Container(
+                            ? InkWell(
+                                onTap: () {
+                                  Get.to(BottomNaviBar());
+                                },
+                                child: Container(
                                   alignment: Alignment.center,
                                   height: 45,
                                   width: double.infinity,
@@ -1066,7 +1075,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                            )
+                              )
                             : InkWell(
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
@@ -1081,23 +1090,45 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         widthController.text.isNotEmpty &&
                                         controller.pickedEditedImagePathList
                                             .isNotEmpty) {
-                                      controller.verifyRecee(
-                                        job_card: controller
-                                            .getreceedetailsData!.jobcard,
-                                        width: widthController.text,
-                                        height: heightController.text,
-                                        squrefit: squrefitController.text,
-                                        dimension: dimensionController.text,
-                                        signage_type:
-                                            signage_typeController.text,
-                                        signage_details:
-                                            signage_detailsController.text,
-                                        client_id: controller
-                                            .getreceedetailsData!.id
-                                            .toString(),
-                                        media: controller
-                                            .pickedEditedImagePathList,
-                                      );
+                                      widget.flag == true
+                                          ? controller.verifysubjobRecee(
+                                              job_card: controller
+                                                  .getreceedetailsData!.jobcard,
+                                              width: widthController.text,
+                                              height: heightController.text,
+                                              squrefit: squrefitController.text,
+                                              dimension:
+                                                  dimensionController.text,
+                                              signage_type:
+                                                  signage_typeController.text,
+                                              signage_details:
+                                                  signage_detailsController
+                                                      .text,
+                                              client_id: controller
+                                                  .getreceedetailsData!.id
+                                                  .toString(),
+                                              media: controller
+                                                  .pickedEditedImagePathList,
+                                            )
+                                          : controller.verifyRecee(
+                                              job_card: controller
+                                                  .getreceedetailsData!.jobcard,
+                                              width: widthController.text,
+                                              height: heightController.text,
+                                              squrefit: squrefitController.text,
+                                              dimension:
+                                                  dimensionController.text,
+                                              signage_type:
+                                                  signage_typeController.text,
+                                              signage_details:
+                                                  signage_detailsController
+                                                      .text,
+                                              client_id: controller
+                                                  .getreceedetailsData!.id
+                                                  .toString(),
+                                              media: controller
+                                                  .pickedEditedImagePathList,
+                                            );
                                     } else {
                                       AppConstant.showSnackbar(
                                         headText: "Fill All Details",

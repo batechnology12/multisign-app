@@ -14,6 +14,8 @@ import 'package:multisign_app/src/api_service/service/installer_api_service/veri
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_job_api_service.dart';
+import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_jobdetails_api_service.dart';
+import 'package:multisign_app/src/api_service/service/recee_api_servie/recee_sub_job_verify.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/verify_recee_api_service.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
@@ -23,6 +25,7 @@ import 'package:multisign_app/src/model/get_details_recee_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
+import 'package:multisign_app/src/model/get_sub_jobdetails_model.dart';
 import 'package:multisign_app/src/model/home_model.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
@@ -115,6 +118,7 @@ class HomeController extends GetxController {
 
   Data? getreceedetailsData;
   getReceedetails({required String id}) async {
+    
     print(
         '========================data==1==========${id}=======================');
     isLoadingdatails(true);
@@ -154,7 +158,56 @@ GetReceeSubjobApiServices getReceeSubjobApiServices = GetReceeSubjobApiServices(
       GetReceeSubjob getReceeSubjob =
           GetReceeSubjob.fromJson(response.data);
       getreceedsubjobData = getReceeSubjob.data;
-    }else{Get.offAll(RecceReportDetails(id:id,));}
+    
+
+
+
+    }else{
+      getReceedetails(id:id );
+      Get.off(RecceReportDetails(id:id,flag: false,));}
+    update();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsServicesApi();
+
+
+   //subjobdatailsdata? getReceesubjobdetailsData;
+  getReceesubjobDetails({required String id}) async {
+    print(
+        '========================data==1==========${id}=======================');
+    isLoadingdatails(true);
+    update();
+    dio.Response<dynamic> response =
+        await receeSubJobDetailsServicesApi.receeSubJobdetailsApi(id: id);
+    isLoadingdatails(false);
+    update();
+    print('========================data==2=================================');
+    if (response.data["status"] == true) {
+     GetIReceeDetailsModel geRreceedetailModel =
+          GetIReceeDetailsModel.fromJson(response.data);
+      getreceedetailsData = geRreceedetailModel.data;
+    }
+    else{
+    }
     update();
   }
 
@@ -249,6 +302,82 @@ GetReceeSubjobApiServices getReceeSubjobApiServices = GetReceeSubjobApiServices(
       // );
     }
   }
+
+
+
+
+
+
+
+
+
+  VerifyReceeSubjobApiServices verifyReceeSubjobApiServices = VerifyReceeSubjobApiServices();
+
+  verifysubjobRecee({
+    required String job_card,
+    required String width,
+    required String height,
+    required String squrefit,
+    required String dimension,
+    required String signage_type,
+    required String signage_details,
+    required String client_id,
+    required List<Uint8List?> media,
+  }) async {
+    isLoadingverification(true);
+    update();
+    dio.Response<dynamic> response =
+        await verifyReceeSubjobApiServices.varifyreceeSubJobApi(
+      job_card: job_card,
+      width: width,
+      height: height,
+      squrefit: squrefit,
+      dimension: dimension,
+      signage_type: signage_type,
+      signage_details: signage_details,
+      client_id: client_id,
+      media: media,
+    );
+    isLoadingverification(false);
+    if (response.data['status'] == true) {
+     pickedEditedImagePathList.clear();
+      Get.to(BottomNaviBar());
+      pickedImagePathList.clear();
+       pickedImagePath!='';
+       update();
+      AppConstant.showSnackbar(
+        headText: "Successful",
+        content: "Uploaded successfull",
+        position: SnackPosition.BOTTOM,
+      );
+      // Get.showSnackbar(
+      //   messageText: const Text(
+      //     "Uploaded successfull",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   backgroundColor: Colors.green,
+      // );
+    } else {
+      AppConstant.showSnackbar(
+        headText: "Upload Failed",
+        content: response.data['message'],
+        position: SnackPosition.BOTTOM,
+      );
+      // Get.showSnackbar(
+      //   messageText: const Text(
+      //     "Something went wrong",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   backgroundColor: Colors.red,
+      // );
+    }
+  }
+
+
+
+
+
+
 
   VerifyInstallationApiServices verifyInstallationApiServices =
       VerifyInstallationApiServices();

@@ -446,7 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   Get.to(
-                                                                      GetReceeSubJob(
+                                                                      GetReceeSubJob(flag: true,
                                                                     id: item.id
                                                                         .toString(),
                                                                   ));
@@ -522,7 +522,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 GestureDetector(
                                                                                   onTap: () {
                                                                                     Get.to(RecceReportDetails(
-                                                                                      id: item.id.toString(),
+                                                                                      id: item.id.toString(), flag: true,
                                                                                     ));
                                                                                   },
                                                                                   child: Text('Full View', style: primaryFonts.copyWith(decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),

@@ -256,6 +256,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.to(GetReceeSubJob(
+                                                      flag: true, 
                                                     id: controller
                                                         .getreceelistData[index]
                                                         .id
@@ -356,6 +357,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                                   onTap: () {
                                                                     Get.to(
                                                                         RecceReportDetails(
+                                                                            flag: true, 
                                                                       id: controller
                                                                           .getreceelistData[
                                                                               index]

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
@@ -15,11 +13,19 @@ import 'package:multisign_app/src/views/auth_view/otp_screen.dart';
 import 'package:multisign_app/src/views/auth_view/splash_loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+
 class AuthController extends GetxController {
+
+
+
   List letters = ["AK", "WA", "JR", "JR"];
   List name = ["Aash Kumar", "Wasim Anas", "Jaga Raj", "Jaga Raj"];
   List place = ["Business Board, chennai"];
   List jobId = ['job Id: AKASH12345'];
+
+
 
   final _isHidden = true.obs;
 

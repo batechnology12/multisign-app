@@ -9,7 +9,8 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 
 class GetReceeSubJob extends StatefulWidget {
   final String id;
-  const GetReceeSubJob({super.key, required this.id});
+  final bool flag;
+  const GetReceeSubJob({super.key, required this.id,required this.flag});
 
   @override
   State<GetReceeSubJob> createState() => _GetReceeSubJobState();
@@ -160,9 +161,15 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 10),
-                                  child: InkWell(onTap: (){    Get.to(RecceReportDetails(
+                                  child: InkWell(onTap: () {
+                                    // controller.getReceesubjobDetails(id:controller
+                                    //                       .getreceedsubjobData[index]
+                                    //                       .id
+                                    //                       .toString(),);
+                                        Get.to(RecceReportDetails(
+                                            flag: true, 
                                                       id: controller
-                                                          .getreceelistData[index]
+                                                          .getreceedsubjobData[index]
                                                           .id
                                                           .toString(),
                                                     ));},
@@ -197,8 +204,9 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                               : IconButton(
                                                   onPressed: () {
                                                     Get.to(RecceReportDetails(
+                                                        flag: true, 
                                                       id: controller
-                                                          .getreceelistData[index]
+                                                          .getreceedsubjobData[index]
                                                           .id
                                                           .toString(),
                                                     ));

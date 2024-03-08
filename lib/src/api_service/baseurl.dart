@@ -13,4 +13,6 @@ final String ForgotpasswordURI="https://portal.multisigns.batechnology.in/api/fo
 final String verifyotpURI="https://portal.multisigns.batechnology.in/api/verify-otp";
 final String newpasswordURI="https://portal.multisigns.batechnology.in/api/changePassword";
 final String getsubjobURI ="https://portal.multisigns.batechnology.in/api/auth/get-sub-job/list/";
+final String getreceesubjobdetails="https://portal.multisigns.batechnology.in/api/auth/get-sub-job/details";
+final String receesubjobverify='https://portal.multisigns.batechnology.in/api/auth/subjob_recee_verification?';
 }
