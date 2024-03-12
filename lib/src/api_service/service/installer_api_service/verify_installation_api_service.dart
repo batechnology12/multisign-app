@@ -22,7 +22,7 @@ class VerifyInstallationApiServices extends BaseApiService {
                MultipartFile.fromBytes(media[i]!, filename: "image$i"),
       });
 
-      var response = await dio.post(installerVerificationURI,
+      var response = await dio.post(verifyinstallerSubJobURI,
           options: Options(
               headers: {
                 'Accept': 'application/json',

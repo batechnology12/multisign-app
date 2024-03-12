@@ -507,7 +507,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                               
                                                 id: controller
                                                     .installerListdata[index].id
-                                                    .toString(), flag: true,
+                                                    .toString(), 
                                               ));
                                             },
                                             child: Container(

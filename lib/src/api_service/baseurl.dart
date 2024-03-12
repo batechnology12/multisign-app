@@ -15,4 +15,5 @@ final String getreceesubjobdetails="https://portal.multisigns.batechnology.in/ap
 final String receesubjobverify='https://portal.multisigns.batechnology.in/api/auth/subjob_recee_verification?';
 final String getinstallersubjobURI="https://portal.multisigns.batechnology.in/api/auth/get-installer-sub-job/list/";
 final String getinstallersubjobdetailsURI="https://portal.multisigns.batechnology.in/api/auth/get-installer-sub-job/details";
+final String verifyinstallerSubJobURI="https://portal.multisigns.batechnology.in/api/auth/subjob_installer_status";
 }

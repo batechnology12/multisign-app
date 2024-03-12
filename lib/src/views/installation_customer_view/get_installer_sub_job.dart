@@ -1,19 +1,21 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
 
 class GetInstallerSubJob extends StatefulWidget {
   final String id;
-  final bool flag;
-  List<String>? beforeImages;
-   GetInstallerSubJob({super.key, required this.id,required this.flag,  });
+  // final bool flag;
+//  List<String>? beforeImages;
+  GetInstallerSubJob({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<GetInstallerSubJob> createState() => _GetInstallerSubJobState();
@@ -78,20 +80,23 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                     borderRadius: BorderRadius.circular(6)),
                 child: TextFormField(
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Search Store and Branch",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.50)),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(
-                              width: 1,
-                              color: AppColors.black.withOpacity(.20))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.grey))),
+                    contentPadding: EdgeInsets.only(top: 5, left: 10),
+                    hintText: "Search Store and Branch",
+                    hintStyle: primaryFonts.copyWith(
+                        color: AppColors.black.withOpacity(.50)),
+                    border: InputBorder.none,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: AppColors.black.withOpacity(.20),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: BorderSide(width: 1, color: AppColors.grey),
+                    ),
+                  ),
                 ),
               ),
               ksizedbox30,
@@ -159,23 +164,25 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                               controller.getReceesubjob(id: widget.id),
                           child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: controller.getinstallersubjobData.length,
+                              itemCount:
+                                  controller.getinstallersubjobData.length,
                               itemBuilder: ((context, index) {
                                 return Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 10),
-                                  child: InkWell(onTap: () {
-                                    // controller.getReceesubjobDetails(id:controller
-                                    //                       .getinstallersubjobData[index]
-                                    //                       .id
-                                    //                       .toString(),);
-                                        Get.to(RecceReportDetails(
-                                            flag: true, 
-                                                      id: controller
-                                                          .getinstallersubjobData[index]
-                                                          .id
-                                                          .toString(),
-                                                    ));},
+                                  child: InkWell(
+                                    onTap: () {
+                                      // controller.getReceesubjobDetails(id:controller
+                                      //                       .getinstallersubjobData[index]
+                                      //                       .id
+                                      //                       .toString(),);
+                                      Get.to(InstallationReportDetails(
+                                        flag: true,
+                                        id: controller
+                                            .getinstallersubjobData[index].id
+                                            .toString(),
+                                      ));
+                                    },
                                     child: Container(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 10),
@@ -184,20 +191,24 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                                       decoration: BoxDecoration(
                                           color: AppColors.lightGrey
                                               .withOpacity(.30),
-                                          borderRadius: BorderRadius.circular(8)),
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            controller.getinstallersubjobData[index]
+                                            controller
+                                                .getinstallersubjobData[index]
                                                 .dealerName,
                                             style: primaryFonts.copyWith(
                                                 color: AppColors.black,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w400),
                                           ),
-                                          controller.getinstallersubjobData[index]
+                                          controller
+                                                      .getinstallersubjobData[
+                                                          index]
                                                       .installerStatus ==
                                                   '1'
                                               ? Icon(
@@ -206,15 +217,19 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                                                 )
                                               : IconButton(
                                                   onPressed: () {
-                                                    Get.to(RecceReportDetails(
-                                                        flag: true, 
+                                                    Get.to(
+                                                        InstallationReportDetails(
+                                                      flag: true,
                                                       id: controller
-                                                          .getinstallersubjobData[index]
+                                                          .getinstallersubjobData[
+                                                              index]
                                                           .id
                                                           .toString(),
                                                     ));
                                                   },
-                                                  icon: Icon(Icons.arrow_forward))
+                                                  icon:
+                                                      Icon(Icons.arrow_forward),
+                                                ),
                                         ],
                                       ),
                                     ),

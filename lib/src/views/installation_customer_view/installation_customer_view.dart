@@ -1,4 +1,6 @@
 
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
@@ -6,6 +8,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
+
 
 
 class InstallationCustomer extends StatefulWidget {
@@ -189,7 +192,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                                         .installerListdata[
                                                             index]
                                                         .id
-                                                        .toString(), flag: true,));
+                                                        .toString(), ));
                                               },
                                               child: Text('Full View',
                                                   style: primaryFonts.copyWith(

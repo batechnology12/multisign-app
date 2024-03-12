@@ -614,7 +614,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       GetInstallerSubJob(
                                                                   
                                                                     id: item1.id
-                                                                        .toString(), flag: true,
+                                                                        .toString(), 
                                                                   ));
                                                                 },
                                                                 child:

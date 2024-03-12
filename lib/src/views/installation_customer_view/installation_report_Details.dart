@@ -13,10 +13,10 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 
 class InstallationReportDetails extends StatefulWidget {
   final String id;
- 
-   final bool flag;
+
+  final bool flag;
   const InstallationReportDetails(
-      {super.key, required this.id, required this. flag});
+      {super.key, required this.id, required this.flag});
 
   @override
   State<InstallationReportDetails> createState() =>
@@ -36,26 +36,17 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
     super.initState();
     setDefault();
     _themeMode();
-   
   }
 
-  setDefault()async {
-    WidgetsBinding.instance.addPostFrameCallback((_)async {
+  setDefault() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      controller.getinstallerSubjobdetails(id: widget.id);
 
-
-
-
-
-
-    if (widget.flag == true) {
-        await controller.getinstallerSubjobdetails(id: widget.id);
-      } else {
-        await  controller.getinstallerdetails(id: widget.id);
-      }
-
-
-
-    
+      // if (widget.flag == true) {
+      //     await controller.getinstallerSubjobdetails(id: widget.id);
+      //   } else {
+      //     await  controller.getinstallerdetails(id: widget.id);
+      //   }
 
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
@@ -69,7 +60,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   File? photo;
   File? image;
   ImagePicker imagePicker = ImagePicker();
-    late Color bgColor;
+  late Color bgColor;
   bool isThemeDark = true;
 
   late ShimmerProLight shimmerlight;
@@ -107,46 +98,48 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
           child: GetBuilder<HomeController>(builder: (context) {
             return controller.getinstallerdetailsData == null
                 ? Column(
-                  children: [
-                    ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10,      ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10,      ShimmerPro.text(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,
-                    ),  
-                            ksizedbox10,
-                                ShimmerPro.sized(
-                      light: shimmerlight,
-                      scaffoldBackgroundColor: bgColor,
-                  
-                      width: 450,height: 50,
-                    ), ksizedbox10, 
-                  ],
-                )
+                    children: [
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.text(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                      ),
+                      ksizedbox10,
+                      ShimmerPro.sized(
+                        light: shimmerlight,
+                        scaffoldBackgroundColor: bgColor,
+                        width: 450,
+                        height: 50,
+                      ),
+                      ksizedbox10,
+                    ],
+                  )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -267,27 +260,28 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           //keyboardType: TextInputType.number,
                           controller: job_cardContoller,
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(top: 5, left: 10),
-                              hintText:
-                                  controller.getinstallerdetailsData!.city,
-                              hintStyle: primaryFonts.copyWith(
-                                  color: AppColors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              //labelText: "JOB CARD",
-                              labelStyle: primaryFonts.copyWith(
-                                  color: AppColors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              border: InputBorder.none,
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide(
-                                      width: 1, color: AppColors.black)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: BorderSide(
-                                      width: 1, color: AppColors.black))),
+                            contentPadding: EdgeInsets.only(top: 5, left: 10),
+                            hintText: controller.getinstallerdetailsData!.city,
+                            hintStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            //labelText: "JOB CARD",
+                            labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.black)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide:
+                                  BorderSide(width: 1, color: AppColors.black),
+                            ),
+                          ),
                         ),
                       ),
                       ksizedbox15,
@@ -903,40 +897,48 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ),
                       ksizedbox10,
 
-                      // Container(
-                      //   height: 200,
-                      //   child: ListView.builder(
-                      //       itemCount: widget.beforeImages.length,
-                      //       scrollDirection: Axis.horizontal,
-                      //       itemBuilder: (context, index2) {
-                      //         return Card(
-                      //           child: InkWell(
-                      //             onTap: () {
-                      //               showImageViewer(
-                      //                   context,
-                      //                   Image.network(
-                      //                           widget.beforeImages[index2])
-                      //                       .image);
-                      //             },
-                      //             child: Container(
-                      //               width: 200,
-                      //               child: Image.network(
-                      //                   widget.beforeImages[index2]
-                      //                   ),
-                      //             ),
-                      //           ),
-                      //         );
-                      //       }),
-                      // ),
+                      Container(
+                        height: 200,
+                        child: ListView.builder(
+                            itemCount: controller.getinstallerdetailsData!
+                                .receeVerifications.last.beforeImages.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index2) {
+                              return Card(
+                                child: InkWell(
+                                  onTap: () {
+                                    showImageViewer(
+                                        context,
+                                        Image.network(controller
+                                                .getinstallerdetailsData!
+                                                .receeVerifications
+                                                .last
+                                                .beforeImages[index2])
+                                            .image);
+                                  },
+                                  child: Container(
+                                    width: 200,
+                                    child: Image.network(controller
+                                        .getinstallerdetailsData!
+                                        .receeVerifications
+                                        .last
+                                        .beforeImages[index2]),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
 
                       // Container(
                       //   height: 200,
                       //   decoration: BoxDecoration(
                       //       borderRadius: BorderRadius.circular(16),
                       //       image: DecorationImage(
-                      //           image: NetworkImage(
-                      //             widget.beforeImages,
-                      //           ),
+                      //           image: NetworkImage(controller
+                      //               .getinstallerdetailsData!
+                      //               .receeVerifications
+                      //               .last
+                      //               .beforeImages),
                       //           fit: BoxFit.cover)),
                       // ),
                       ksizedbox20,
@@ -969,15 +971,14 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       itemBuilder: (context, index2) {
                                         return InkWell(
                                           onTap: () {
-                                             showImageViewer(
-                                        context,
-                                        Image.network(
-                                                controller
-                                                  .getinstallerdetailsData
-                                                  ?.receeVerifications
-                                                  .last
-                                                  .afterImages[index2])
-                                            .image);
+                                            showImageViewer(
+                                                context,
+                                                Image.network(controller
+                                                        .getinstallerdetailsData
+                                                        ?.receeVerifications
+                                                        .last
+                                                        .afterImages[index2])
+                                                    .image);
                                           },
                                           child: Card(
                                             child: Container(
@@ -1009,28 +1010,30 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                             //   () => controller.pickedcamerapath == ""
                                             //       ?
                                             Column(
-                                              children: [
-                                                Container(
-                                          height: 115.h,
-                                          decoration: BoxDecoration(
+                                          children: [
+                                            Container(
+                                              height: 115.h,
+                                              decoration: BoxDecoration(
                                                   color: AppColors.lightGrey
                                                       .withOpacity(.20),
                                                   borderRadius:
                                                       BorderRadius.circular(6)),
-                                          child: Image.asset(
+                                              child: Image.asset(
                                                 "assets/images/camera.png",
                                                 height: 165,
                                                 width: 185,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text("Camera",style: primaryFonts.copyWith(
-                                          fontWeight: FontWeight.bold
-                                        ),),
-                                              ],
-                                            )
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              "Camera",
+                                              style: primaryFonts.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        )
                                         // : Container(width: 200,
                                         //     height: 115.h,
                                         //     decoration: BoxDecoration(
@@ -1045,7 +1048,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         //             .withOpacity(.20),
                                         //         borderRadius:
                                         //             BorderRadius.circular(6)),
-                                                                  
+
                                         //   ),
                                         //       ),
                                         ),
@@ -1058,7 +1061,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         onTap: () async {
                                           controller.pickImage(
                                               imageSource: ImageSource.gallery);
-                                                                  
+
                                           controller.update();
                                         },
                                         child:
@@ -1066,28 +1069,30 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                             //   () => controller.pickedImagePath == ""
                                             //       ?
                                             Column(
-                                              children: [
-                                                Container(
-                                          height: 120.h,
-                                          decoration: BoxDecoration(
+                                          children: [
+                                            Container(
+                                              height: 120.h,
+                                              decoration: BoxDecoration(
                                                   color: AppColors.lightGrey
                                                       .withOpacity(.20),
                                                   borderRadius:
                                                       BorderRadius.circular(6)),
-                                          child: Image.asset(
+                                              child: Image.asset(
                                                 "assets/images/gallery.png",
                                                 height: 165,
                                                 width: 185,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text("Gallery",style: primaryFonts.copyWith(
-                                          fontWeight: FontWeight.bold
-                                        ),),
-                                              ],
-                                            )
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              "Gallery",
+                                              style: primaryFonts.copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        )
                                         // : Container(
                                         //     height: 120.h,
                                         //     decoration: BoxDecoration(
@@ -1112,68 +1117,69 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ],
                             ),
                       ksizedbox30,
-                         if (controller.pickedEditedImagePathList.isNotEmpty)
-                          Container(
-                            height: 150,
-                            child: ListView.builder(
-                              itemCount:
-                                  controller.pickedEditedImagePathList.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          showImageViewer(
-                                              context,
-                                              Image.memory(controller
-                                                          .pickedEditedImagePathList[
-                                                      index]!)
-                                                  .image);
+                      if (controller.pickedEditedImagePathList.isNotEmpty)
+                        Container(
+                          height: 150,
+                          child: ListView.builder(
+                            itemCount:
+                                controller.pickedEditedImagePathList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showImageViewer(
+                                            context,
+                                            Image.memory(controller
+                                                        .pickedEditedImagePathList[
+                                                    index]!)
+                                                .image);
+                                      },
+                                      child: Container(
+                                        height: 150,
+                                        child: Image.memory(
+                                          controller.pickedEditedImagePathList[
+                                              index]!,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: CircleAvatar(
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: AppColors.red,
+                                        ),
+                                        onPressed: () {
+                                          // Add your delete logic here
+                                          // For example, you can remove the image path from the list
+                                          setState(() {
+                                            controller.pickedEditedImagePathList
+                                                .removeAt(index);
+                                          });
                                         },
-                                        child: Container(
-                                          height: 150,
-                                          child: Image.memory(
-                                            controller
-                                                    .pickedEditedImagePathList[
-                                                index]!,
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        ),
                                       ),
                                     ),
-                                    Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.delete,
-                                            color: AppColors.red,
-                                          ),
-                                          onPressed: () {
-                                            // Add your delete logic here
-                                            // For example, you can remove the image path from the list
-                                            setState(() {
-                                              controller
-                                                  .pickedEditedImagePathList
-                                                  .removeAt(index);
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
+                        ),
                       ksizedbox15,
                       controller.getinstallerdetailsData?.installerStatus == "1"
-                          ? InkWell(onTap: (){Get.to(BottomNaviBar());},
-                            child: Container(
+                          ? InkWell(
+                              onTap: () {
+                                Get.to(BottomNaviBar());
+                              },
+                              child: Container(
                                 alignment: Alignment.center,
                                 height: 45,
                                 width: double.infinity,
@@ -1188,10 +1194,11 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
-                          )
+                            )
                           : InkWell(
                               onTap: () {
-                                if (controller.pickedEditedImagePathList.isNotEmpty) {
+                                if (controller
+                                    .pickedEditedImagePathList.isNotEmpty) {
                                   controller.verifyInstall(
                                     job_card: controller
                                         .getinstallerdetailsData!.jobcard,

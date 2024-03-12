@@ -183,7 +183,7 @@ class HomeController extends GetxController {
           GetInstallerSubJobModel.fromJson(response.data);
       getinstallersubjobData = getInstallerSubjob.data;
     } else {
-      getinstallerdetails(id: id);
+    //  getinstallerdetails(id: id);
       Get.off(InstallationReportDetails(
         id: id,
         flag: false, 
@@ -226,6 +226,7 @@ class HomeController extends GetxController {
 
   InstallerSubJobDetailsServicesApi installerSubJobDetailsServicesApi =
       InstallerSubJobDetailsServicesApi();
+      installerData? getinstallerdetailsData;
   //installerData? getinstallerdetailsData;
   getinstallerSubjobdetails({required String id}) async {
     print(
@@ -250,26 +251,26 @@ class HomeController extends GetxController {
 
 
 
-  InstallerDetailsServicesApi installerDetailsServicesApi =
-      InstallerDetailsServicesApi();
-  installerData? getinstallerdetailsData;
-  getinstallerdetails({required String id}) async {
-    print(
-        '========================data==1==========${id}=======================');
-    isLoadingdatails(true);
-    update();
-    dio.Response<dynamic> response =
-        await installerDetailsServicesApi.installerdetailsApi(id: id);
-    isLoadingdatails(false);
-    update();
-    print('========================data==2=================================');
-    if (response.data["status"] == true) {
-      GetIInstallerDetailsModel geInstallerdetailModel =
-          GetIInstallerDetailsModel.fromJson(response.data);
-      getinstallerdetailsData = geInstallerdetailModel.data;
-    }
-    update();
-  }
+  // InstallerDetailsServicesApi installerDetailsServicesApi =
+  //     InstallerDetailsServicesApi();
+  // installerData? getinstallerdetailsData;
+  // getinstallerdetails({required String id}) async {
+  //   print(
+  //       '========================data==1==========${id}=======================');
+  //   isLoadingdatails(true);
+  //   update();
+  //   dio.Response<dynamic> response =
+  //       await installerDetailsServicesApi.installerdetailsApi(id: id);
+  //   isLoadingdatails(false);
+  //   update();
+  //   print('========================data==2=================================');
+  //   if (response.data["status"] == true) {
+  //     GetIInstallerDetailsModel geInstallerdetailModel =
+  //         GetIInstallerDetailsModel.fromJson(response.data);
+  //     getinstallerdetailsData = geInstallerdetailModel.data;
+  //   }
+  //   update();
+  // }
 
   VerifyReceeApiServices verifyReceeApiServices = VerifyReceeApiServices();
 
