@@ -13,9 +13,10 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 
 class InstallationReportDetails extends StatefulWidget {
   final String id;
-  final List beforeImages;
+ 
+   final bool flag;
   const InstallationReportDetails(
-      {super.key, required this.id, required this.beforeImages, required bool flag});
+      {super.key, required this.id, required this. flag});
 
   @override
   State<InstallationReportDetails> createState() =>
@@ -38,9 +39,23 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
    
   }
 
-  setDefault() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.getinstallerdetails(id: widget.id);
+  setDefault()async {
+    WidgetsBinding.instance.addPostFrameCallback((_)async {
+
+
+
+
+
+
+    if (widget.flag == true) {
+        await controller.getinstallerSubjobdetails(id: widget.id);
+      } else {
+        await  controller.getinstallerdetails(id: widget.id);
+      }
+
+
+
+    
 
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
@@ -888,31 +903,31 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ),
                       ksizedbox10,
 
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                            itemCount: widget.beforeImages.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index2) {
-                              return Card(
-                                child: InkWell(
-                                  onTap: () {
-                                    showImageViewer(
-                                        context,
-                                        Image.network(
-                                                widget.beforeImages[index2])
-                                            .image);
-                                  },
-                                  child: Container(
-                                    width: 200,
-                                    child: Image.network(
-                                        widget.beforeImages[index2]
-                                        ),
-                                  ),
-                                ),
-                              );
-                            }),
-                      ),
+                      // Container(
+                      //   height: 200,
+                      //   child: ListView.builder(
+                      //       itemCount: widget.beforeImages.length,
+                      //       scrollDirection: Axis.horizontal,
+                      //       itemBuilder: (context, index2) {
+                      //         return Card(
+                      //           child: InkWell(
+                      //             onTap: () {
+                      //               showImageViewer(
+                      //                   context,
+                      //                   Image.network(
+                      //                           widget.beforeImages[index2])
+                      //                       .image);
+                      //             },
+                      //             child: Container(
+                      //               width: 200,
+                      //               child: Image.network(
+                      //                   widget.beforeImages[index2]
+                      //                   ),
+                      //             ),
+                      //           ),
+                      //         );
+                      //       }),
+                      // ),
 
                       // Container(
                       //   height: 200,

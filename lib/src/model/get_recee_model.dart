@@ -30,44 +30,47 @@ class GetReceeModel {
 
 class GetReceDataList {
     int id;
-    String? importId;
+    dynamic importId;
+    String? clientId;
     String jobcard;
     String clientName;
-    String? scopeOfWork;
+    String scopeOfWork;
     String address;
     String city;
-    String? state;
+    String state;
     String gstNumber;
-    String? estimateNumber;
-    String? poNumber;
-    DateTime? poDate;
-    DateTime? targetCompletionDate;
-    String? particular;
-    String? qty;
-    String? rate;
-    String? value;
-    String? marketterId;
-    String recceId;
-    String? production;
-    String? designing;
-    String? data;
+    String estimateNumber;
+    String poNumber;
+    DateTime poDate;
+    DateTime targetCompletionDate;
+    String particular;
+    String qty;
+    String rate;
+    String value;
+    String marketterId;
+    String? recceId;
+    String production;
+    String designing;
+    String data;
     String? installerId;
     String installerStatus;
     String status;
     String isReceeVerrified;
-    String? region;
-    String? areaName;
-    String? dealerName;
-    String? storeName;
-    String? contact;
+    String region;
+    String areaName;
+    String dealerName;
+    String storeName;
+    String contact;
     DateTime createdAt;
     DateTime updatedAt;
     String isDeleted;
     dynamic deletedAt;
+    List<GetReceDataList>? getClientJobData;
 
     GetReceDataList({
         required this.id,
         required this.importId,
+        this.clientId,
         required this.jobcard,
         required this.clientName,
         required this.scopeOfWork,
@@ -101,11 +104,13 @@ class GetReceDataList {
         required this.updatedAt,
         required this.isDeleted,
         required this.deletedAt,
+        this.getClientJobData,
     });
 
     factory GetReceDataList.fromJson(Map<String, dynamic> json) => GetReceDataList(
         id: json["id"],
         importId: json["import_id"],
+        clientId: json["client_id"],
         jobcard: json["jobcard"],
         clientName: json["client_name"],
         scopeOfWork: json["scope_of_work"],
@@ -115,8 +120,8 @@ class GetReceDataList {
         gstNumber: json["gst_number"],
         estimateNumber: json["estimate_number"],
         poNumber: json["po_number"],
-        poDate: json["po_date"] == null ? null : DateTime.parse(json["po_date"]),
-        targetCompletionDate: json["target_completion_date"] == null ? null : DateTime.parse(json["target_completion_date"]),
+        poDate: DateTime.parse(json["po_date"]),
+        targetCompletionDate: DateTime.parse(json["target_completion_date"]),
         particular: json["particular"],
         qty: json["qty"],
         rate: json["rate"],
@@ -139,11 +144,13 @@ class GetReceDataList {
         updatedAt: DateTime.parse(json["updated_at"]),
         isDeleted: json["is_deleted"],
         deletedAt: json["deleted_at"],
+        getClientJobData: json["get_client_job_data"] == null ? [] : List<GetReceDataList>.from(json["get_client_job_data"]!.map((x) => GetReceDataList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "import_id": importId,
+        "client_id": clientId,
         "jobcard": jobcard,
         "client_name": clientName,
         "scope_of_work": scopeOfWork,
@@ -153,8 +160,8 @@ class GetReceDataList {
         "gst_number": gstNumber,
         "estimate_number": estimateNumber,
         "po_number": poNumber,
-        "po_date": "${poDate!.year.toString().padLeft(4, '0')}-${poDate!.month.toString().padLeft(2, '0')}-${poDate!.day.toString().padLeft(2, '0')}",
-        "target_completion_date": "${targetCompletionDate!.year.toString().padLeft(4, '0')}-${targetCompletionDate!.month.toString().padLeft(2, '0')}-${targetCompletionDate!.day.toString().padLeft(2, '0')}",
+        "po_date": "${poDate.year.toString().padLeft(4, '0')}-${poDate.month.toString().padLeft(2, '0')}-${poDate.day.toString().padLeft(2, '0')}",
+        "target_completion_date": "${targetCompletionDate.year.toString().padLeft(4, '0')}-${targetCompletionDate.month.toString().padLeft(2, '0')}-${targetCompletionDate.day.toString().padLeft(2, '0')}",
         "particular": particular,
         "qty": qty,
         "rate": rate,
@@ -177,5 +184,6 @@ class GetReceDataList {
         "updated_at": updatedAt.toIso8601String(),
         "is_deleted": isDeleted,
         "deleted_at": deletedAt,
+        "get_client_job_data": getClientJobData == null ? [] : List<dynamic>.from(getClientJobData!.map((x) => x.toJson())),
     };
 }

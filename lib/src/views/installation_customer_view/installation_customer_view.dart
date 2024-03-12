@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
@@ -30,6 +31,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
   }
 
   final controller = Get.find<HomeController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +106,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
+                              Get.to(InstallationReportDetails(
                                 id: controller.installerListdata[index].id
                                     .toString(), flag: true,
                               ));
@@ -182,7 +184,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(GetInstallerSubJob(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
+                                                Get.to(GetInstallerSubJob(
                                                     id: controller
                                                         .installerListdata[
                                                             index]

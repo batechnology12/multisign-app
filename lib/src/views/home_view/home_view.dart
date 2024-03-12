@@ -612,10 +612,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 onTap: () {
                                                                   Get.to(
                                                                       GetInstallerSubJob(
-                                                                    beforeImages: item1
-                                                                        .receeVerifications
-                                                                        .last
-                                                                        .beforeImages,
+                                                                  
                                                                     id: item1.id
                                                                         .toString(), flag: true,
                                                                   ));

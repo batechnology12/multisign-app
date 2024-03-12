@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_api_service.dart';
+import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/verify_installation_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
@@ -27,7 +28,6 @@ import 'package:multisign_app/src/model/get_installer_sub_job_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
-import 'package:multisign_app/src/model/get_sub_jobdetails_model.dart';
 import 'package:multisign_app/src/model/home_model.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
@@ -186,7 +186,7 @@ class HomeController extends GetxController {
       getinstallerdetails(id: id);
       Get.off(InstallationReportDetails(
         id: id,
-        flag: false, beforeImages: [],
+        flag: false, 
       ));
     }
     update();
@@ -213,6 +213,42 @@ class HomeController extends GetxController {
     } else {}
     update();
   }
+
+
+
+
+
+
+
+
+
+
+
+  InstallerSubJobDetailsServicesApi installerSubJobDetailsServicesApi =
+      InstallerSubJobDetailsServicesApi();
+  //installerData? getinstallerdetailsData;
+  getinstallerSubjobdetails({required String id}) async {
+    print(
+        '========================data==1==========${id}=======================');
+    isLoadingdatails(true);
+    update();
+    dio.Response<dynamic> response =
+        await installerSubJobDetailsServicesApi.installerSubJobdetailsApi(id: id);
+    isLoadingdatails(false);
+    update();
+    print('========================data==2=================================');
+    if (response.data["status"] == true) {
+      GetIInstallerDetailsModel geInstallerdetailModel =
+          GetIInstallerDetailsModel.fromJson(response.data);
+      getinstallerdetailsData = geInstallerdetailModel.data;
+    }
+    update();
+  }
+
+
+
+
+
 
   InstallerDetailsServicesApi installerDetailsServicesApi =
       InstallerDetailsServicesApi();

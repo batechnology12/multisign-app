@@ -12,7 +12,8 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 class GetInstallerSubJob extends StatefulWidget {
   final String id;
   final bool flag;
-  const GetInstallerSubJob({super.key, required this.id,required this.flag, required List<String> beforeImages});
+  List<String>? beforeImages;
+   GetInstallerSubJob({super.key, required this.id,required this.flag,  });
 
   @override
   State<GetInstallerSubJob> createState() => _GetInstallerSubJobState();

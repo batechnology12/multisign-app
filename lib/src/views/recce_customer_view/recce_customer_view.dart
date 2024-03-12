@@ -1,16 +1,25 @@
+
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
 import 'package:multisign_app/src/const/app_colors.dart';
+
 import 'package:multisign_app/src/const/app_fonts.dart';
+
 import 'package:multisign_app/src/controllers/home_controller.dart';
+
 import 'package:multisign_app/src/controllers/profile_controller.dart';
-import 'package:multisign_app/src/model/get_recee_sub_job.dart';
+
 import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
-import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
+
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
+
 import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
-import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
+
 import 'package:shimmer_pro/shimmer_pro.dart';
+
+
 
 class RecceCustomer extends StatefulWidget {
   RecceCustomer({super.key});
@@ -495,11 +504,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                           GestureDetector(
                                             onTap: () {
                                               Get.to(GetInstallerSubJob(
-                                                beforeImages: controller
-                                                    .installerListdata[index]
-                                                    .receeVerifications
-                                                    .last
-                                                    .beforeImages,
+                                              
                                                 id: controller
                                                     .installerListdata[index].id
                                                     .toString(), flag: true,
