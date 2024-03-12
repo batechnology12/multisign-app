@@ -5,6 +5,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
+import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
@@ -355,15 +356,15 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                               children: [
                                                                 GestureDetector(
                                                                   onTap: () {
-                                                                    Get.to(
-                                                                        RecceReportDetails(
-                                                                            flag: true, 
-                                                                      id: controller
-                                                                          .getreceelistData[
-                                                                              index]
-                                                                          .id
-                                                                          .toString(),
-                                                                    ));
+                                                                    // Get.to(
+                                                                    //     RecceReportDetails(
+                                                                    //         flag: true, 
+                                                                    //   id: controller
+                                                                    //       .getreceelistData[
+                                                                    //           index]
+                                                                    //       .id
+                                                                    //       .toString(),
+                                                                    // ));
                                                                   },
                                                                   child: Text(
                                                                       'Full View',
@@ -493,7 +494,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.to(InstallationReportDetails(
+                                              Get.to(GetInstallerSubJob(
                                                 beforeImages: controller
                                                     .installerListdata[index]
                                                     .receeVerifications
@@ -501,7 +502,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                     .beforeImages,
                                                 id: controller
                                                     .installerListdata[index].id
-                                                    .toString(),
+                                                    .toString(), flag: true,
                                               ));
                                             },
                                             child: Container(
@@ -613,18 +614,18 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                           children: [
                                                             GestureDetector(
                                                               onTap: () {
-                                                                Get.to(InstallationReportDetails(
-                                                                    beforeImages: controller
-                                                                        .installerListdata[
-                                                                            index]
-                                                                        .receeVerifications
-                                                                        .last
-                                                                        .beforeImages,
-                                                                    id: controller
-                                                                        .installerListdata[
-                                                                            index]
-                                                                        .id
-                                                                        .toString()));
+                                                                // Get.to(InstallationReportDetails(
+                                                                //     beforeImages: controller
+                                                                //         .installerListdata[
+                                                                //             index]
+                                                                //         .receeVerifications
+                                                                //         .last
+                                                                //         .beforeImages,
+                                                                //     id: controller
+                                                                //         .installerListdata[
+                                                                //             index]
+                                                                //         .id
+                                                                //         .toString()));
                                                               },
                                                               child: Text(
                                                                   'Full View',

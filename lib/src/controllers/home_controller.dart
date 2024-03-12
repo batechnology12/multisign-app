@@ -10,6 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_details_api_service.dart';
+import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/verify_installation_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
@@ -22,12 +23,14 @@ import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/model/Get_installer_details_model.dart';
 import 'package:multisign_app/src/model/get_details_recee_model.dart';
+import 'package:multisign_app/src/model/get_installer_sub_job_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
 import 'package:multisign_app/src/model/get_sub_jobdetails_model.dart';
 import 'package:multisign_app/src/model/home_model.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
+import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 
 class HomeController extends GetxController {
@@ -81,7 +84,7 @@ class HomeController extends GetxController {
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
   List<intallerListData> installerListdata = [];
   getinstallation() async {
-   // installerListdata.clear();
+    // installerListdata.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =
@@ -99,7 +102,7 @@ class HomeController extends GetxController {
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
   List<GetReceDataList> getreceelistData = [];
   getRecee() async {
-  //  getreceelistData.clear();
+    //  getreceelistData.clear();
     isLoading(true);
     update();
     dio.Response<dynamic> response =
@@ -115,10 +118,8 @@ class HomeController extends GetxController {
 
   ReceeDetailsServicesApi receeDetailsServicesApi = ReceeDetailsServicesApi();
 
-
   Data? getreceedetailsData;
   getReceedetails({required String id}) async {
-    
     print(
         '========================data==1==========${id}=======================');
     isLoadingdatails(true);
@@ -136,14 +137,10 @@ class HomeController extends GetxController {
     update();
   }
 
+  GetReceeSubjobApiServices getReceeSubjobApiServices =
+      GetReceeSubjobApiServices();
 
-
-
-GetReceeSubjobApiServices getReceeSubjobApiServices = GetReceeSubjobApiServices();
- 
-
-
-    List<Datum> getreceedsubjobData = [];
+  List<Datum> getreceedsubjobData = [];
   getReceesubjob({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
@@ -155,42 +152,50 @@ GetReceeSubjobApiServices getReceeSubjobApiServices = GetReceeSubjobApiServices(
     update();
     print('========================data==2=================================');
     if (response.data["status"] == true) {
-      GetReceeSubjob getReceeSubjob =
-          GetReceeSubjob.fromJson(response.data);
+      GetReceeSubjob getReceeSubjob = GetReceeSubjob.fromJson(response.data);
       getreceedsubjobData = getReceeSubjob.data;
-    
-
-
-
-    }else{
-      getReceedetails(id:id );
-      Get.off(RecceReportDetails(id:id,flag: false,));}
+    } else {
+      getReceedetails(id: id);
+      Get.off(RecceReportDetails(
+        id: id,
+        flag: false,
+      ));
+    }
     update();
   }
 
+  GetInstallerSubjobApiServices getInstallerSubjobApiServices =
+      GetInstallerSubjobApiServices();
 
+  List<InstallerSubJobDataList> getinstallersubjobData = [];
+  getinstallersubjob({required String id}) async {
+    print(
+        '========================data==1==========${id}=======================');
+    isLoadingdatails(true);
+    update();
+    dio.Response<dynamic> response = await getInstallerSubjobApiServices
+        .getInstallersubjobApiServices(id: id);
+    isLoadingdatails(false);
+    update();
+    print('========================data==2=================================');
+    if (response.data["status"] == true) {
+      GetInstallerSubJobModel getInstallerSubjob =
+          GetInstallerSubJobModel.fromJson(response.data);
+      getinstallersubjobData = getInstallerSubjob.data;
+    } else {
+      getinstallerdetails(id: id);
+      Get.off(InstallationReportDetails(
+        id: id,
+        flag: false, beforeImages: [],
+      ));
+    }
+    update();
+  }
 
+  ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi =
+      ReceeSubJobDetailsServicesApi();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsServicesApi();
-
-
-   //subjobdatailsdata? getReceesubjobdetailsData;
+  //subjobdatailsdata? getReceesubjobdetailsData;
   getReceesubjobDetails({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
@@ -202,23 +207,12 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     update();
     print('========================data==2=================================');
     if (response.data["status"] == true) {
-     GetIReceeDetailsModel geRreceedetailModel =
+      GetIReceeDetailsModel geRreceedetailModel =
           GetIReceeDetailsModel.fromJson(response.data);
       getreceedetailsData = geRreceedetailModel.data;
-    }
-    else{
-    }
+    } else {}
     update();
   }
-
-
-
-
-
-
-
-
-
 
   InstallerDetailsServicesApi installerDetailsServicesApi =
       InstallerDetailsServicesApi();
@@ -270,11 +264,11 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     );
     isLoadingverification(false);
     if (response.data['status'] == true) {
-     pickedEditedImagePathList.clear();
+      pickedEditedImagePathList.clear();
       Get.to(BottomNaviBar());
       pickedImagePathList.clear();
-       pickedImagePath!='';
-       update();
+      pickedImagePath != '';
+      update();
       AppConstant.showSnackbar(
         headText: "Successful",
         content: "Uploaded successfull",
@@ -303,15 +297,8 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     }
   }
 
-
-
-
-
-
-
-
-
-  VerifyReceeSubjobApiServices verifyReceeSubjobApiServices = VerifyReceeSubjobApiServices();
+  VerifyReceeSubjobApiServices verifyReceeSubjobApiServices =
+      VerifyReceeSubjobApiServices();
 
   verifysubjobRecee({
     required String job_card,
@@ -340,11 +327,11 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     );
     isLoadingverification(false);
     if (response.data['status'] == true) {
-     pickedEditedImagePathList.clear();
+      pickedEditedImagePathList.clear();
       Get.to(BottomNaviBar());
       pickedImagePathList.clear();
-       pickedImagePath!='';
-       update();
+      pickedImagePath != '';
+      update();
       AppConstant.showSnackbar(
         headText: "Successful",
         content: "Uploaded successfull",
@@ -373,12 +360,6 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     }
   }
 
-
-
-
-
-
-
   VerifyInstallationApiServices verifyInstallationApiServices =
       VerifyInstallationApiServices();
 
@@ -398,12 +379,12 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     );
     isLoadingverification(false);
 
-
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
-       pickedEditedImagePathList.clear();
-       pickedImagePath!.isEmpty;
-       print('======================${pickedImagePath}==========================');
+      pickedEditedImagePathList.clear();
+      pickedImagePath!.isEmpty;
+      print(
+          '======================${pickedImagePath}==========================');
       Get.rawSnackbar(
         messageText: const Text(
           "Uploaded successfull",
@@ -431,10 +412,9 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
   String? get pickedcamerapath => cameraimagePath.value;
 
   void setImagesEmpty() {
-    pickedEditedImagePathList. isEmpty;
+    pickedEditedImagePathList.isEmpty;
     update();
   }
-  
 
   Future CameraImage({
     required ImageSource imageSource,
@@ -446,11 +426,13 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     if (pickedCamerafile != null) {
       print('=========================================');
 
-     
       final croppedcam = await ImageCropper().cropImage(
         sourcePath: pickedCamerafile!.path,
         compressQuality: 50,
-        aspectRatioPresets: [CropAspectRatioPreset.ratio4x3,CropAspectRatioPreset.original,],
+        aspectRatioPresets: [
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.original,
+        ],
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
@@ -473,15 +455,15 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
       //cameraimage = File(pickedCamerafile.path);
 
       // cameraimagePath.value = croppedFile1!.path;
-       Get.to(()=> FlutterPainterExample(
-        image: croppedFile1.path,
-      ));
+      Get.to(() => FlutterPainterExample(
+            image: croppedFile1.path,
+          ));
       // pickedImagePathList = [croppedFile1.path];
       // pickedEditedImagePathList = []
       // pickedImagePathList.add(croppedFile1!.path);
-       pickedImagePath==null;
+      pickedImagePath == null;
       update();
-   //   pickedImagePath==null;
+      //   pickedImagePath==null;
       // print(
       //   'picked image size ${cameraimage!.lengthSync()}',
       // );
@@ -509,11 +491,13 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
     );
 
     if (pickedFile != null) {
-     
       final croppedImage = await ImageCropper().cropImage(
         sourcePath: pickedFile!.path,
         compressQuality: 70,
-        aspectRatioPresets: [CropAspectRatioPreset.ratio7x5,CropAspectRatioPreset.original],
+        aspectRatioPresets: [
+          CropAspectRatioPreset.ratio7x5,
+          CropAspectRatioPreset.original
+        ],
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
@@ -533,9 +517,9 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
       if (croppedImage == null) return;
 
       final croppedFile = File(croppedImage.path);
-  Get.to(()=> FlutterPainterExample(
-        image: croppedFile.path,
-      ));
+      Get.to(() => FlutterPainterExample(
+            image: croppedFile.path,
+          ));
       // //  image = croppedFile;
 
       // //  _pickedImage = File(pickedFile.path);
@@ -556,25 +540,23 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
   //   update();
   // }
 
+  List<Datum> searchList = [];
 
-
- List<Datum> searchList = [];
-
-   searchCookBook({required String query}) {
+  searchCookBook({required String query}) {
     if (searchList.isEmpty) {
       // Store the original list if it's empty
       searchList = getreceedsubjobData;
       update();
-      
     }
 
     if (query.isEmpty) {
       // If the query is empty, restore the original list
-     getreceedsubjobData = searchList;
+      getreceedsubjobData = searchList;
     } else {
       // If the query is not empty, filter the original list based on the query
       List<Datum> searchResults = searchList
-          .where((obj) => obj.clientName.toLowerCase().contains(query.toLowerCase()))
+          .where((obj) =>
+              obj.clientName.toLowerCase().contains(query.toLowerCase()))
           .toList();
       getreceedsubjobData = searchResults;
       update();
@@ -582,5 +564,5 @@ ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi=ReceeSubJobDetailsSe
 
     getreceedsubjobData;
     update();
-}
+  }
 }

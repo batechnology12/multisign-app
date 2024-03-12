@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
+import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
@@ -610,13 +611,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               GestureDetector(
                                                                 onTap: () {
                                                                   Get.to(
-                                                                      InstallationReportDetails(
+                                                                      GetInstallerSubJob(
                                                                     beforeImages: item1
                                                                         .receeVerifications
                                                                         .last
                                                                         .beforeImages,
                                                                     id: item1.id
-                                                                        .toString(),
+                                                                        .toString(), flag: true,
                                                                   ));
                                                                 },
                                                                 child:
@@ -690,10 +691,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                               children: [
                                                                                 GestureDetector(
                                                                                   onTap: () {
-                                                                                    Get.to(InstallationReportDetails(
-                                                                                      id: item1.id.toString(),
-                                                                                      beforeImages: item1.receeVerifications.last.beforeImages,
-                                                                                    ));
+                                                                                    // Get.to(InstallationReportDetails(
+                                                                                    //   id: item1.id.toString(),
+                                                                                    //   beforeImages: item1.receeVerifications.last.beforeImages,
+                                                                                    // ));
                                                                                   },
                                                                                   child: Text(
                                                                                     'Full View',

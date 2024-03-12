@@ -15,7 +15,7 @@ class InstallationReportDetails extends StatefulWidget {
   final String id;
   final List beforeImages;
   const InstallationReportDetails(
-      {super.key, required this.id, required this.beforeImages});
+      {super.key, required this.id, required this.beforeImages, required bool flag});
 
   @override
   State<InstallationReportDetails> createState() =>

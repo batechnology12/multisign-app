@@ -1,6 +1,4 @@
 abstract class BaseApiService{
-
-
 final String LoginURI='https://portal.multisigns.batechnology.in/api/login';
 final String getinstallerURI='https://portal.multisigns.batechnology.in/api/auth/get_installer_list';
 final String getreceeURI='https://portal.multisigns.batechnology.in/api/auth/get_recee_list'; 
@@ -15,4 +13,6 @@ final String newpasswordURI="https://portal.multisigns.batechnology.in/api/chang
 final String getsubjobURI ="https://portal.multisigns.batechnology.in/api/auth/get-sub-job/list/";
 final String getreceesubjobdetails="https://portal.multisigns.batechnology.in/api/auth/get-sub-job/details";
 final String receesubjobverify='https://portal.multisigns.batechnology.in/api/auth/subjob_recee_verification?';
+final String getinstallersubjobURI="https://portal.multisigns.batechnology.in/api/auth/get-installer-sub-job/list/";
+final String getinstallersubjobdetailsURI="https://portal.multisigns.batechnology.in/api/auth/get-installer-sub-job/details";
 }

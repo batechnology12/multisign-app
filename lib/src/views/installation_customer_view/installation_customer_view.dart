@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
 
 
@@ -105,7 +106,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                             onTap: () {
                               Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
                                 id: controller.installerListdata[index].id
-                                    .toString(),
+                                    .toString(), flag: true,
                               ));
                             },
                             child: Container(
@@ -181,12 +182,12 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(InstallationReportDetails(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
+                                                Get.to(GetInstallerSubJob(beforeImages:controller.installerListdata[index].receeVerifications.last.beforeImages,
                                                     id: controller
                                                         .installerListdata[
                                                             index]
                                                         .id
-                                                        .toString()));
+                                                        .toString(), flag: true,));
                                               },
                                               child: Text('Full View',
                                                   style: primaryFonts.copyWith(
