@@ -167,7 +167,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                     //                       .id
                                     //                       .toString(),);
                                         Get.to(RecceReportDetails(
-                                            flag: true, 
+                                           
                                                       id: controller
                                                           .getreceedsubjobData[index]
                                                           .id
@@ -204,7 +204,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                               : IconButton(
                                                   onPressed: () {
                                                     Get.to(RecceReportDetails(
-                                                        flag: true, 
+                                                    
                                                       id: controller
                                                           .getreceedsubjobData[index]
                                                           .id

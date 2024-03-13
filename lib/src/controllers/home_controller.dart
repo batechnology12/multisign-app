@@ -9,16 +9,13 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_api_service.dart';
-import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/verify_installation_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
-import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_jobdetails_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/recee_sub_job_verify.dart';
-import 'package:multisign_app/src/api_service/service/recee_api_servie/verify_recee_api_service.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
@@ -116,26 +113,26 @@ class HomeController extends GetxController {
     update();
   }
 
-  ReceeDetailsServicesApi receeDetailsServicesApi = ReceeDetailsServicesApi();
+  // ReceeDetailsServicesApi receeDetailsServicesApi = ReceeDetailsServicesApi();
 
-  Data? getreceedetailsData;
-  getReceedetails({required String id}) async {
-    print(
-        '========================data==1==========${id}=======================');
-    isLoadingdatails(true);
-    update();
-    dio.Response<dynamic> response =
-        await receeDetailsServicesApi.receedetailsApi(id: id);
-    isLoadingdatails(false);
-    update();
-    print('========================data==2=================================');
-    if (response.data["status"] == true) {
-      GetIReceeDetailsModel geRreceedetailModel =
-          GetIReceeDetailsModel.fromJson(response.data);
-      getreceedetailsData = geRreceedetailModel.data;
-    }
-    update();
-  }
+  // Data? getreceedetailsData;
+  // getReceedetails({required String id}) async {
+  //   print(
+  //       '========================data==1==========${id}=======================');
+  //   isLoadingdatails(true);
+  //   update();
+  //   dio.Response<dynamic> response =
+  //       await receeDetailsServicesApi.receedetailsApi(id: id);
+  //   isLoadingdatails(false);
+  //   update();
+  //   print('========================data==2=================================');
+  //   if (response.data["status"] == true) {
+  //     GetIReceeDetailsModel geRreceedetailModel =
+  //         GetIReceeDetailsModel.fromJson(response.data);
+  //     getreceedetailsData = geRreceedetailModel.data;
+  //   }
+  //   update();
+  // }
 
   GetReceeSubjobApiServices getReceeSubjobApiServices =
       GetReceeSubjobApiServices();
@@ -155,10 +152,10 @@ class HomeController extends GetxController {
       GetReceeSubjob getReceeSubjob = GetReceeSubjob.fromJson(response.data);
       getreceedsubjobData = getReceeSubjob.data;
     } else {
-      getReceedetails(id: id);
+   //   getReceedetails(id: id);
       Get.off(RecceReportDetails(
         id: id,
-        flag: false,
+     
       ));
     }
     update();
@@ -186,7 +183,7 @@ class HomeController extends GetxController {
     //  getinstallerdetails(id: id);
       Get.off(InstallationReportDetails(
         id: id,
-        flag: false, 
+     
       ));
     }
     update();
@@ -195,7 +192,7 @@ class HomeController extends GetxController {
   ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi =
       ReceeSubJobDetailsServicesApi();
 
-  //subjobdatailsdata? getReceesubjobdetailsData;
+  Data? getreceedetailsData;
   getReceesubjobDetails({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
@@ -272,67 +269,67 @@ class HomeController extends GetxController {
   //   update();
   // }
 
-  VerifyReceeApiServices verifyReceeApiServices = VerifyReceeApiServices();
+  // VerifyReceeApiServices verifyReceeApiServices = VerifyReceeApiServices();
 
-  verifyRecee({
-    required String job_card,
-    required String width,
-    required String height,
-    required String squrefit,
-    required String dimension,
-    required String signage_type,
-    required String signage_details,
-    required String client_id,
-    required List<Uint8List?> media,
-  }) async {
-    isLoadingverification(true);
-    update();
-    dio.Response<dynamic> response =
-        await verifyReceeApiServices.varifyreceeApi(
-      job_card: job_card,
-      width: width,
-      height: height,
-      squrefit: squrefit,
-      dimension: dimension,
-      signage_type: signage_type,
-      signage_details: signage_details,
-      client_id: client_id,
-      media: media,
-    );
-    isLoadingverification(false);
-    if (response.data['status'] == true) {
-      pickedEditedImagePathList.clear();
-      Get.to(BottomNaviBar());
-      pickedImagePathList.clear();
-      pickedImagePath != '';
-      update();
-      AppConstant.showSnackbar(
-        headText: "Successful",
-        content: "Uploaded successfull",
-        position: SnackPosition.BOTTOM,
-      );
-      // Get.showSnackbar(
-      //   messageText: const Text(
-      //     "Uploaded successfull",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   backgroundColor: Colors.green,
-      // );
-    } else {
-      AppConstant.showSnackbar(
-        headText: "Upload Failed",
-        content: response.data['message'],
-        position: SnackPosition.BOTTOM,
-      );
-      // Get.showSnackbar(
-      //   messageText: const Text(
-      //     "Something went wrong",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   backgroundColor: Colors.red,
-      // );
-    }
-  }
+  // verifyRecee({
+  //   required String job_card,
+  //   required String width,
+  //   required String height,
+  //   required String squrefit,
+  //   required String dimension,
+  //   required String signage_type,
+  //   required String signage_details,
+  //   required String client_id,
+  //   required List<Uint8List?> media,
+  // }) async {
+  //   isLoadingverification(true);
+  //   update();
+  //   dio.Response<dynamic> response =
+  //       await verifyReceeApiServices.varifyreceeApi(
+  //     job_card: job_card,
+  //     width: width,
+  //     height: height,
+  //     squrefit: squrefit,
+  //     dimension: dimension,
+  //     signage_type: signage_type,
+  //     signage_details: signage_details,
+  //     client_id: client_id,
+  //     media: media,
+  //   );
+  //   isLoadingverification(false);
+  //   if (response.data['status'] == true) {
+  //     pickedEditedImagePathList.clear();
+  //     Get.to(BottomNaviBar());
+  //     pickedImagePathList.clear();
+  //     pickedImagePath != '';
+  //     update();
+  //     AppConstant.showSnackbar(
+  //       headText: "Successful",
+  //       content: "Uploaded successfull",
+  //       position: SnackPosition.BOTTOM,
+  //     );
+  //     // Get.showSnackbar(
+  //     //   messageText: const Text(
+  //     //     "Uploaded successfull",
+  //     //     style: TextStyle(color: Colors.white),
+  //     //   ),
+  //     //   backgroundColor: Colors.green,
+  //     // );
+  //   } else {
+  //     AppConstant.showSnackbar(
+  //       headText: "Upload Failed",
+  //       content: response.data['message'],
+  //       position: SnackPosition.BOTTOM,
+  //     );
+  //     // Get.showSnackbar(
+  //     //   messageText: const Text(
+  //     //     "Something went wrong",
+  //     //     style: TextStyle(color: Colors.white),
+  //     //   ),
+  //     //   backgroundColor: Colors.red,
+  //     // );
+  //   }
+  // }
 
   VerifyReceeSubjobApiServices verifyReceeSubjobApiServices =
       VerifyReceeSubjobApiServices();

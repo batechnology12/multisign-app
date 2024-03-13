@@ -14,9 +14,9 @@ import 'package:shimmer_pro/shimmer_pro.dart';
 class InstallationReportDetails extends StatefulWidget {
   final String id;
 
-  final bool flag;
+//  final bool flag;
   const InstallationReportDetails(
-      {super.key, required this.id, required this.flag});
+      {super.key, required this.id,});
 
   @override
   State<InstallationReportDetails> createState() =>

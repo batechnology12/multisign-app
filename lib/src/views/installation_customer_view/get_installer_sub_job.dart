@@ -177,7 +177,7 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                                       //                       .id
                                       //                       .toString(),);
                                       Get.to(InstallationReportDetails(
-                                        flag: true,
+                                      
                                         id: controller
                                             .getinstallersubjobData[index].id
                                             .toString(),
@@ -219,7 +219,7 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                                                   onPressed: () {
                                                     Get.to(
                                                         InstallationReportDetails(
-                                                      flag: true,
+                                                      
                                                       id: controller
                                                           .getinstallersubjobData[
                                                               index]

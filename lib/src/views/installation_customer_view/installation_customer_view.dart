@@ -111,7 +111,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                             onTap: () {
                               Get.to(InstallationReportDetails(
                                 id: controller.installerListdata[index].id
-                                    .toString(), flag: true,
+                                    .toString(), 
                               ));
                             },
                             child: Container(
