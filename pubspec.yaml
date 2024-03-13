@@ -55,6 +55,7 @@ dependencies:
   flutter_phosphor_icons: ^0.0.1+6
   date_format: ^2.0.7
   lottie: ^3.0.0
+  svg_flutter: ^0.0.1
 
   
 
