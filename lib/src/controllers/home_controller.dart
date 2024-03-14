@@ -80,6 +80,7 @@ class HomeController extends GetxController {
 
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
   List<intallerListData> installerListdata = [];
+  List<intallerListData> tempGetinstallerlistData = [];
   getinstallation() async {
     // installerListdata.clear();
     isLoading(true);
@@ -92,12 +93,14 @@ class HomeController extends GetxController {
       GetInstallerModel getInstallerModel =
           GetInstallerModel.fromJson(response.data);
       installerListdata = getInstallerModel.data;
+      tempGetinstallerlistData = getInstallerModel.data;
     }
     update();
   }
 
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
   List<GetReceDataList> getreceelistData = [];
+  List<GetReceDataList> tempGetreceelistData = [];
   getRecee() async {
     //  getreceelistData.clear();
     isLoading(true);
@@ -109,6 +112,7 @@ class HomeController extends GetxController {
     if (response.data["status"] == true) {
       GetReceeModel geRreceeModel = GetReceeModel.fromJson(response.data);
       getreceelistData = geRreceeModel.data;
+      tempGetreceelistData = geRreceeModel.data;
     }
     update();
   }
@@ -152,10 +156,9 @@ class HomeController extends GetxController {
       GetReceeSubjob getReceeSubjob = GetReceeSubjob.fromJson(response.data);
       getreceedsubjobData = getReceeSubjob.data;
     } else {
-   //   getReceedetails(id: id);
+      //   getReceedetails(id: id);
       Get.off(RecceReportDetails(
         id: id,
-     
       ));
     }
     update();
@@ -180,10 +183,9 @@ class HomeController extends GetxController {
           GetInstallerSubJobModel.fromJson(response.data);
       getinstallersubjobData = getInstallerSubjob.data;
     } else {
-    //  getinstallerdetails(id: id);
+      //  getinstallerdetails(id: id);
       Get.off(InstallationReportDetails(
         id: id,
-     
       ));
     }
     update();
@@ -211,27 +213,17 @@ class HomeController extends GetxController {
     update();
   }
 
-
-
-
-
-
-
-
-
-
-
   InstallerSubJobDetailsServicesApi installerSubJobDetailsServicesApi =
       InstallerSubJobDetailsServicesApi();
-      installerData? getinstallerdetailsData;
+  installerData? getinstallerdetailsData;
   //installerData? getinstallerdetailsData;
   getinstallerSubjobdetails({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
     isLoadingdatails(true);
     update();
-    dio.Response<dynamic> response =
-        await installerSubJobDetailsServicesApi.installerSubJobdetailsApi(id: id);
+    dio.Response<dynamic> response = await installerSubJobDetailsServicesApi
+        .installerSubJobdetailsApi(id: id);
     isLoadingdatails(false);
     update();
     print('========================data==2=================================');
@@ -242,11 +234,6 @@ class HomeController extends GetxController {
     }
     update();
   }
-
-
-
-
-
 
   // InstallerDetailsServicesApi installerDetailsServicesApi =
   //     InstallerDetailsServicesApi();
@@ -574,29 +561,28 @@ class HomeController extends GetxController {
   //   update();
   // }
 
-  List<Datum> searchList = [];
+  List<dynamic> searchList = [];
+  List<dynamic> searchResults = [];
 
-  searchCookBook({required String query}) {
-    if (searchList.isEmpty) {
-      // Store the original list if it's empty
-      searchList = getreceedsubjobData;
-      update();
-    }
-
+  void searchCookBook({required String query}) {
     if (query.isEmpty) {
-      // If the query is empty, restore the original list
-      getreceedsubjobData = searchList;
+      // Store the original list if it's empty
+      getreceelistData = tempGetreceelistData;
+      update();
+      installerListdata = tempGetinstallerlistData;
+      update();
     } else {
       // If the query is not empty, filter the original list based on the query
-      List<Datum> searchResults = searchList
-          .where((obj) =>
-              obj.clientName.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      getreceedsubjobData = searchResults;
-      update();
-    }
 
-    getreceedsubjobData;
+      installerListdata = installerListdata
+          .where((element) =>
+              element.clientName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      getreceelistData = getreceelistData
+          .where((element) =>
+              element.clientName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
     update();
   }
 }

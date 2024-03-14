@@ -4,13 +4,16 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
+import 'package:svg_flutter/svg.dart';
 
 class GetReceeSubJob extends StatefulWidget {
   final String id;
-  final bool flag;
-  const GetReceeSubJob({super.key, required this.id,required this.flag});
+  final String storename;
+
+  const GetReceeSubJob({super.key, required this.id,required this.storename});
 
   @override
   State<GetReceeSubJob> createState() => _GetReceeSubJobState();
@@ -57,7 +60,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Recce Store Name",
+        title: Text(widget.storename,
             style: primaryFonts.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -68,34 +71,49 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              Container(
-                height: 45,
-                decoration: BoxDecoration(
-                    color: AppColors.black.withOpacity(.02),
-                    borderRadius: BorderRadius.circular(6)),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      hintText: "Search Store and Branch",
-                      hintStyle: primaryFonts.copyWith(
-                          color: AppColors.black.withOpacity(.50)),
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(
-                              width: 1,
-                              color: AppColors.black.withOpacity(.20))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.grey))),
-                ),
-              ),
+            Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                              color: const Color.fromARGB(255, 216, 216, 216)
+                                  .withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5))
+                        ]),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SvgPicture.asset('assets/images/Vector.svg'),
+                        // Image(image: kimgsearch),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            // onChanged: (query) {
+                            //   controller.searchCookBook(query: query);
+                            // },
+                         //   controller: searchController,
+                            decoration: InputDecoration.collapsed(
+                              hintText: "Search",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ksizedbox30,
               Row(
                 children: [
                   Text(
-                    "SUB JOB",
+                    "Recce SUB JOB",
                     style: primaryFonts.copyWith(
                         color: AppColors.black,
                         fontSize: 15,
@@ -173,48 +191,38 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                                           .id
                                                           .toString(),
                                                     ));},
-                                    child: Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      height: 40,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.lightGrey
-                                              .withOpacity(.30),
-                                          borderRadius: BorderRadius.circular(8)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            controller.getreceedsubjobData[index]
-                                                .dealerName,
-                                            style: primaryFonts.copyWith(
-                                                color: AppColors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          controller.getreceedsubjobData[index]
-                                                      .isReceeVerrified ==
-                                                  '1'
-                                              ? Icon(
-                                                  Icons.done,
-                                                  color: Colors.green,
-                                                )
-                                              : IconButton(
-                                                  onPressed: () {
-                                                    Get.to(RecceReportDetails(
-                                                    
-                                                      id: controller
-                                                          .getreceedsubjobData[index]
-                                                          .id
-                                                          .toString(),
-                                                    ));
-                                                  },
-                                                  icon: Icon(Icons.arrow_forward))
-                                        ],
-                                      ),
-                                    ),
+                                    child:  ContainerCustom(
+                                              id: controller
+                                                  .getreceedsubjobData[index].id
+                                                  .toString(),
+                                              name: controller
+                                                  .getreceedsubjobData[index]
+                                                  .clientName,
+                                              city: controller
+                                                  .getreceedsubjobData[index].city,
+                                              jobcard: controller
+                                                  .getreceedsubjobData[index]
+                                                  .jobcard,
+                                              day: controller
+                                                  .getreceedsubjobData[index]
+                                                  .createdAt
+                                                  .day
+                                                  .toString(),
+                                              address: controller
+                                                  .getreceedsubjobData[index]
+                                                  .address,
+                                              month: controller
+                                                  .getreceedsubjobData[index]
+                                                  .createdAt
+                                                  .month
+                                                  .toString(),
+                                              year: controller
+                                                  .getreceedsubjobData[index]
+                                                  .createdAt
+                                                  .year
+                                                  .toString(),isverified:controller
+                                                  .getreceedsubjobData[index].isReceeVerrified ,
+                                            ),
                                   ),
                                 );
                               })),

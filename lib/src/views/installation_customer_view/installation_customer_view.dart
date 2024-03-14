@@ -187,7 +187,10 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(GetInstallerSubJob(
+                                                Get.to(GetInstallerSubJob(storename:controller
+                                                        .installerListdata[
+                                                            index]
+                                                        .storeName ,
                                                     id: controller
                                                         .installerListdata[
                                                             index]

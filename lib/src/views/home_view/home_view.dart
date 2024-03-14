@@ -8,9 +8,10 @@ import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
-import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
+
 import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
 import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
+import 'package:multisign_app/src/views/recce_customer_view/recce_customer_view.dart';
 import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
 
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.grey[100],
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 8),
         child: SafeArea(
@@ -441,105 +442,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         final item = multisign
                                                                 .getreceelistData[
                                                             reversedIndex];
-                                                        return Card(
-                                                          child: Column(
-                                                            children: [
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  Get.to(
-                                                                      GetReceeSubJob(flag: true,
-                                                                    id: item.id
-                                                                        .toString(),
-                                                                  ));
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          bottom:
-                                                                              10,
-                                                                          top:
-                                                                              4),
-                                                                  height: 80,
-                                                                  width: double
-                                                                      .infinity,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(5),
-                                                                    // color: AppColors.darkGrey
-                                                                    //     .withOpacity(.05
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: Row(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Row(
-                                                                          children: [
-                                                                            ksizedbox10w,
-                                                                            Column(
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                Text(
-                                                                                  item.clientName,
-                                                                                  style: primaryFonts.copyWith(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.black),
-                                                                                ),
-                                                                                // Text(
-                                                                                //     controller
-                                                                                //         .getreceelistData[index]
-                                                                                //         .address,
-                                                                                //     style: primaryFonts.copyWith(
-                                                                                //         fontSize: 14,
-                                                                                //         fontWeight: FontWeight.w400,
-                                                                                //         color: AppColors.black
-                                                                                //             .withOpacity(.70))),
-                                                                                Text('JOB ID : ${item.jobcard}', style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.50))),
-                                                                                if (item.isReceeVerrified == "1")
-                                                                                  Text(
-                                                                                    "completed",
-                                                                                    style: TextStyle(color: Colors.green),
-                                                                                  )
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                                                              children: [
-                                                                                GestureDetector(
-                                                                                  onTap: () {
-                                                                                    Get.to(RecceReportDetails(
-                                                                                      id: item.id.toString(),
-                                                                                    ));
-                                                                                  },
-                                                                                  child: Text('Full View', style: primaryFonts.copyWith(decoration: TextDecoration.underline, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green)),
-                                                                                ),
-                                                                                Text(item.createdAt.toString(), style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w300, color: AppColors.black)),
-                                                                                Text(item.address, style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w300, color: AppColors.black)),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 8),
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              Get.to(
+                                                                  GetReceeSubJob(
+                                                                id: item.id
+                                                                    .toString(), storename: item.storeName,
+                                                              ));
+                                                            },
+                                                            child:
+                                                                ContainerCustom(
+                                                              id: item.id
+                                                                  .toString(),
+                                                              name: item
+                                                                  .clientName,
+                                                              city: item.city,
+                                                              jobcard:
+                                                                  item.jobcard,
+                                                              day: item
+                                                                  .createdAt.day
+                                                                  .toString(),
+                                                              address:
+                                                                  item.address,
+                                                              month: item
+                                                                  .createdAt
+                                                                  .month
+                                                                  .toString(),
+                                                              year: item
+                                                                  .createdAt
+                                                                  .year
+                                                                  .toString(),
+                                                            ),
                                                           ),
                                                         );
                                                       })),
@@ -605,127 +543,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         final item1 = multisign
                                                                 .installerListdata[
                                                             reversedIndex];
-                                                        return Card(
-                                                          child: Column(
-                                                            children: [
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  Get.to(
-                                                                      GetInstallerSubJob(
-                                                                  
-                                                                    id: item1.id
-                                                                        .toString(), 
-                                                                  ));
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          bottom:
-                                                                              10,
-                                                                          top:
-                                                                              4),
-                                                                  height: 80,
-                                                                  width: double
-                                                                      .infinity,
-                                                                  decoration: BoxDecoration(
-                                                                      // color: AppColors.darkGrey
-                                                                      //     .withOpacity(.05)
-                                                                      ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: Row(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Row(
-                                                                          children: [
-                                                                            // Container(
-                                                                            //   height: 65,
-                                                                            //   width: 65,
-                                                                            //   alignment: Alignment.center,
-                                                                            //   decoration: BoxDecoration(
-                                                                            //     color: AppColors.blue,
-                                                                            //     borderRadius: BorderRadius.circular(8),
-                                                                            //   ),
-                                                                            //   child: Text(
-                                                                            //     "PN",
-                                                                            //     style: primaryFonts.copyWith(
-                                                                            //         fontSize: 26,
-                                                                            //         fontWeight: FontWeight.w700,
-                                                                            //         color: AppColors.white),
-                                                                            //   ),
-                                                                            // ),
-                                                                            ksizedbox10w,
-                                                                            Column(
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                Text(item1.clientName, style: primaryFonts.copyWith(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.black)),
-                                                                                Text("${item1.address}, ${item1.city}", style: primaryFonts.copyWith(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.70))),
-                                                                                Text('Job Id : ${item1.jobcard}', style: primaryFonts.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.black.withOpacity(.50))),
-                                                                                if (item1.installerStatus == "1")
-                                                                                  Text(
-                                                                                    'Completed',
-                                                                                    style: TextStyle(color: Colors.green),
-                                                                                  )
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                                                              children: [
-                                                                                GestureDetector(
-                                                                                  onTap: () {
-                                                                                    // Get.to(InstallationReportDetails(
-                                                                                    //   id: item1.id.toString(),
-                                                                                    //   beforeImages: item1.receeVerifications.last.beforeImages,
-                                                                                    // ));
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    'Full View',
-                                                                                    style: primaryFonts.copyWith(decoration: TextDecoration.underline, decorationColor: AppColors.green, fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.green),
-                                                                                  ),
-                                                                                ),
-                                                                                // Text(
-                                                                                //     controller
-                                                                                //         .installerListdata[index]
-                                                                                //         .poDate
-                                                                                //         .toString(),
-                                                                                //     style: primaryFonts.copyWith(
-                                                                                //         fontSize: 12,
-                                                                                //         fontWeight: FontWeight.w300,
-                                                                                //         color: AppColors.black)),
-                                                                                // Text(
-                                                                                //     controller
-                                                                                //         .installerListdata[index]
-                                                                                //         .production,
-                                                                                //     style: primaryFonts.copyWith(
-                                                                                //         fontSize: 12,
-                                                                                //         fontWeight: FontWeight.w300,
-                                                                                //         color: AppColors.black)),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                        return Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 8),
+                                                          child: InkWell(
+                                                                                                      onTap: () {
+                                                                                                        Get.to(GetInstallerSubJob(storename: item1.storeName,
+                                                                                                            id:item1.id
+                                                                                                                .toString()));
+                                                                                                      },
+                                                                                                      child: ContainerCustom(
+                                                                                                        id: item1.id
+                                                                                                            .toString(),
+                                                                                                        name: item1
+                                                                                                            .clientName,
+                                                                                                        city: item1.city,
+                                                                                                        jobcard:item1
+                                                                                                            .jobcard,
+                                                                                                        day:item1
+                                                                                                            .createdAt
+                                                                                                            .day
+                                                                                                            .toString(),
+                                                                                                        address:item1
+                                                                                                            .address,
+                                                                                                        month: item1
+                                                                                                            .createdAt
+                                                                                                            .month
+                                                                                                            .toString(),
+                                                                                                        year: item1
+                                                                                                            .createdAt
+                                                                                                            .year
+                                                                                                            .toString(),
+                                                                                                      ),),
                                                         );
                                                       })),
                                                 );
