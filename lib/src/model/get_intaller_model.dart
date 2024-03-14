@@ -64,7 +64,7 @@ class intallerListData {
     DateTime updatedAt;
     String isDeleted;
     dynamic deletedAt;
-    String subjobId;
+    dynamic subjobId;
     RecceData recceData;
 
     intallerListData({
