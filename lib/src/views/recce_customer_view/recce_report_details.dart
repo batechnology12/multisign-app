@@ -57,7 +57,9 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
 
   setDefault() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      controller.getReceesubjobDetails(id: widget.id);
+      //  controller.getreceedetailsData!=null;
+    await  controller.getReceesubjobDetails(id: widget.id);
+  
       //
       // if (widget.flag == true) {
       //   await controller.getReceesubjobDetails(id: widget.id);

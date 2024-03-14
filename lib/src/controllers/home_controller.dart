@@ -193,9 +193,10 @@ class HomeController extends GetxController {
 
   ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi =
       ReceeSubJobDetailsServicesApi();
-
+ 
   Data? getreceedetailsData;
   getReceesubjobDetails({required String id}) async {
+    
     print(
         '========================data==1==========${id}=======================');
     isLoadingdatails(true);

@@ -1255,7 +1255,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           ),
                         ],
                       ),
-                      ksizedbox10,
+                      ksizedbox30,
                     ],
                   );
           }),
