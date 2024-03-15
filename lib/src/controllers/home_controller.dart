@@ -25,55 +25,18 @@ import 'package:multisign_app/src/model/get_installer_sub_job_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
-import 'package:multisign_app/src/model/home_model.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
-import 'package:multisign_app/src/views/recce_customer_view/recce_report_details.dart';
 
 class HomeController extends GetxController {
-  List letters = ["AK", "WA", "JR", "JR"];
-  List name = ["Aash Kumar", "Wasim Anas", "Jaga Raj", "Jaga Raj"];
-  List place = ["Business Board, chennai"];
-  List jobId = ['job Id: AKASH12345'];
-  List date = ["08-12-2023"];
-  List day = ["Friday"];
   List<Color> colors = [
     AppColors.pink,
     AppColors.red,
     AppColors.green,
-    AppColors.grey.withOpacity(.43)
+    AppColors.grey.withOpacity(.43),
+    AppColors.yellow
   ];
 
-  List<ProjectDetails> projectDetails = [
-    ProjectDetails(
-        letters: "Ak",
-        name: "Aash Kumar",
-        place: "Business Board, chennai",
-        jobId: 'job Id: AKASH12345',
-        date: "08-12-2023",
-        day: "Friday"),
-    ProjectDetails(
-        letters: "WA",
-        name: "Wasim Anas",
-        place: "Business Board, chennai",
-        jobId: 'job Id: AKASH12345',
-        date: "08-12-2023",
-        day: "Friday"),
-    ProjectDetails(
-        letters: "JR",
-        name: "Jaga Raj",
-        place: "Business Board, chennai",
-        jobId: 'job Id: AKASH12345',
-        date: "08-12-2023",
-        day: "Friday"),
-    ProjectDetails(
-        letters: "JR",
-        name: "Jaga Raj",
-        place: "Business Board, chennai",
-        jobId: 'job Id: AKASH12345',
-        date: "08-12-2023",
-        day: "Friday"),
-  ];
   RxBool isLoading = false.obs;
   RxBool isLoadingdatails = false.obs;
   RxBool isLoadingverification = false.obs;
@@ -140,7 +103,7 @@ class HomeController extends GetxController {
 
   GetReceeSubjobApiServices getReceeSubjobApiServices =
       GetReceeSubjobApiServices();
-
+  List<Datum> tempGetreceeSUBjoblistData = [];
   List<Datum> getreceedsubjobData = [];
   getReceesubjob({required String id}) async {
     print(
@@ -155,6 +118,7 @@ class HomeController extends GetxController {
     if (response.data["status"] == true) {
       GetReceeSubjob getReceeSubjob = GetReceeSubjob.fromJson(response.data);
       getreceedsubjobData = getReceeSubjob.data;
+      tempGetreceeSUBjoblistData = getReceeSubjob.data;
     } else {
       //   getReceedetails(id: id);
       // Get.off(RecceReportDetails(
@@ -168,6 +132,7 @@ class HomeController extends GetxController {
       GetInstallerSubjobApiServices();
 
   List<InstallerSubJobDataList> getinstallersubjobData = [];
+  List<InstallerSubJobDataList> tempGetinstallerSUBjoblistData = [];
   getinstallersubjob({required String id}) async {
     print(
         '========================data==1==========${id}=======================');
@@ -182,6 +147,7 @@ class HomeController extends GetxController {
       GetInstallerSubJobModel getInstallerSubjob =
           GetInstallerSubJobModel.fromJson(response.data);
       getinstallersubjobData = getInstallerSubjob.data;
+      tempGetinstallerSUBjoblistData = getInstallerSubjob.data;
     } else {
       //  getinstallerdetails(id: id);
       Get.off(InstallationReportDetails(
@@ -193,10 +159,9 @@ class HomeController extends GetxController {
 
   ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi =
       ReceeSubJobDetailsServicesApi();
- 
+
   Data? getreceedetailsData;
   getReceesubjobDetails({required String id}) async {
-    
     print(
         '========================data==1==========${id}=======================');
     isLoadingdatails(true);
@@ -565,10 +530,13 @@ class HomeController extends GetxController {
   List<dynamic> searchList = [];
   List<dynamic> searchResults = [];
 
-  void searchCookBook({required String query}) {
+  void searchcustomers({required String query}) {
     if (query.isEmpty) {
       // Store the original list if it's empty
+
+      getinstallersubjobData = tempGetinstallerSUBjoblistData;
       getreceelistData = tempGetreceelistData;
+      getreceedsubjobData = tempGetreceeSUBjoblistData;
       update();
       installerListdata = tempGetinstallerlistData;
       update();
@@ -583,7 +551,34 @@ class HomeController extends GetxController {
           .where((element) =>
               element.clientName.toLowerCase().contains(query.toLowerCase()))
           .toList();
+      getreceedsubjobData = getreceedsubjobData
+          .where((element) =>
+              element.clientName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      getinstallersubjobData = getinstallersubjobData
+          .where((element) =>
+              element.clientName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     }
     update();
   }
+
+  // List<dynamic> searchListreceesubjob = [];
+
+  // void searchreceesubjob({required String query}) {
+  //   if (query.isEmpty) {
+  //     // Store the original list if it's empty
+  //     getreceelistData = tempGetreceesubjoblistData;
+  //     update();
+
+  //   } else {
+  //     // If the query is not empty, filter the original list based on the query
+
+  //     getreceelistData = getreceelistData
+  //         .where((element) =>
+  //             element.clientName.toLowerCase().contains(query.toLowerCase()))
+  //         .toList();
+  //   }
+  //   update();
+  // }
 }

@@ -53,7 +53,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
       });
     }
   }
-
+  final TextEditingController searchController = TextEditingController();
   final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
@@ -97,10 +97,10 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                         ),
                         Expanded(
                           child: TextField(
-                            // onChanged: (query) {
-                            //   controller.searchCookBook(query: query);
-                            // },
-                         //   controller: searchController,
+                            onChanged: (query) {
+                              controller.searchcustomers(query: query);
+                            },
+                           controller: searchController,
                             decoration: InputDecoration.collapsed(
                               hintText: "Search",
                             ),

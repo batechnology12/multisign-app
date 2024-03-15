@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:multisign_app/src/const/app_colors.dart';
-
 import 'package:multisign_app/src/const/app_fonts.dart';
-
 import 'package:multisign_app/src/controllers/home_controller.dart';
-
 import 'package:multisign_app/src/controllers/profile_controller.dart';
-
 import 'package:multisign_app/src/views/installation_customer_view/get_installer_sub_job.dart';
-
-import 'package:multisign_app/src/views/notification/notification_epty_screen.dart';
-
 import 'package:multisign_app/src/views/recce_customer_view/get_recce_sub_job.dart';
-
 import 'package:shimmer_pro/shimmer_pro.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -27,9 +17,7 @@ class RecceCustomer extends StatefulWidget {
 }
 
 class _RecceCustomerState extends State<RecceCustomer> {
-  List<dynamic> installerfilteredList = [];
-  List<dynamic> receefilteredList = [];
-  //
+
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -44,36 +32,10 @@ class _RecceCustomerState extends State<RecceCustomer> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.getRecee();
       prfilecontroller.getprofile();
-      receefilteredList = controller.getreceelistData;
-      installerfilteredList = controller.installerListdata;
+      
     });
   }
 
-// Add a method to perform the search
-  void performSearch(String query) {
-    // Check if the query is empty
-    if (query.isEmpty) {
-      // If it is, reset the filteredList to the original list
-      setState(() {
-        receefilteredList = controller.getreceelistData;
-        installerfilteredList = controller.installerListdata;
-      });
-      return;
-    }
-
-    // Perform the filtering based on the query
-    setState(() {
-      receefilteredList = controller.getreceelistData.where((item) {
-        // Implement your filtering logic here, for example, checking if the client name contains the query
-        return item.clientName.toLowerCase().contains(query.toLowerCase());
-      }).toList();
-
-      installerfilteredList = controller.installerListdata.where((item) {
-        // Implement your filtering logic here, for example, checking if the client name contains the query
-        return item.clientName.toLowerCase().contains(query.toLowerCase());
-      }).toList();
-    });
-  }
 
   late Color bgColor;
   bool isThemeDark = true;
@@ -95,10 +57,9 @@ class _RecceCustomerState extends State<RecceCustomer> {
     }
   }
 
-//String formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);\
+
 
   final controller = Get.find<HomeController>();
-
   final prfilecontroller = Get.find<ProfileController>();
 
   @override
@@ -171,7 +132,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                         Expanded(
                           child: TextField(
                             onChanged: (query) {
-                              controller.searchCookBook(query: query);
+                              controller.searchcustomers(query: query);
                             },
                             controller: searchController,
                             decoration: InputDecoration.collapsed(

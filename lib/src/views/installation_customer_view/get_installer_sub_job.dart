@@ -58,7 +58,7 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
       });
     }
   }
-
+ final TextEditingController searchController = TextEditingController();
   final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
@@ -102,10 +102,10 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                         ),
                         Expanded(
                           child: TextField(
-                            // onChanged: (query) {
-                            //   controller.searchCookBook(query: query);
-                            // },
-                         //   controller: searchController,
+                            onChanged: (query) {
+                              controller.searchcustomers(query: query);
+                            },
+                           controller: searchController,
                             decoration: InputDecoration.collapsed(
                               hintText: "Search",
                             ),

@@ -27,9 +27,9 @@ class _EmptyNotificationState extends State<EmptyNotification> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
-                onTap: () {
-                  Get.to(NotificationScreen());
-                },
+                // onTap: () {
+                //   Get.to(NotificationScreen());
+                // },
                 child: Image.asset('assets/images/fi_10932587.png')),
             ksizedbox20,
             Text(
