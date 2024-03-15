@@ -123,21 +123,21 @@ class _RecceCustomerState extends State<RecceCustomer> {
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black)),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(EmptyNotification());
-                      },
-                      child: Image.asset(
-                        "assets/icons/notification.png",
-                        height: 22,
-                        width: 22,
-                      ),
-                    ),
-                  ),
-                ],
+                // actions: [
+                //   Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: GestureDetector(
+                //       onTap: () {
+                //         Get.to(EmptyNotification());
+                //       },
+                //       child: Image.asset(
+                //         "assets/icons/notification.png",
+                //         height: 22,
+                //         width: 22,
+                //       ),
+                //     ),
+                //   ),
+                // ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(

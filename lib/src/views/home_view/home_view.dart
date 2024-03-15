@@ -424,8 +424,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       itemCount: multisign
                                                                   .getreceelistData
                                                                   .length >=
-                                                              4
-                                                          ? 4
+                                                              3
+                                                          ? 3
                                                           : multisign
                                                               .getreceelistData
                                                               .length,
@@ -527,8 +527,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       itemCount: multisign
                                                                   .installerListdata
                                                                   .length >=
-                                                              4
-                                                          ? 4
+                                                              3
+                                                          ? 3
                                                           : multisign
                                                               .installerListdata
                                                               .length,

@@ -157,9 +157,9 @@ class HomeController extends GetxController {
       getreceedsubjobData = getReceeSubjob.data;
     } else {
       //   getReceedetails(id: id);
-      Get.off(RecceReportDetails(
-        id: id,
-      ));
+      // Get.off(RecceReportDetails(
+      //   id: id,
+      // ));
     }
     update();
   }

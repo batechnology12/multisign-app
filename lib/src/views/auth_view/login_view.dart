@@ -49,11 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ksizedbox30,
             Text(
-              'Please SighIn to continue and email id ',
+             'Login to your account with',
               style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
             ),
             Text(
-              '& password enter logIn',
+             'Email and Password',
               style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
             ),
             ksizedbox30,
