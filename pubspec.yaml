@@ -41,7 +41,6 @@ dependencies:
   dots_indicator: ^3.0.0
   get: ^4.6.6
   image_picker: ^1.0.7
-  device_preview: ^1.1.0
   flutter_screenutil: ^5.9.0
   flutter_launcher_icons: 
   dio: ^5.4.0
@@ -56,6 +55,12 @@ dependencies:
   date_format: ^2.0.7
   lottie: ^3.0.0
   svg_flutter: ^0.0.1
+  firebase_core: ^2.27.1
+  firebase_messaging: ^14.7.20
+  flutter_local_notifications: ^17.0.0
+  awesome_notifications: ^0.9.2
+
+
 
   
 

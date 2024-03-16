@@ -30,7 +30,7 @@ class GetReceeSubjob {
 
 class Datum {
     int id;
-    dynamic importId;
+    String? importId;
     String clientId;
     String jobcard;
     String clientName;
@@ -47,15 +47,17 @@ class Datum {
     String qty;
     String rate;
     String value;
-    String marketterId;
-    dynamic recceId;
+    String? marketterId;
+    String recceId;
     String production;
-    String designing;
+    String? designing;
     String data;
     dynamic installerId;
     String installerStatus;
     String status;
     String isReceeVerrified;
+    String isRecceJob;
+    String recceJobId;
     String region;
     String areaName;
     String dealerName;
@@ -94,6 +96,8 @@ class Datum {
         required this.installerStatus,
         required this.status,
         required this.isReceeVerrified,
+        required this.isRecceJob,
+        required this.recceJobId,
         required this.region,
         required this.areaName,
         required this.dealerName,
@@ -133,6 +137,8 @@ class Datum {
         installerStatus: json["installer_status"],
         status: json["status"],
         isReceeVerrified: json["is_recee_verrified"],
+        isRecceJob: json["isRecceJob"],
+        recceJobId: json["recce_jobId"]??"",
         region: json["region"],
         areaName: json["area_name"],
         dealerName: json["dealer_name"],
@@ -172,6 +178,8 @@ class Datum {
         "installer_status": installerStatus,
         "status": status,
         "is_recee_verrified": isReceeVerrified,
+        "isRecceJob": isRecceJob,
+        "recce_jobId": recceJobId,
         "region": region,
         "area_name": areaName,
         "dealer_name": dealerName,

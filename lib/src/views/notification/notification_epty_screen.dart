@@ -11,6 +11,7 @@ class EmptyNotification extends StatefulWidget {
 }
 
 class _EmptyNotificationState extends State<EmptyNotification> {
+  
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

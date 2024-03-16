@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542361056591",
+    "project_id": "multysign-b2793",
+    "storage_bucket": "multysign-b2793.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542361056591:android:4d34e6515b5e9ac27bc13a",
+        "android_client_info": {
+          "package_name": "com.example.multisign_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ_iSp9OotAhDKmQq1m5j57G6elH702nw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
