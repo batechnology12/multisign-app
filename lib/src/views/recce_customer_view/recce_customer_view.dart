@@ -243,15 +243,15 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .toString(),
                                               name: controller
                                                   .getreceelistData[index]
-                                                  .clientName,
+                                                  .clientName.toString(),
                                               city: controller
                                                   .getreceelistData[index].city,
                                               jobcard: controller
                                                   .getreceelistData[index]
-                                                  .jobcard,
+                                                  .jobcard.toString(),
                                               day: controller
                                                   .getreceelistData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .day
                                                   .toString(),
                                               address: controller
@@ -259,12 +259,12 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .address,
                                               month: controller
                                                   .getreceelistData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .month
                                                   .toString(),
                                               year: controller
                                                   .getreceelistData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .year
                                                   .toString(),
                                             ),

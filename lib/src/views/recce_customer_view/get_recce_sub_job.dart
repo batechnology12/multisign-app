@@ -197,28 +197,28 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                                   .toString(),
                                               name: controller
                                                   .getreceedsubjobData[index]
-                                                  .clientName,
+                                                  .dealerName.toString(),
                                               city: controller
-                                                  .getreceedsubjobData[index].city,
+                                                  .getreceedsubjobData[index].city.toString(),
                                               jobcard: controller
                                                   .getreceedsubjobData[index]
-                                                  .jobcard,
+                                                  .city.toString(),
                                               day: controller
                                                   .getreceedsubjobData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .day
                                                   .toString(),
                                               address: controller
                                                   .getreceedsubjobData[index]
-                                                  .address,
+                                                  .address.toString(),
                                               month: controller
                                                   .getreceedsubjobData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .month
                                                   .toString(),
                                               year: controller
                                                   .getreceedsubjobData[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .year
                                                   .toString(),isverified:controller
                                                   .getreceedsubjobData[index].isReceeVerrified ,

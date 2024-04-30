@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   getdata() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await controller.getprofile();
+
       if (controller.getprofileData!.roleId == '2') {
         multisign.getRecee();
       } else {
@@ -80,515 +81,561 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.grey[100],
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 8),
-        child: SafeArea(
-          child: GetBuilder<ProfileController>(builder: (_) {
-            return controller.getprofileData == null
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 8),
+            child: SafeArea(
+              child: GetBuilder<ProfileController>(builder: (_) {
+                return controller.getprofileData == null
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: [
+                                ShimmerPro.sized(
+                                  light: shimmerlight,
+                                  scaffoldBackgroundColor: bgColor,
+                                  height: 80,
+                                  width: 80,
+                                  borderRadius: 50,
+                                ),
+                                ShimmerPro.text(
+                                  light: shimmerlight,
+                                  width: 250,
+                                  scaffoldBackgroundColor: bgColor,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              width: 450,
+                              scaffoldBackgroundColor: bgColor,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              width: 450,
+                              scaffoldBackgroundColor: bgColor,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              width: 450,
+                              scaffoldBackgroundColor: bgColor,
+                            ),
+                            ksizedbox10,
                             ShimmerPro.sized(
                               light: shimmerlight,
                               scaffoldBackgroundColor: bgColor,
-                              height: 80,
-                              width: 80,
-                              borderRadius: 50,
+                              height: 60,
+                              width: 450,
                             ),
+                            ksizedbox10,
                             ShimmerPro.text(
                               light: shimmerlight,
-                              width: 250,
+                              width: 450,
                               scaffoldBackgroundColor: bgColor,
+                            ),
+                            ShimmerPro.generated(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              child: Row(
+                                children: [
+                                  ShimmerPro.text(
+                                    light: shimmerlight,
+                                    scaffoldBackgroundColor: bgColor,
+                                    width: 270,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          width: 450,
-                          scaffoldBackgroundColor: bgColor,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          width: 450,
-                          scaffoldBackgroundColor: bgColor,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          width: 450,
-                          scaffoldBackgroundColor: bgColor,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.sized(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          height: 60,
-                          width: 450,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          width: 450,
-                          scaffoldBackgroundColor: bgColor,
-                        ),
-                        ShimmerPro.generated(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          child: Row(
-                            children: [
-                              ShimmerPro.text(
-                                light: shimmerlight,
-                                scaffoldBackgroundColor: bgColor,
-                                width: 270,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(
-                                  'assets/images/blank-profile-picture-973460_1920.png',
-                                ),
-                                radius: 26,
-                              )
-                              //     Image.asset("assets/images/profile.png"),
-                              ,
-                              ksizedbox10w,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Get.offAll(BottomNaviBar(
-                                        index: 3,
-                                      ));
-
-                                      //        Get.to(()=> FlutterPainterExample());
-                                    },
-                                    child: Text(
-                                      "Hello,",
-                                      style: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.w700),
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      'assets/images/blank-profile-picture-973460_1920.png',
                                     ),
-                                  ),
-                                  controller.getprofileData == null
-                                      ? Text('No Data')
-                                      : Text(
-                                          controller.getprofileData!.name,
+                                    radius: 26,
+                                  )
+                                  //     Image.asset("assets/images/profile.png"),
+                                  ,
+                                  ksizedbox10w,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Get.offAll(BottomNaviBar(
+                                            index: 3,
+                                          ));
+
+                                          //        Get.to(()=> FlutterPainterExample());
+                                        },
+                                        child: Text(
+                                          "Hello,",
                                           style: primaryFonts.copyWith(
                                               color: AppColors.black,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w300),
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w700),
                                         ),
+                                      ),
+                                      controller.getprofileData == null
+                                          ? Text('No Data')
+                                          : Text(
+                                              controller.getprofileData!.name,
+                                              style: primaryFonts.copyWith(
+                                                  color: AppColors.black,
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.to(EmptyNotification());
+                                    },
+                                    child: Image.asset(
+                                      "assets/icons/notification.png",
+                                      height: 22,
+                                      width: 22,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(EmptyNotification());
-                                },
-                                child: Image.asset(
-                                  "assets/icons/notification.png",
-                                  height: 22,
-                                  width: 22,
-                                ),
-                              ),
+                          ksizedbox10,
+                          CarouselSlider(
+                            options: CarouselOptions(
+                              initialPage: 0,
+                              height: 130,
+                              aspectRatio: 2.0,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                              autoPlay: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  activeIndex = index;
+                                });
+                              },
+                            ),
+                            items: [
+                              Image.asset("assets/images/printer.png"),
+                              Image.asset("assets/images/Rectangle 36.png"),
+                              Image.asset("assets/images/Rectangle 37.png"),
                             ],
                           ),
-                        ],
-                      ),
-                      ksizedbox10,
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          initialPage: 0,
-                          height: 130,
-                          aspectRatio: 2.0,
-                          enlargeCenterPage: true,
-                          scrollDirection: Axis.horizontal,
-                          autoPlay: true,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              activeIndex = index;
-                            });
-                          },
-                        ),
-                        items: [
-                          Image.asset("assets/images/printer.png"),
-                          Image.asset("assets/images/Rectangle 36.png"),
-                          Image.asset("assets/images/Rectangle 37.png"),
-                        ],
-                      ),
-                      ksizedbox5,
-                      // Center(
-                      //   child: DotsIndicator(
-                      //       decorator: DotsDecorator(
-                      //           color: Colors.grey,
-                      //           activeColor: Colors.orange),
-                      //       dotsCount: 3,
-                      //       onTap: (index) {
-                      //         setState(() {
-                      //           activeIndex = index;
-                      //         });
-                      //       },
-                      //       position: activeIndex),
-                      // ),
-                      Text(
-                        "Print Details",
-                        style: primaryFonts.copyWith(
-                            color: AppColors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      ksizedbox10,
-                      controller.getprofileData == null
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.red,
-                              ),
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                controller.getprofileData!.roleId == '2'
-                                    ? Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Get.offAll(BottomNaviBar(
-                                              index: 1,
-                                            ));
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(right: 8),
-                                            padding: EdgeInsets.all(5),
-                                            height: 50.h,
-                                            decoration: BoxDecoration(
-                                                color: AppColors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                    height: 40.h,
-                                                    width: 40.w,
-                                                    decoration: BoxDecoration(
-                                                        color: AppColors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8)),
-                                                    child: Image.asset(
-                                                        "assets/icons/recce.png")),
-                                                ksizedbox20w,
-                                                Text(
-                                                  "Recce",
-                                                  style: primaryFonts.copyWith(
-                                                      color: AppColors.white,
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Get.offAll(BottomNaviBar(
-                                              index: 1,
-                                            ));
-                                          },
-                                          child: Container(
-                                            padding: EdgeInsets.all(5),
-                                            height: 50.h,
-                                            decoration: BoxDecoration(
-                                                color: AppColors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                    height: 40.h,
-                                                    width: 40.w,
-                                                    decoration: BoxDecoration(
-                                                        color: AppColors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8)),
-                                                    child: Image.asset(
-                                                        "assets/icons/install.png")),
-                                                ksizedbox20w,
-                                                Text(
-                                                  "Installation",
-                                                  style: primaryFonts.copyWith(
-                                                      color: AppColors.white,
-                                                      fontSize: 16.sp,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                      ksizedbox20,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                          ksizedbox5,
+                          // Center(
+                          //   child: DotsIndicator(
+                          //       decorator: DotsDecorator(
+                          //           color: Colors.grey,
+                          //           activeColor: Colors.orange),
+                          //       dotsCount: 3,
+                          //       onTap: (index) {
+                          //         setState(() {
+                          //           activeIndex = index;
+                          //         });
+                          //       },
+                          //       position: activeIndex),
+                          // ),
                           Text(
-                            "Recent Project Details",
+                            "Print Details",
                             style: primaryFonts.copyWith(
                                 color: AppColors.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600),
                           ),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     Get.offAll(BottomNaviBar(
-                          //       index: 2,
-                          //     ));
-                          //   },
-                          //   child: Text(
-                          //     "See All",
-                          //     style: primaryFonts.copyWith(
-                          //         color: AppColors.black.withOpacity(.43),
-                          //         fontSize: 12,
-                          //         fontWeight: FontWeight.w400),
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                      ksizedbox10,
-                      controller.getprofileData!.roleId == '2'
-                          ? RefreshIndicator(
-                              onRefresh: () => multisign.getRecee(),
-                              child: Container(
-                                height: 430,
-                                child: ListView(
+                          ksizedbox10,
+                          controller.getprofileData == null
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.red,
+                                  ),
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GetBuilder<HomeController>(builder: (_) {
-                                      return multisign.getreceelistData.isEmpty
-                                          ? Center(
-                                              child: Image.asset(
-                                                  'assets/icons/fi_6598519.png'))
-                                          : multisign.isLoading.isTrue
-                                              ? Column(
+                                    controller.getprofileData!.roleId == '2'
+                                        ? Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Get.offAll(BottomNaviBar(
+                                                  index: 1,
+                                                ));
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 8),
+                                                padding: EdgeInsets.all(5),
+                                                height: 50.h,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Row(
                                                   children: [
-                                                    ksizedbox10,
-                                                    ShimmerPro.text(
-                                                      light: shimmerlight,
-                                                      width: 450,
-                                                      scaffoldBackgroundColor:
-                                                          bgColor,
-                                                    ),
-                                                    ksizedbox10,
-                                                    ShimmerPro.sized(
-                                                      light: shimmerlight,
-                                                      scaffoldBackgroundColor:
-                                                          bgColor,
-                                                      height: 60,
-                                                      width: 450,
+                                                    Container(
+                                                        height: 40.h,
+                                                        width: 40.w,
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                AppColors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8)),
+                                                        child: Image.asset(
+                                                            "assets/icons/recce.png")),
+                                                    ksizedbox20w,
+                                                    Text(
+                                                      "Recce",
+                                                      style:
+                                                          primaryFonts.copyWith(
+                                                              color: AppColors
+                                                                  .white,
+                                                              fontSize: 16.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                     )
                                                   ],
-                                                )
-                                              : RefreshIndicator(
-                                                  onRefresh: () =>
-                                                      multisign.getRecee(),
-                                                  child: ListView.builder(
-                                                      physics:
-                                                          BouncingScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      itemCount: multisign
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Get.offAll(BottomNaviBar(
+                                                  index: 1,
+                                                ));
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.all(5),
+                                                height: 50.h,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                        height: 40.h,
+                                                        width: 40.w,
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                AppColors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8)),
+                                                        child: Image.asset(
+                                                            "assets/icons/install.png")),
+                                                    ksizedbox20w,
+                                                    Text(
+                                                      "Installation",
+                                                      style:
+                                                          primaryFonts.copyWith(
+                                                              color: AppColors
+                                                                  .white,
+                                                              fontSize: 16.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                          ksizedbox20,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Recent Project Details",
+                                style: primaryFonts.copyWith(
+                                    color: AppColors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     Get.offAll(BottomNaviBar(
+                              //       index: 2,
+                              //     ));
+                              //   },
+                              //   child: Text(
+                              //     "See All",
+                              //     style: primaryFonts.copyWith(
+                              //         color: AppColors.black.withOpacity(.43),
+                              //         fontSize: 12,
+                              //         fontWeight: FontWeight.w400),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          ksizedbox10,
+                          controller.getprofileData!.roleId == '2'
+                              ? RefreshIndicator(
+                                  onRefresh: () => multisign.getRecee(),
+                                  child: Container(
+                                    height: 430,
+                                    child: ListView(
+                                      children: [
+                                        GetBuilder<HomeController>(
+                                            builder: (_) {
+                                          return multisign
+                                                  .getreceelistData.isEmpty
+                                              ? Center(
+                                                  child: Image.asset(
+                                                      'assets/icons/fi_6598519.png'))
+                                              : multisign.isLoading.isTrue
+                                                  ? Column(
+                                                      children: [
+                                                        ksizedbox10,
+                                                        ShimmerPro.text(
+                                                          light: shimmerlight,
+                                                          width: 450,
+                                                          scaffoldBackgroundColor:
+                                                              bgColor,
+                                                        ),
+                                                        ksizedbox10,
+                                                        ShimmerPro.sized(
+                                                          light: shimmerlight,
+                                                          scaffoldBackgroundColor:
+                                                              bgColor,
+                                                          height: 60,
+                                                          width: 450,
+                                                        )
+                                                      ],
+                                                    )
+                                                  : RefreshIndicator(
+                                                      onRefresh: () =>
+                                                          multisign.getRecee(),
+                                                      child: ListView.builder(
+                                                          physics:
+                                                              BouncingScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          itemCount: multisign
+                                                                      .getreceelistData
+                                                                      .length >=
+                                                                  3
+                                                              ? 3
+                                                              : multisign
                                                                   .getreceelistData
-                                                                  .length >=
-                                                              3
-                                                          ? 3
-                                                          : multisign
-                                                              .getreceelistData
-                                                              .length,
-                                                      //  multisign
-                                                      //     .getreceelistData.length,
-                                                      itemBuilder:
-                                                          ((context, index) {
-                                                        final reversedIndex =
-                                                            multisign
-                                                                    .getreceelistData
-                                                                    .length -
-                                                                1 -
-                                                                index;
-                                                        final item = multisign
-                                                                .getreceelistData[
-                                                            reversedIndex];
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 8),
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              Get.to(
-                                                                  GetReceeSubJob(
-                                                                id: item.id
-                                                                    .toString(), storename: item.storeName,
-                                                              ));
-                                                            },
-                                                            child:
-                                                                ContainerCustom(
-                                                              id: item.id
-                                                                  .toString(),
-                                                              name: item
-                                                                  .clientName,
-                                                              city: item.city,
-                                                              jobcard:
-                                                                  item.jobcard,
-                                                              day: item
-                                                                  .createdAt.day
-                                                                  .toString(),
-                                                              address:
-                                                                  item.address,
-                                                              month: item
-                                                                  .createdAt
-                                                                  .month
-                                                                  .toString(),
-                                                              year: item
-                                                                  .createdAt
-                                                                  .year
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      })),
-                                                );
-                                    }),
-                                  ],
-                                ),
-                              ),
-                            )
-                          : RefreshIndicator(
-                              onRefresh: () => multisign.getinstallation(),
-                              child: Container(
-                                height: 430,
-                                child: ListView(
-                                  children: [
-                                    GetBuilder<HomeController>(
-                                        builder: (context) {
-                                      return multisign.installerListdata.isEmpty
-                                          ? Center(
-                                              child: Image.asset(
-                                                  'assets/icons/fi_6598519.png'))
-                                          : multisign.isLoading.isTrue
-                                              ? Column(
-                                                  children: [
-                                                    ksizedbox10,
-                                                    ShimmerPro.text(
-                                                      light: shimmerlight,
-                                                      width: 450,
-                                                      scaffoldBackgroundColor:
-                                                          bgColor,
-                                                    ),
-                                                    ksizedbox10,
-                                                    ShimmerPro.sized(
-                                                      light: shimmerlight,
-                                                      scaffoldBackgroundColor:
-                                                          bgColor,
-                                                      height: 60,
-                                                      width: 450,
+                                                                  .length,
+                                                          //  multisign
+                                                          //     .getreceelistData.length,
+                                                          itemBuilder:
+                                                              ((context,
+                                                                  index) {
+                                                            final reversedIndex =
+                                                                multisign
+                                                                        .getreceelistData
+                                                                        .length -
+                                                                    1 -
+                                                                    index;
+                                                            final item = multisign
+                                                                    .getreceelistData[
+                                                              reversedIndex];
+                                                            return Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          8),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  print('?????????????>>>>>>>${item.id}');
+                                                                  Get.to(
+                                                                    
+                                                                      GetReceeSubJob(
+                                                                    id: item.id
+                                                                        .toString(),
+                                                                    storename: item
+                                                                        .storeName,
+                                                                  ));
+                                                                },
+                                                                child:
+                                                                    ContainerCustom(
+                                                                  id: item.id
+                                                                      .toString(),
+                                                                  name: item
+                                                                      .clientName
+                                                                      .toString(),
+                                                                  city:
+                                                                      item.city,
+                                                                  jobcard: item
+                                                                      .jobcard
+                                                                      .toString(),
+                                                                  day: item
+                                                                      .createdAt!
+                                                                      .day
+                                                                      .toString(),
+                                                                  address: item
+                                                                      .address,
+                                                                  month: item
+                                                                      .createdAt!
+                                                                      .month
+                                                                      .toString(),
+                                                                  year: item
+                                                                      .createdAt!
+                                                                      .year
+                                                                      .toString(),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          })),
+                                                    );
+                                        }),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : RefreshIndicator(
+                                  onRefresh: () => multisign.getinstallation(),
+                                  child: Container(
+                                    height: 430,
+                                    child: ListView(
+                                      children: [
+                                        GetBuilder<HomeController>(
+                                            builder: (context) {
+                                          return multisign
+                                                  .installerListdata.isEmpty
+                                              ? Center(
+                                                  child: Image.asset(
+                                                      'assets/icons/fi_6598519.png'))
+                                              : multisign.isLoading.isTrue
+                                                  ? Column(
+                                                      children: [
+                                                        ksizedbox10,
+                                                        ShimmerPro.text(
+                                                          light: shimmerlight,
+                                                          width: 450,
+                                                          scaffoldBackgroundColor:
+                                                              bgColor,
+                                                        ),
+                                                        ksizedbox10,
+                                                        ShimmerPro.sized(
+                                                          light: shimmerlight,
+                                                          scaffoldBackgroundColor:
+                                                              bgColor,
+                                                          height: 60,
+                                                          width: 450,
+                                                        )
+                                                      ],
                                                     )
-                                                  ],
-                                                )
-                                              : RefreshIndicator(
-                                                  onRefresh: () => multisign
-                                                      .getinstallation(),
-                                                  child: ListView.builder(
-                                                      shrinkWrap: true,
-                                                      itemCount: multisign
+                                                  : RefreshIndicator(
+                                                      onRefresh: () => multisign
+                                                          .getinstallation(),
+                                                      child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: multisign
+                                                                      .installerListdata
+                                                                      .length >=
+                                                                  3
+                                                              ? 3
+                                                              : multisign
                                                                   .installerListdata
-                                                                  .length >=
-                                                              3
-                                                          ? 3
-                                                          : multisign
-                                                              .installerListdata
-                                                              .length,
-                                                      itemBuilder:
-                                                          ((context, index) {
-                                                        final reversedIndex =
-                                                            multisign
-                                                                    .installerListdata
-                                                                    .length -
-                                                                1 -
-                                                                index;
-                                                        final item1 = multisign
-                                                                .installerListdata[
-                                                            reversedIndex];
-                                                        return Padding(
-                                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                                          child: InkWell(
-                                                                                                      onTap: () {
-                                                                                                        Get.to(GetInstallerSubJob(storename: item1.storeName,
-                                                                                                            id:item1.id
-                                                                                                                .toString()));
-                                                                                                      },
-                                                                                                      child: ContainerCustom(
-                                                                                                        id: item1.id
-                                                                                                            .toString(),
-                                                                                                        name: item1
-                                                                                                            .clientName,
-                                                                                                        city: item1.city,
-                                                                                                        jobcard:item1
-                                                                                                            .jobcard,
-                                                                                                        day:item1
-                                                                                                            .createdAt
-                                                                                                            .day
-                                                                                                            .toString(),
-                                                                                                        address:item1
-                                                                                                            .address,
-                                                                                                        month: item1
-                                                                                                            .createdAt
-                                                                                                            .month
-                                                                                                            .toString(),
-                                                                                                        year: item1
-                                                                                                            .createdAt
-                                                                                                            .year
-                                                                                                            .toString(),
-                                                                                                      ),),
-                                                        );
-                                                      })),
-                                                );
-                                    }),
-                                  ],
+                                                                  .length,
+                                                          itemBuilder:
+                                                              ((context,
+                                                                  index) {
+                                                            final reversedIndex =
+                                                                multisign
+                                                                        .installerListdata
+                                                                        .length -
+                                                                    1 -
+                                                                    index;
+                                                            final item1 = multisign
+                                                                    .installerListdata[
+                                                                reversedIndex];
+                                                            return Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          8),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  
+                                                                  Get.to(GetInstallerSubJob(
+                                                                      storename:
+                                                                          item1
+                                                                              .storeName,
+                                                                      id: item1
+                                                                          .id
+                                                                          .toString()));
+                                                                },
+                                                                child:
+                                                                    ContainerCustom(
+                                                                  id: item1.id
+                                                                      .toString(),
+                                                                  name: item1
+                                                                      .clientName,
+                                                                  city: item1
+                                                                      .city,
+                                                                  jobcard: item1
+                                                                      .jobcard,
+                                                                  day: item1
+                                                                      .createdAt
+                                                                      .day
+                                                                      .toString(),
+                                                                  address: item1
+                                                                      .address,
+                                                                  month: item1
+                                                                      .createdAt
+                                                                      .month
+                                                                      .toString(),
+                                                                  year: item1
+                                                                      .createdAt
+                                                                      .year
+                                                                      .toString(),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          })),
+                                                    );
+                                        }),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                      // const SizedBox(
-                      //   height: 250,
-                      // )
-                    ],
-                  );
-          }),
-        ),
+                          // const SizedBox(
+                          //   height: 250,
+                          // )
+                        ],
+                      );
+              }),
+            ),
+          ),
+        ],
       ),
     );
   }

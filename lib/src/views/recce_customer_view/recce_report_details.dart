@@ -1107,7 +1107,7 @@ if (controller.getreceedetailsData != null &&
                                           controller.verifysubjobRecee(
                                             job_card: controller
                                                 .getreceedetailsData!.jobcard,
-                                            width: widthController.text,
+                                            width: widthController.text.toString(),
                                             height: heightController.text,
                                             squrefit: squrefitController.text,
                                             dimension: dimensionController.text,

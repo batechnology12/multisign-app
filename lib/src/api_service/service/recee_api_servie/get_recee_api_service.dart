@@ -3,9 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:multisign_app/src/api_service/baseurl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
-
 class GetReceeApiServices extends BaseApiService {
   Future getReceeApiServices() async {
     dynamic responseJson;

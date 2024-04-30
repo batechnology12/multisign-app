@@ -62,8 +62,8 @@ class HomeController extends GetxController {
   }
 
   GetReceeApiServices getReceeApiServices = GetReceeApiServices();
-  List<GetReceDataList> getreceelistData = [];
-  List<GetReceDataList> tempGetreceelistData = [];
+  List<GetRaceDataList> getreceelistData = [];
+  List<GetRaceDataList> tempGetreceelistData = [];
   getRecee() async {
     //  getreceelistData.clear();
     isLoading(true);
@@ -117,8 +117,8 @@ class HomeController extends GetxController {
     print('========================data==2=================================');
     if (response.data["status"] == true) {
       GetReceeSubjob getReceeSubjob = GetReceeSubjob.fromJson(response.data);
-      getreceedsubjobData = getReceeSubjob.data;
-      tempGetreceeSUBjoblistData = getReceeSubjob.data;
+      getreceedsubjobData = getReceeSubjob.data!;
+      tempGetreceeSUBjoblistData = getReceeSubjob.data!;
     } else {
       //   getReceedetails(id: id);
       // Get.off(RecceReportDetails(
@@ -289,13 +289,13 @@ class HomeController extends GetxController {
 
   verifysubjobRecee({
     required String job_card,
-    required String width,
-    required String height,
-    required String squrefit,
-    required String dimension,
+    required dynamic width,
+    required dynamic height,
+    required dynamic squrefit,
+    required dynamic dimension,
     required String signage_type,
     required String signage_details,
-    required String client_id,
+    required dynamic client_id,
     required List<Uint8List?> media,
   }) async {
     isLoadingverification(true);
@@ -317,7 +317,7 @@ class HomeController extends GetxController {
       pickedEditedImagePathList.clear();
       Get.to(BottomNaviBar());
       pickedImagePathList.clear();
-      pickedImagePath != '';
+      pickedImagePath!= '';
       update();
       AppConstant.showSnackbar(
         headText: "Successful",
@@ -549,11 +549,11 @@ class HomeController extends GetxController {
           .toList();
       getreceelistData = getreceelistData
           .where((element) =>
-              element.clientName.toLowerCase().contains(query.toLowerCase()))
+              element.clientName!.toLowerCase().contains(query.toLowerCase()))
           .toList();
       getreceedsubjobData = getreceedsubjobData
           .where((element) =>
-              element.clientName.toLowerCase().contains(query.toLowerCase()))
+              element.dealerName!.toLowerCase().contains(query.toLowerCase()))
           .toList();
       getinstallersubjobData = getinstallersubjobData
           .where((element) =>

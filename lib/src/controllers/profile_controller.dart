@@ -7,7 +7,7 @@ class ProfileController extends GetxController{
 
 
    ProfileApiServices profileApiServices = ProfileApiServices();
-  Data? getprofileData;
+  Data ? getprofileData;
   getprofile() async {
   
     update();
