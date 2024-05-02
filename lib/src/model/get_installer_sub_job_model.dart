@@ -20,6 +20,7 @@ class GetInstallerSubJobModel {
     factory GetInstallerSubJobModel.fromJson(Map<String, dynamic> json) => GetInstallerSubJobModel(
         status: json["status"],
         data: List<InstallerSubJobDataList>.from(json["data"].map((x) => InstallerSubJobDataList.fromJson(x))),
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -30,28 +31,14 @@ class GetInstallerSubJobModel {
 
 class InstallerSubJobDataList {
     int id;
-    dynamic importId;
+    String importId;
     String clientId;
-    String jobcard;
-    String clientName;
-    String scopeOfWork;
+    String shopcode;
+    String shopName;
     String address;
     String city;
-    String state;
     String gstNumber;
-    String estimateNumber;
-    String poNumber;
-    dynamic poDate;
-    dynamic targetCompletionDate;
-    String particular;
-    String qty;
-    String rate;
-    String value;
-    String marketterId;
     String recceId;
-    String production;
-    String designing;
-    String data;
     String installerId;
     String installerStatus;
     String status;
@@ -59,7 +46,6 @@ class InstallerSubJobDataList {
     String region;
     String areaName;
     String dealerName;
-    String storeName;
     String contact;
     DateTime createdAt;
     DateTime updatedAt;
@@ -71,26 +57,12 @@ class InstallerSubJobDataList {
         required this.id,
         required this.importId,
         required this.clientId,
-        required this.jobcard,
-        required this.clientName,
-        required this.scopeOfWork,
+        required this.shopcode,
+        required this.shopName,
         required this.address,
         required this.city,
-        required this.state,
         required this.gstNumber,
-        required this.estimateNumber,
-        required this.poNumber,
-        required this.poDate,
-        required this.targetCompletionDate,
-        required this.particular,
-        required this.qty,
-        required this.rate,
-        required this.value,
-        required this.marketterId,
         required this.recceId,
-        required this.production,
-        required this.designing,
-        required this.data,
         required this.installerId,
         required this.installerStatus,
         required this.status,
@@ -98,7 +70,6 @@ class InstallerSubJobDataList {
         required this.region,
         required this.areaName,
         required this.dealerName,
-        required this.storeName,
         required this.contact,
         required this.createdAt,
         required this.updatedAt,
@@ -111,26 +82,12 @@ class InstallerSubJobDataList {
         id: json["id"]??0,
         importId: json["import_id"]??'',
         clientId: json["client_id"]??'',
-        jobcard: json["jobcard"]??'',
-        clientName: json["client_name"]??'',
-        scopeOfWork: json["scope_of_work"]??'',
+        shopcode: json["shopcode"]??'',
+        shopName: json["shop_name"]??'',
         address: json["address"]??'',
         city: json["city"]??'',
-        state: json["state"]??'',
         gstNumber: json["gst_number"]??'',
-        estimateNumber: json["estimate_number"]??'',
-        poNumber: json["po_number"]??'',
-        poDate: json["po_date"]==null?null: DateTime.parse(json["po_date"]),
-        targetCompletionDate:json["target_completion_date"]==null?null:  DateTime.parse(json["target_completion_date"]),
-        particular: json["particular"]??'',
-        qty: json["qty"]??'',
-        rate: json["rate"]??'',
-        value: json["value"]??'',
-        marketterId: json["marketter_id"]??'',
         recceId: json["recce_id"]??'',
-        production: json["production"]??'',
-        designing: json["designing"]??'',
-        data: json["data"]??'',
         installerId: json["installer_id"]??'',
         installerStatus: json["installer_status"]??'',
         status: json["status"]??'',
@@ -138,7 +95,6 @@ class InstallerSubJobDataList {
         region: json["region"]??'',
         areaName: json["area_name"]??'',
         dealerName: json["dealer_name"]??'',
-        storeName: json["store_name"]??'',
         contact: json["contact"]??'',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -151,26 +107,12 @@ class InstallerSubJobDataList {
         "id": id,
         "import_id": importId,
         "client_id": clientId,
-        "jobcard": jobcard,
-        "client_name": clientName,
-        "scope_of_work": scopeOfWork,
+        "shopcode": shopcode,
+        "shop_name": shopName,
         "address": address,
         "city": city,
-        "state": state,
         "gst_number": gstNumber,
-        "estimate_number": estimateNumber,
-        "po_number": poNumber,
-        "po_date": "${poDate.year.toString().padLeft(4, '0')}-${poDate.month.toString().padLeft(2, '0')}-${poDate.day.toString().padLeft(2, '0')}",
-        "target_completion_date": "${targetCompletionDate.year.toString().padLeft(4, '0')}-${targetCompletionDate.month.toString().padLeft(2, '0')}-${targetCompletionDate.day.toString().padLeft(2, '0')}",
-        "particular": particular,
-        "qty": qty,
-        "rate": rate,
-        "value": value,
-        "marketter_id": marketterId,
         "recce_id": recceId,
-        "production": production,
-        "designing": designing,
-        "data": data,
         "installer_id": installerId,
         "installer_status": installerStatus,
         "status": status,
@@ -178,13 +120,12 @@ class InstallerSubJobDataList {
         "region": region,
         "area_name": areaName,
         "dealer_name": dealerName,
-        "store_name": storeName,
         "contact": contact,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "is_deleted": isDeleted,
         "deleted_at": deletedAt,
-        "recee_verifications": List<ReceeVerification>.from(receeVerifications.map((x) => x.toJson())),
+        "recee_verifications": List<dynamic>.from(receeVerifications.map((x) => x.toJson())),
     };
 }
 
@@ -192,7 +133,7 @@ class ReceeVerification {
     int id;
     String userId;
     String clientId;
-    dynamic installerId;
+    String? installerId;
     String jobCard;
     String withColumn;
     String heightColumn;
@@ -201,9 +142,10 @@ class ReceeVerification {
     String signageType;
     String signageDetails;
     List<String> beforeImages;
-    List<dynamic> afterImages;
+    List<String>? afterImages;
     String isReceeVerrified;
     String isJobCompleted;
+    String isPrinting;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -223,26 +165,28 @@ class ReceeVerification {
         required this.afterImages,
         required this.isReceeVerrified,
         required this.isJobCompleted,
+        required this.isPrinting,
         required this.createdAt,
         required this.updatedAt,
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
-        id: json["id"],
-        userId: json["user_id"],
-        clientId: json["client_id"],
-        installerId: json["installer_id"],
-        jobCard: json["job_card"],
-        withColumn: json["with_column"],
-        heightColumn: json["height_column"],
-        squareFit: json["square_fit"],
-        dimension: json["dimension"],
-        signageType: json["signage_type"],
-        signageDetails: json["signage_details"],
+        id: json["id"]??0,
+        userId: json["user_id"]??'',
+        clientId: json["client_id"]??'',
+        installerId: json["installer_id"]??'',
+        jobCard: json["job_card"]??'',
+        withColumn: json["with_column"]??'',
+        heightColumn: json["height_column"]??'',
+        squareFit: json["square_fit"]??'',
+        dimension: json["dimension"]??'',
+        signageType: json["signage_type"]??'',
+        signageDetails: json["signage_details"]??'',
         beforeImages: List<String>.from(json["before_images"].map((x) => x)),
-        afterImages: List<dynamic>.from(json["after_images"].map((x) => x)),
-        isReceeVerrified: json["is_recee_verrified"],
-        isJobCompleted: json["is_job_completed"],
+        afterImages: json["after_images"] == null ? [] : List<String>.from(json["after_images"]!.map((x) => x)),
+        isReceeVerrified: json["is_recee_verrified"]??'',
+        isJobCompleted: json["is_job_completed"]??'',
+        isPrinting: json["isPrinting"]??'',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
     );
@@ -260,9 +204,10 @@ class ReceeVerification {
         "signage_type": signageType,
         "signage_details": signageDetails,
         "before_images": List<dynamic>.from(beforeImages.map((x) => x)),
-        "after_images": List<dynamic>.from(afterImages.map((x) => x)),
+        "after_images": afterImages == null ? [] : List<dynamic>.from(afterImages!.map((x) => x)),
         "is_recee_verrified": isReceeVerrified,
         "is_job_completed": isJobCompleted,
+        "isPrinting": isPrinting,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
     };

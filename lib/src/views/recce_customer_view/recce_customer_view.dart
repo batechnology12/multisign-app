@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
@@ -233,7 +234,8 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                               Get.to(GetReceeSubJob(
                                                 id: controller
                                                     .getreceelistData[index].id
-                                                    .toString(), storename: controller
+                                                    .toString(), 
+                                                    storename: controller
                                                     .getreceelistData[index].storeName ,
                                               ));
                                             },
@@ -348,28 +350,17 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .installerListdata[index]
                                                   .clientName.toString(),
                                               city: controller
-                                                  .installerListdata[index].city,
+                                                  .installerListdata[index].shopName.toString(),
                                               jobcard: controller
                                                   .installerListdata[index]
-                                                  .jobcard.toString(),
-                                              day: controller
+                                                  .shopcode.toString(),
+                                              day:formatDate(DateTime.parse(controller
                                                   .installerListdata[index]
-                                                  .createdAt!
-                                                  .day
-                                                  .toString(),
-                                              address: controller
-                                                  .installerListdata[index]
-                                                  .address,
-                                              month: controller
-                                                  .installerListdata[index]
-                                                  .createdAt!
-                                                  .month
-                                                  .toString(),
-                                              year: controller
-                                                  .installerListdata[index]
-                                                  .createdAt!
-                                                  .year
-                                                  .toString(),
+                                                  .createdAt!.toString(),), [yyyy,'-',mm,'-',dd])
+                                        ,
+                                              address:'',
+                                              month: '',
+                                              year: '',
                                             ),
                                           ),
                                         );
@@ -652,11 +643,11 @@ class ContainerCustom extends StatelessWidget {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.black.withOpacity(.50))),ksizedbox5,
-                          Text(address,
-                              style: primaryFonts.copyWith(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.black.withOpacity(.50))),ksizedbox5,
+                          // Text(address,
+                          //     style: primaryFonts.copyWith(
+                          //         fontSize: 13,
+                          //         fontWeight: FontWeight.w600,
+                          //         color: AppColors.black.withOpacity(.50))),ksizedbox5,
                            if (isverified ==
                                                       "1")
                                                     Text(

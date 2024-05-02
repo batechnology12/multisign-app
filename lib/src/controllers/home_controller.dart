@@ -553,11 +553,11 @@ class HomeController extends GetxController {
           .toList();
       getreceedsubjobData = getreceedsubjobData
           .where((element) =>
-              element.dealerName!.toLowerCase().contains(query.toLowerCase()))
+              element.shopName!.toLowerCase().contains(query.toLowerCase()))
           .toList();
       getinstallersubjobData = getinstallersubjobData
           .where((element) =>
-              element.clientName.toLowerCase().contains(query.toLowerCase()))
+              element.shopName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     }
     update();

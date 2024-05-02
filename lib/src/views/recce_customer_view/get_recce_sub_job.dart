@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -197,30 +198,19 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                                   .toString(),
                                               name: controller
                                                   .getreceedsubjobData[index]
-                                                  .dealerName.toString(),
+                                                  .shopName.toString(),
                                               city: controller
                                                   .getreceedsubjobData[index].city.toString(),
                                               jobcard: controller
                                                   .getreceedsubjobData[index]
                                                   .shopcode.toString(),
-                                              day: controller
-                                                  .getreceedsubjobData[index]
-                                                  .createdAt!
-                                                  .day
-                                                  .toString(),
-                                              address: controller
-                                                  .getreceedsubjobData[index]
-                                                  .address.toString(),
-                                              month: controller
-                                                  .getreceedsubjobData[index]
-                                                  .createdAt!
-                                                  .month
-                                                  .toString(),
-                                              year: controller
-                                                  .getreceedsubjobData[index]
-                                                  .createdAt!
-                                                  .year
-                                                  .toString(),isverified:controller
+                                              day: formatDate(DateTime.parse(controller
+                                                  .getreceedsubjobData[index].createdAt
+                                                  .toString(),), [yyyy,'-',mm,'-',dd]),
+                                              address:'',
+                                              month: '',
+                                              year: '',
+                                                  isverified:controller
                                                   .getreceedsubjobData[index].isReceeVerrified ,
                                             ),
                                   ),

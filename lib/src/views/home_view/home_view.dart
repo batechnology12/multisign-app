@@ -495,20 +495,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   jobcard: item
                                                                       .jobcard
                                                                       .toString(),
-                                                                  day: item
+                                                                  day: formatDate(DateTime.parse(item
                                                                       .createdAt!
-                                                                      .day
-                                                                      .toString(),
-                                                                  address: item
-                                                                      .address,
-                                                                  month: item
-                                                                      .createdAt!
-                                                                      .month
-                                                                      .toString(),
-                                                                  year: item
-                                                                      .createdAt!
-                                                                      .year
-                                                                      .toString(),
+                                                                      
+                                                                      .toString()), [yyyy,'-',mm,'-',dd]),
+                                                                  address: '',
+                                                                  month: '',
+                                                                  year:'',
                                                                 ),
                                                               ),
                                                             );
@@ -557,12 +550,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .getinstallation(),
                                                       child: ListView.builder(
                                                           shrinkWrap: true,
-                                                          itemCount: multisign
+                                                          itemCount: 
+                                                          multisign
                                                                       .installerListdata
-                                                                      .length >=
+                                                                      .length
+                                                                       >=
                                                                   3
                                                               ? 3
-                                                              : multisign
+                                                              :
+                                                               multisign
                                                                   .installerListdata
                                                                   .length,
                                                           itemBuilder:
@@ -591,7 +587,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           item1
                                                                               .storeName,
                                                                       id: item1
-                                                                          .subjobId
+                                                                          .id
                                                                           .toString()));
                                                                 },
                                                                 child:

@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -71,172 +72,166 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                 fontWeight: FontWeight.w600,
                 color: AppColors.black)),
       ),
-      body: GetBuilder<HomeController>(builder: (_) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-             Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                              color: const Color.fromARGB(255, 216, 216, 216)
-                                  .withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: const Offset(0, 5))
-                        ]),
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SvgPicture.asset('assets/images/Vector.svg'),
-                        // Image(image: kimgsearch),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: TextField(
-                            onChanged: (query) {
-                              controller.searchcustomers(query: query);
-                            },
-                           controller: searchController,
-                            decoration: InputDecoration.collapsed(
-                              hintText: "Search",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ksizedbox30,
-              Row(
+      body: ListView(
+        children: [
+          GetBuilder<HomeController>(builder: (_) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
                 children: [
-                  Text(
-                    "INSTALLER SUB JOB",
-                    style: primaryFonts.copyWith(
-                        color: AppColors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600),
+                 Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: const Color.fromARGB(255, 216, 216, 216)
+                                      .withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            SvgPicture.asset('assets/images/Vector.svg'),
+                            // Image(image: kimgsearch),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextField(
+                                onChanged: (query) {
+                                  controller.searchcustomers(query: query);
+                                },
+                               controller: searchController,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: "Search",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ksizedbox30,
+                  Row(
+                    children: [
+                      Text(
+                        "INSTALLER SUB JOB",
+                        style: primaryFonts.copyWith(
+                            color: AppColors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              ksizedbox10,
-              controller.isLoadingdatails.isTrue
-                  ? Column(
-                      children: [
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.sized(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                          height: 50,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.sized(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                          height: 50,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.text(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                        ),
-                        ksizedbox10,
-                        ShimmerPro.sized(
-                          light: shimmerlight,
-                          scaffoldBackgroundColor: bgColor,
-                          width: 450,
-                          height: 50,
-                        ),
-                        ksizedbox10,
-                      ],
-                    )
-                  : controller.getinstallersubjobData.isEmpty
-                      ? Center(
-                          child: Image.asset('assets/icons/fi_6598519.png'))
-                      : RefreshIndicator(
-                          onRefresh: () =>
-                              controller.getinstallersubjob(id: widget.id),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount:
-                                  controller.getinstallersubjobData.length,
-                              itemBuilder: ((context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: InkWell(
-                                            onTap: () {
-                                              Get.to(InstallationReportDetails(
-                                                  id: controller
-                                                      .getinstallersubjobData[index].id
-                                                      .toString()));
-                                            },
-                                            child: Column(
-                                             
-                                              children: [
-                                                ContainerCustom(
+                  ksizedbox10,
+                  controller.isLoadingdatails.isTrue
+                      ? Column(
+                          children: [
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.sized(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                              height: 50,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.sized(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                              height: 50,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.text(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                            ),
+                            ksizedbox10,
+                            ShimmerPro.sized(
+                              light: shimmerlight,
+                              scaffoldBackgroundColor: bgColor,
+                              width: 450,
+                              height: 50,
+                            ),
+                            ksizedbox10,
+                          ],
+                        )
+                      : controller.getinstallersubjobData.isEmpty
+                          ? Center(
+                              child: Image.asset('assets/icons/fi_6598519.png'))
+                          : RefreshIndicator(
+                              onRefresh: () =>
+                                  controller.getinstallersubjob(id: widget.id),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller.getinstallersubjobData.length,
+                                  itemBuilder: ((context, index) {
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(vertical: 10),
+                                      child: InkWell(
+                                                onTap: () {
+                                                  Get.to(InstallationReportDetails(
+                                                      id: controller
+                                                          .getinstallersubjobData[index].id
+                                                          .toString()));
+                                                },
+                                                child: ContainerCustom(
                                                   id: controller
                                                       .getinstallersubjobData[index].id
                                                       .toString(),
                                                   name: controller
                                                       .getinstallersubjobData[index]
-                                                      .clientName,
-                                                  city: controller
-                                                      .getinstallersubjobData[index].city,
+                                                      .shopName,
+                                                
                                                   jobcard: controller
-                                                      .getinstallersubjobData[index]
-                                                      .jobcard,
-                                                  day: controller
-                                                      .getinstallersubjobData[index]
-                                                      .createdAt
-                                                      .day
-                                                      .toString(),
+                                                      .getinstallersubjobData[index].shopcode,
+                                                 
                                                   address: controller
                                                       .getinstallersubjobData[index]
                                                       .address,
-                                                  month: controller
+                                                        city: controller
+                                                      .getinstallersubjobData[index].city,
+                                                  day:formatDate(DateTime.parse( controller
                                                       .getinstallersubjobData[index]
-                                                      .createdAt
-                                                      .month
-                                                      .toString(),
-                                                  year: controller
-                                                      .getinstallersubjobData[index]
-                                                      .createdAt
-                                                      .year
-                                                      .toString(),isverified:controller
+                                                      .createdAt.toString()), [yyyy,'-',mm,'-',dd])
+                                                     ,
+                                                  month: '',
+                                                  year:''
+                                                      ,
+                                                      isverified:
+                                                      controller
                                                       .getinstallersubjobData[index].installerStatus ,
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                );
-                              })),
-                        ),
-            ],
-          ),
-        );
-      }),
+                                              ),
+                                    );
+                                  })),
+                            ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
     );
   }
 }
