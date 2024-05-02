@@ -202,7 +202,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                                   .getreceedsubjobData[index].city.toString(),
                                               jobcard: controller
                                                   .getreceedsubjobData[index]
-                                                  .city.toString(),
+                                                  .shopcode.toString(),
                                               day: controller
                                                   .getreceedsubjobData[index]
                                                   .createdAt!

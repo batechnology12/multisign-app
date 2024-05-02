@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyInstallationApiServices extends BaseApiService {
   Future varifyInastallatinApi({
-    required String job_card,
+    required String jobcard,
     required List<Uint8List?> media,
   }) async {
     dynamic responseJson;
@@ -16,7 +16,7 @@ class VerifyInstallationApiServices extends BaseApiService {
       String? authtoken = prefs.getString("auth_token");
 
       FormData formData = FormData.fromMap({
-        "job_card": job_card,
+        "job_card": jobcard,
         for (int i = 0; i < media.length; i++)
           "after_images[$i]":
                MultipartFile.fromBytes(media[i]!, filename: "image$i"),

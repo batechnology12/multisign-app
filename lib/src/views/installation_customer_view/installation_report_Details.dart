@@ -162,7 +162,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText: controller
-                                  .getinstallerdetailsData!.clientName,
+                                  .getinstallerdetailsData!.shopName,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -196,7 +196,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText: controller
-                                  .getinstallerdetailsData!.scopeOfWork,
+                                  .getinstallerdetailsData!.shopcode,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -296,7 +296,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText:
-                                  controller.getinstallerdetailsData!.state,
+                                  controller.getinstallerdetailsData!.city,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -329,7 +329,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText:
-                                  controller.getinstallerdetailsData!.jobcard,
+                                  controller.getinstallerdetailsData!.shopcode,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -395,7 +395,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText:
-                                  controller.getinstallerdetailsData!.poNumber,
+                                  controller.getinstallerdetailsData!.contact,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -668,7 +668,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText: controller.getinstallerdetailsData!
-                                  .receeVerifications.first.signageType,
+                                  .receeVerifications!.first.signageType,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -701,7 +701,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
                               hintText: controller.getinstallerdetailsData!
-                                  .receeVerifications.first.signageDetails,
+                                  .receeVerifications!.first.signageDetails,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -741,7 +741,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         EdgeInsets.only(top: 5, left: 10),
                                     hintText: controller
                                         .getinstallerdetailsData!
-                                        .receeVerifications
+                                        .receeVerifications!
                                         .first
                                         .withColumn,
                                     hintStyle: primaryFonts.copyWith(
@@ -779,7 +779,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         const EdgeInsets.only(top: 5, left: 10),
                                     hintText: controller
                                         .getinstallerdetailsData!
-                                        .receeVerifications
+                                        .receeVerifications!
                                         .first
                                         .heightColumn,
                                     hintStyle: primaryFonts.copyWith(
@@ -824,7 +824,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         EdgeInsets.only(top: 5, left: 10),
                                     hintText: controller
                                         .getinstallerdetailsData!
-                                        .receeVerifications
+                                        .receeVerifications!
                                         .first
                                         .dimension,
                                     hintStyle: primaryFonts.copyWith(
@@ -862,7 +862,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                         EdgeInsets.only(top: 5, left: 10),
                                     hintText: controller
                                         .getinstallerdetailsData!
-                                        .receeVerifications
+                                        .receeVerifications!
                                         .first
                                         .squareFit,
                                     hintStyle: primaryFonts.copyWith(
@@ -897,36 +897,43 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ),
                       ksizedbox10,
 
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                            itemCount: controller.getinstallerdetailsData!
-                                .receeVerifications.last.beforeImages.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index2) {
-                              return Card(
-                                child: InkWell(
-                                  onTap: () {
-                                    showImageViewer(
-                                        context,
-                                        Image.network(controller
-                                                .getinstallerdetailsData!
-                                                .receeVerifications
-                                                .last
-                                                .beforeImages[index2])
-                                            .image);
-                                  },
-                                  child: Container(
-                                    width: 200,
-                                    child: Image.network(controller
-                                        .getinstallerdetailsData!
-                                        .receeVerifications
-                                        .last
-                                        .beforeImages[index2]),
-                                  ),
-                                ),
-                              );
-                            }),
+                      GetBuilder<HomeController>(
+                        builder: (_) {
+                          print("????????????............before---image::::::::::");
+                          print(controller.getinstallerdetailsData!.receeVerifications!.last.beforeImages);
+                          return Container(
+                            height: 200,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                                itemCount: controller.getinstallerdetailsData!
+                                    .receeVerifications!.last.beforeImages!.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index2) {
+                                  return Card(
+                                    child: InkWell(
+                                      onTap: () {
+                                        showImageViewer(
+                                            context,
+                                            Image.network(controller
+                                                    .getinstallerdetailsData!
+                                                    .receeVerifications!
+                                                    .last
+                                                    .beforeImages![index2])
+                                                .image);
+                                       },
+                                      child: Container(
+                                        width: 200,
+                                        child: Image.network(controller
+                                            .getinstallerdetailsData!
+                                            .receeVerifications!
+                                            .last
+                                            .beforeImages![index2]),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          );
+                        }
                       ),
 
                       // Container(
@@ -950,13 +957,13 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             fontWeight: FontWeight.w600),
                       ),
                       ksizedbox15,
-                      controller.getinstallerdetailsData?.installerStatus == "1"
+                      controller.getinstallerdetailsData?.installerStatus == "2"
                           ? Container(
                               height: 200,
                               child: controller
                                           .getinstallerdetailsData
                                           ?.receeVerifications
-                                          .last
+                                          ?.last
                                           .afterImages ==
                                       null
                                   ? Container()
@@ -964,9 +971,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       itemCount: controller
                                           .getinstallerdetailsData
                                           ?.receeVerifications
-                                          .last
-                                          .afterImages
-                                          .length,
+                                          !.last
+                                          .afterImages!.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index2) {
                                         return InkWell(
@@ -975,9 +981,9 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                                 context,
                                                 Image.network(controller
                                                         .getinstallerdetailsData
-                                                        ?.receeVerifications
+                                                        !.receeVerifications!
                                                         .last
-                                                        .afterImages[index2])
+                                                        .afterImages![index2])
                                                     .image);
                                           },
                                           child: Card(
@@ -985,9 +991,9 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                               width: 200,
                                               child: Image.network(controller
                                                   .getinstallerdetailsData
-                                                  ?.receeVerifications
+                                                  !.receeVerifications!
                                                   .last
-                                                  .afterImages[index2]),
+                                                  .afterImages![index2]),
                                             ),
                                           ),
                                         );
@@ -1200,8 +1206,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                 if (controller
                                     .pickedEditedImagePathList.isNotEmpty) {
                                   controller.verifyInstall(
-                                    job_card: controller
-                                        .getinstallerdetailsData!.jobcard,
+                                    jobcard: controller
+                                        .getinstallerdetailsData!.toString(),
                                     //  media1: controller.pickedcamerapath!,
                                     media: controller.pickedEditedImagePathList,
                                   );

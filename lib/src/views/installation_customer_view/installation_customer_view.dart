@@ -154,7 +154,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                             Text(
                                                 controller
                                                     .installerListdata[index]
-                                                    .clientName,
+                                                    .clientName.toString(),
                                                 style: primaryFonts.copyWith(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
@@ -167,7 +167,7 @@ class _InstallationCustomerState extends State<InstallationCustomer> {
                                                     color: AppColors.black
                                                         .withOpacity(.70))),
                                             Text(
-                                                'Job Id:${controller.installerListdata[index].jobcard}}',
+                                                'Job Id:${controller.installerListdata[index].shopcode}}',
                                                 style: primaryFonts.copyWith(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w400,

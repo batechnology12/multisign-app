@@ -176,7 +176,7 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                           child: Image.asset('assets/icons/fi_6598519.png'))
                       : RefreshIndicator(
                           onRefresh: () =>
-                              controller.getReceesubjob(id: widget.id),
+                              controller.getinstallersubjob(id: widget.id),
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount:
@@ -192,37 +192,42 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                                                       .getinstallersubjobData[index].id
                                                       .toString()));
                                             },
-                                            child: ContainerCustom(
-                                              id: controller
-                                                  .getinstallersubjobData[index].id
-                                                  .toString(),
-                                              name: controller
-                                                  .getinstallersubjobData[index]
-                                                  .clientName,
-                                              city: controller
-                                                  .getinstallersubjobData[index].city,
-                                              jobcard: controller
-                                                  .getinstallersubjobData[index]
-                                                  .jobcard,
-                                              day: controller
-                                                  .getinstallersubjobData[index]
-                                                  .createdAt
-                                                  .day
-                                                  .toString(),
-                                              address: controller
-                                                  .getinstallersubjobData[index]
-                                                  .address,
-                                              month: controller
-                                                  .getinstallersubjobData[index]
-                                                  .createdAt
-                                                  .month
-                                                  .toString(),
-                                              year: controller
-                                                  .getinstallersubjobData[index]
-                                                  .createdAt
-                                                  .year
-                                                  .toString(),isverified:controller
-                                                  .getinstallersubjobData[index].installerStatus ,
+                                            child: Column(
+                                             
+                                              children: [
+                                                ContainerCustom(
+                                                  id: controller
+                                                      .getinstallersubjobData[index].id
+                                                      .toString(),
+                                                  name: controller
+                                                      .getinstallersubjobData[index]
+                                                      .clientName,
+                                                  city: controller
+                                                      .getinstallersubjobData[index].city,
+                                                  jobcard: controller
+                                                      .getinstallersubjobData[index]
+                                                      .jobcard,
+                                                  day: controller
+                                                      .getinstallersubjobData[index]
+                                                      .createdAt
+                                                      .day
+                                                      .toString(),
+                                                  address: controller
+                                                      .getinstallersubjobData[index]
+                                                      .address,
+                                                  month: controller
+                                                      .getinstallersubjobData[index]
+                                                      .createdAt
+                                                      .month
+                                                      .toString(),
+                                                  year: controller
+                                                      .getinstallersubjobData[index]
+                                                      .createdAt
+                                                      .year
+                                                      .toString(),isverified:controller
+                                                      .getinstallersubjobData[index].installerStatus ,
+                                                ),
+                                              ],
                                             ),
                                           ),
                                 );

@@ -55,8 +55,8 @@ class HomeController extends GetxController {
     if (response.data["status"] == true) {
       GetInstallerModel getInstallerModel =
           GetInstallerModel.fromJson(response.data);
-      installerListdata = getInstallerModel.data;
-      tempGetinstallerlistData = getInstallerModel.data;
+      installerListdata = getInstallerModel.data!;
+      tempGetinstallerlistData = getInstallerModel.data!;
     }
     update();
   }
@@ -288,7 +288,7 @@ class HomeController extends GetxController {
       VerifyReceeSubjobApiServices();
 
   verifysubjobRecee({
-    required String job_card,
+    required String jobcard,
     required dynamic width,
     required dynamic height,
     required dynamic squrefit,
@@ -302,7 +302,7 @@ class HomeController extends GetxController {
     update();
     dio.Response<dynamic> response =
         await verifyReceeSubjobApiServices.varifyreceeSubJobApi(
-      job_card: job_card,
+      jobcard: jobcard,
       width: width,
       height: height,
       squrefit: squrefit,
@@ -351,7 +351,7 @@ class HomeController extends GetxController {
       VerifyInstallationApiServices();
 
   verifyInstall({
-    required String job_card,
+    required String jobcard,
     required List<Uint8List?> media,
     //  required String media1,
   }) async {
@@ -359,7 +359,7 @@ class HomeController extends GetxController {
     update();
     dio.Response<dynamic> response =
         await verifyInstallationApiServices.varifyInastallatinApi(
-      job_card: job_card,
+      jobcard: jobcard,
 
       media: media,
       //    media1: media1
@@ -414,7 +414,7 @@ class HomeController extends GetxController {
       print('=========================================');
 
       final croppedcam = await ImageCropper().cropImage(
-        sourcePath: pickedCamerafile!.path,
+        sourcePath: pickedCamerafile.path,
         compressQuality: 50,
         aspectRatioPresets: [
           CropAspectRatioPreset.ratio4x3,
@@ -437,7 +437,7 @@ class HomeController extends GetxController {
       );
       if (croppedcam == null) return;
 
-      final croppedFile1 = File(croppedcam!.path);
+      final croppedFile1 = File(croppedcam.path);
 
       //cameraimage = File(pickedCamerafile.path);
 
@@ -479,7 +479,7 @@ class HomeController extends GetxController {
 
     if (pickedFile != null) {
       final croppedImage = await ImageCropper().cropImage(
-        sourcePath: pickedFile!.path,
+        sourcePath: pickedFile.path,
         compressQuality: 70,
         aspectRatioPresets: [
           CropAspectRatioPreset.ratio7x5,
@@ -545,7 +545,7 @@ class HomeController extends GetxController {
 
       installerListdata = installerListdata
           .where((element) =>
-              element.clientName.toLowerCase().contains(query.toLowerCase()))
+              element.clientName!.toLowerCase().contains(query.toLowerCase()))
           .toList();
       getreceelistData = getreceelistData
           .where((element) =>

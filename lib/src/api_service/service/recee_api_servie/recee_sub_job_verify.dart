@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class VerifyReceeSubjobApiServices extends BaseApiService {
   
   Future varifyreceeSubJobApi({
-    required String job_card,
+    required String jobcard,
     required String width,
     required String height,
     required String squrefit,
@@ -24,7 +24,7 @@ class VerifyReceeSubjobApiServices extends BaseApiService {
       String? authtoken = prefs.getString("auth_token");
 
       FormData formData = FormData.fromMap({
-        "job_card": job_card,
+        "job_card": jobcard,
         "width": width,
         "height": height,
         "squrefit": squrefit,
@@ -32,7 +32,7 @@ class VerifyReceeSubjobApiServices extends BaseApiService {
         "signage_type": signage_type,
         "signage_details": signage_details,
         "client_id": client_id,
-        for (var i = 0; i < media.length; i++)
+        for (int i = 0; i < media.length; i++)
           "before_images[$i]":
                MultipartFile.fromBytes(media[i]!, filename: "image$i"),
       });
@@ -48,7 +48,7 @@ class VerifyReceeSubjobApiServices extends BaseApiService {
                 return status! <= 500;
               }),
           data: formData);
-      print("::::::::<Upload RECEE sub job>::::::::status code:::::${job_card}::::");
+      print("::::::::<Upload RECEE sub job>::::::::status code:::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

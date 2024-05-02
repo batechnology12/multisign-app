@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyReceeApiServices extends BaseApiService {
   Future varifyreceeApi({
-    required String job_card,
+    required String jobcard,
     required String width,
     required String height,
     required String squrefit,
@@ -23,7 +23,7 @@ class VerifyReceeApiServices extends BaseApiService {
       String? authtoken = prefs.getString("auth_token");
 
       FormData formData = FormData.fromMap({
-        "job_card": job_card,
+        "job_card": jobcard,
         "width": width,
         "height": height,
         "squrefit": squrefit,
@@ -47,7 +47,7 @@ class VerifyReceeApiServices extends BaseApiService {
                 return status! <= 500;
               }),
           data: formData);
-      print("::::::::<Upload post>::::::::status code:::::${job_card}::::");
+      print("::::::::<Upload post>::::::::status code:::::${jobcard}::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

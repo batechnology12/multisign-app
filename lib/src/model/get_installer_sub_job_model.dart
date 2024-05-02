@@ -41,8 +41,8 @@ class InstallerSubJobDataList {
     String gstNumber;
     String estimateNumber;
     String poNumber;
-    DateTime poDate;
-    DateTime targetCompletionDate;
+    dynamic poDate;
+    dynamic targetCompletionDate;
     String particular;
     String qty;
     String rate;
@@ -108,42 +108,42 @@ class InstallerSubJobDataList {
     });
 
     factory InstallerSubJobDataList.fromJson(Map<String, dynamic> json) => InstallerSubJobDataList(
-        id: json["id"],
-        importId: json["import_id"],
-        clientId: json["client_id"],
-        jobcard: json["jobcard"],
-        clientName: json["client_name"],
-        scopeOfWork: json["scope_of_work"],
-        address: json["address"],
-        city: json["city"],
-        state: json["state"],
-        gstNumber: json["gst_number"],
-        estimateNumber: json["estimate_number"],
-        poNumber: json["po_number"],
-        poDate: DateTime.parse(json["po_date"]),
-        targetCompletionDate: DateTime.parse(json["target_completion_date"]),
-        particular: json["particular"],
-        qty: json["qty"],
-        rate: json["rate"],
-        value: json["value"],
-        marketterId: json["marketter_id"],
-        recceId: json["recce_id"],
-        production: json["production"],
-        designing: json["designing"],
-        data: json["data"],
-        installerId: json["installer_id"],
-        installerStatus: json["installer_status"],
-        status: json["status"],
-        isReceeVerrified: json["is_recee_verrified"],
-        region: json["region"],
-        areaName: json["area_name"],
-        dealerName: json["dealer_name"],
-        storeName: json["store_name"],
-        contact: json["contact"],
+        id: json["id"]??0,
+        importId: json["import_id"]??'',
+        clientId: json["client_id"]??'',
+        jobcard: json["jobcard"]??'',
+        clientName: json["client_name"]??'',
+        scopeOfWork: json["scope_of_work"]??'',
+        address: json["address"]??'',
+        city: json["city"]??'',
+        state: json["state"]??'',
+        gstNumber: json["gst_number"]??'',
+        estimateNumber: json["estimate_number"]??'',
+        poNumber: json["po_number"]??'',
+        poDate: json["po_date"]==null?null: DateTime.parse(json["po_date"]),
+        targetCompletionDate:json["target_completion_date"]==null?null:  DateTime.parse(json["target_completion_date"]),
+        particular: json["particular"]??'',
+        qty: json["qty"]??'',
+        rate: json["rate"]??'',
+        value: json["value"]??'',
+        marketterId: json["marketter_id"]??'',
+        recceId: json["recce_id"]??'',
+        production: json["production"]??'',
+        designing: json["designing"]??'',
+        data: json["data"]??'',
+        installerId: json["installer_id"]??'',
+        installerStatus: json["installer_status"]??'',
+        status: json["status"]??'',
+        isReceeVerrified: json["is_recee_verrified"]??'',
+        region: json["region"]??'',
+        areaName: json["area_name"]??'',
+        dealerName: json["dealer_name"]??'',
+        storeName: json["store_name"]??'',
+        contact: json["contact"]??'',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        isDeleted: json["is_deleted"],
-        deletedAt: json["deleted_at"],
+        isDeleted: json["is_deleted"]??'',
+        deletedAt: json["deleted_at"]??'',
         receeVerifications: List<ReceeVerification>.from(json["recee_verifications"].map((x) => ReceeVerification.fromJson(x))),
     );
 
@@ -184,7 +184,7 @@ class InstallerSubJobDataList {
         "updated_at": updatedAt.toIso8601String(),
         "is_deleted": isDeleted,
         "deleted_at": deletedAt,
-        "recee_verifications": List<dynamic>.from(receeVerifications.map((x) => x.toJson())),
+        "recee_verifications": List<ReceeVerification>.from(receeVerifications.map((x) => x.toJson())),
     };
 }
 

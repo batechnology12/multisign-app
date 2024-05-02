@@ -12,8 +12,12 @@ class InstallerSubJobDetailsServicesApi extends BaseApiService {
     var dio = Dio();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? authtoken = prefs.getString('auth_token');
-
+        
+        FormData formdata = FormData.fromMap({
+            "id": id,
+        });
       var response = await dio.post(getinstallersubjobdetailsURI,
+    
           options: Options(
               headers: {
                 'Accept': 'application/json',
@@ -23,9 +27,7 @@ class InstallerSubJobDetailsServicesApi extends BaseApiService {
               validateStatus: (status) {
                 return status! <= 500;
               }),
-          data: {
-            "id": id,
-          });
+          data: formdata);
       print("::::::::<get installer sub job details Api>::${id}::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);

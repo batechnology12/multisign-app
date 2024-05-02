@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -590,7 +591,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           item1
                                                                               .storeName,
                                                                       id: item1
-                                                                          .id
+                                                                          .subjobId
                                                                           .toString()));
                                                                 },
                                                                 child:
@@ -598,25 +599,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   id: item1.id
                                                                       .toString(),
                                                                   name: item1
-                                                                      .clientName,
+                                                                      .clientName.toString(),
                                                                   city: item1
-                                                                      .city,
+                                                                      .shopName.toString(),
                                                                   jobcard: item1
-                                                                      .jobcard,
-                                                                  day: item1
-                                                                      .createdAt
-                                                                      .day
-                                                                      .toString(),
-                                                                  address: item1
-                                                                      .address,
-                                                                  month: item1
-                                                                      .createdAt
-                                                                      .month
-                                                                      .toString(),
-                                                                  year: item1
-                                                                      .createdAt
-                                                                      .year
-                                                                      .toString(),
+                                                                      .shopcode.toString(),
+                                                                  day:formatDate(DateTime.parse(item1.subjobDate.toString()), [yyyy,'-',mm,'-',dd]),
+                                                                  address: '',
+                                                                  month: '',
+                                                                  year: '',
                                                                 ),
                                                               ),
                                                             );

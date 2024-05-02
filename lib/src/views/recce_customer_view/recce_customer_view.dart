@@ -346,15 +346,15 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .toString(),
                                               name: controller
                                                   .installerListdata[index]
-                                                  .clientName,
+                                                  .clientName.toString(),
                                               city: controller
                                                   .installerListdata[index].city,
                                               jobcard: controller
                                                   .installerListdata[index]
-                                                  .jobcard,
+                                                  .jobcard.toString(),
                                               day: controller
                                                   .installerListdata[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .day
                                                   .toString(),
                                               address: controller
@@ -362,12 +362,12 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .address,
                                               month: controller
                                                   .installerListdata[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .month
                                                   .toString(),
                                               year: controller
                                                   .installerListdata[index]
-                                                  .createdAt
+                                                  .createdAt!
                                                   .year
                                                   .toString(),
                                             ),
@@ -647,7 +647,7 @@ class ContainerCustom extends StatelessWidget {
                           //           color:
                           //               AppColors.green)),
                           // ),
-                          Text("${day}-${month}-${year}",
+                          Text("${day}",
                               style: primaryFonts.copyWith(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,

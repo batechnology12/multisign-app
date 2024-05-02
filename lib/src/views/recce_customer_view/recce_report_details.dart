@@ -72,24 +72,24 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
 }
 
 if (controller.getreceedetailsData != null &&
-    controller.getreceedetailsData!.receeVerifications.isNotEmpty) {
+    controller.getreceedetailsData!.receeVerifications!.isNotEmpty) {
   // Access properties only if controller.getreceedetailsData is not null
   // and receeVerifications is not empty
   job_cardContoller.text =
-      controller.getreceedetailsData!.jobcard.toString();
+      controller.getreceedetailsData!.shopcode.toString();
 
   widthController.text =
-      controller.getreceedetailsData!.receeVerifications.last.withColumn;
+      controller.getreceedetailsData!.receeVerifications!.last.withColumn!;
   heightController.text = controller
-      .getreceedetailsData!.receeVerifications.last.heightColumn;
+      .getreceedetailsData!.receeVerifications!.last.heightColumn!;
   squrefitController.text =
-      controller.getreceedetailsData!.receeVerifications.last.squareFit;
+      controller.getreceedetailsData!.receeVerifications!.last.squareFit!;
   selectedDimension =
-      controller.getreceedetailsData!.receeVerifications.last.dimension;
+      controller.getreceedetailsData!.receeVerifications!.last.dimension;
   signage_typeController.text =
-      controller.getreceedetailsData!.receeVerifications.last.signageType;
+      controller.getreceedetailsData!.receeVerifications!.last.signageType!;
   signage_detailsController.text = controller
-      .getreceedetailsData!.receeVerifications.last.signageDetails;
+      .getreceedetailsData!.receeVerifications!.last.signageDetails!;
 }
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
@@ -216,7 +216,7 @@ if (controller.getreceedetailsData != null &&
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
                                     hintText:
-                                        controller.getreceedetailsData?.clientName,
+                                        controller.getreceedetailsData?.dealerName,
                                     hintStyle: primaryFonts.copyWith(
                                         color: AppColors.black,
                                         fontSize: 14,
@@ -316,7 +316,7 @@ if (controller.getreceedetailsData != null &&
                                 decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
-                                    hintText: controller.getreceedetailsData?.state,
+                                    hintText: controller.getreceedetailsData?.city,
                                     hintStyle: primaryFonts.copyWith(
                                         color: AppColors.black,
                                         fontSize: 14,
@@ -437,7 +437,7 @@ if (controller.getreceedetailsData != null &&
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
                                     hintText:
-                                        controller.getreceedetailsData?.jobcard,
+                                        controller.getreceedetailsData?.shopcode,
                                     hintStyle: primaryFonts.copyWith(
                                         color: AppColors.black,
                                         fontSize: 14,
@@ -708,7 +708,7 @@ if (controller.getreceedetailsData != null &&
                                           onChanged: (String? newValue) {
                                             setState(() {
                                               selectedDimension = newValue!;
-                                              dimensionController.text = newValue!;
+                                              dimensionController.text = newValue;
                                             });
                                           },
                                           validator: (value) {
@@ -841,9 +841,9 @@ if (controller.getreceedetailsData != null &&
                                     child: ListView.builder(
                                         itemCount: controller
                                             .getreceedetailsData
-                                            ?.receeVerifications!
+                                            !.receeVerifications!
                                             .last
-                                            .beforeImages
+                                            .beforeImages!
                                             .length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index2) {
@@ -854,9 +854,9 @@ if (controller.getreceedetailsData != null &&
                                                     context,
                                                     Image.network(controller
                                                             .getreceedetailsData
-                                                            ?.receeVerifications
+                                                            !.receeVerifications!
                                                             .last
-                                                            .beforeImages[index2])
+                                                            .beforeImages![index2])
                                                         .image,
                                                     swipeDismissible: true,
                                                     doubleTapZoomable: true);
@@ -865,9 +865,9 @@ if (controller.getreceedetailsData != null &&
                                                 width: 200,
                                                 child: Image.network(controller
                                                     .getreceedetailsData
-                                                    ?.receeVerifications
+                                                    !.receeVerifications!
                                                     .last
-                                                    .beforeImages[index2]),
+                                                    .beforeImages![index2]),
                                               ),
                                             ),
                                           );
@@ -1105,8 +1105,8 @@ if (controller.getreceedetailsData != null &&
                                           // widget.flag == true
                                           //     ?
                                           controller.verifysubjobRecee(
-                                            job_card: controller
-                                                .getreceedetailsData!.jobcard,
+                                            jobcard: controller
+                                                .getreceedetailsData!.shopcode.toString(),
                                             width: widthController.text.toString(),
                                             height: heightController.text,
                                             squrefit: squrefitController.text,
