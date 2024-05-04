@@ -171,11 +171,28 @@ class HomeController extends GetxController {
     isLoadingdatails(false);
     update();
     print('========================data==2=================================');
+   
     if (response.data["status"] == true) {
       GetIReceeDetailsModel geRreceedetailModel =
           GetIReceeDetailsModel.fromJson(response.data);
       getreceedetailsData = geRreceedetailModel.data;
-    } else {}
+  Get.rawSnackbar(
+        messageText: Text(
+          response.data["message"],
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      );
+      update();
+    } else {
+       Get.rawSnackbar(
+        messageText: Text(
+          response.data["message"],
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+      );
+    }
     update();
   }
 

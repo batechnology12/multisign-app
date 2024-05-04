@@ -491,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       .clientName
                                                                       .toString(),
                                                                   city:
-                                                                      item.city,
+                                                                      item.storeName,
                                                                   jobcard: item
                                                                       .jobcard
                                                                       .toString(),

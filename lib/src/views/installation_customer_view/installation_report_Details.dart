@@ -927,7 +927,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                             .getinstallerdetailsData!
                                             .receeVerifications!
                                             .last
-                                            .beforeImages![index2]),
+                                            .beforeImages![index2],
+                                            fit: BoxFit.fill,),
                                       ),
                                     ),
                                   );
@@ -957,7 +958,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             fontWeight: FontWeight.w600),
                       ),
                       ksizedbox15,
-                      controller.getinstallerdetailsData?.installerStatus == "2"
+                      controller.getinstallerdetailsData?.installerStatus == "1"
                           ? Container(
                               height: 200,
                               child: controller
