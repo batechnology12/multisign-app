@@ -159,7 +159,6 @@ class HomeController extends GetxController {
 
   ReceeSubJobDetailsServicesApi receeSubJobDetailsServicesApi =
       ReceeSubJobDetailsServicesApi();
-
   Data? getreceedetailsData;
   getReceesubjobDetails({required String id}) async {
     print(
@@ -172,17 +171,17 @@ class HomeController extends GetxController {
     update();
     print('========================data==2=================================');
    
-    if (response.data["status"] == true) {
+    if (response.data!["status"] == true) {
       GetIReceeDetailsModel geRreceedetailModel =
           GetIReceeDetailsModel.fromJson(response.data);
-      getreceedetailsData = geRreceedetailModel.data;
-  Get.rawSnackbar(
-        messageText: Text(
-          response.data["message"],
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-      );
+      getreceedetailsData = geRreceedetailModel.data ;
+  // Get.rawSnackbar(
+  //       messageText: Text(
+  //         response.data!["message"],
+  //         style: const TextStyle(color: Colors.white),
+  //       ),
+  //       backgroundColor: Colors.green,
+  //     );
       update();
     } else {
        Get.rawSnackbar(

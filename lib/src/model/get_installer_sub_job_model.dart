@@ -79,7 +79,7 @@ class InstallerSubJobDataList {
     });
 
     factory InstallerSubJobDataList.fromJson(Map<String, dynamic> json) => InstallerSubJobDataList(
-        id: json["id"]??0,
+        id:int.tryParse('${json["id"]}')??0,
         importId: json["import_id"]??'',
         clientId: json["client_id"]??'',
         shopcode: json["shopcode"]??'',
@@ -171,7 +171,7 @@ class ReceeVerification {
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
-        id: json["id"]??0,
+        id:int.tryParse('${ json["id"]}')??0,
         userId: json["user_id"]??'',
         clientId: json["client_id"]??'',
         installerId: json["installer_id"]??'',

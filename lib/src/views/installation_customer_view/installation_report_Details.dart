@@ -12,7 +12,7 @@ import 'package:multisign_app/src/controllers/home_controller.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
 
 class InstallationReportDetails extends StatefulWidget {
-  final String id;
+  final dynamic id;
 
 //  final bool flag;
   const InstallationReportDetails(
@@ -49,6 +49,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
       //   }
 
       controller.setImagePathEmpty();
+    
       controller.setImagesEmpty();
     });
   }
@@ -1208,7 +1209,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     .pickedEditedImagePathList.isNotEmpty) {
                                   controller.verifyInstall(
                                     jobcard: controller
-                                        .getinstallerdetailsData!.toString(),
+                                        .getinstallerdetailsData!.shopcode.toString(),
                                     //  media1: controller.pickedcamerapath!,
                                     media: controller.pickedEditedImagePathList,
                                   );

@@ -177,16 +177,21 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                               shrinkWrap: true,
                               itemCount: controller.getreceedsubjobData.length,
                               itemBuilder: ((context, index) {
-                                return Padding(
+                                return  controller.getreceedsubjobData.isNotEmpty? Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 10),
                                   child: InkWell(onTap: () {
                                     // controller.getReceesubjobDetails(id:controller
                                     //                       .getreceedsubjobData[index]
                                     //                       .id
-                                    //                       .toString(),);
+                                    //            
+                                    //            .toString(),);
+                                    print('null id');
+                                    print(  controller
+                                                          .getreceedsubjobData[index]
+                                                          .id);
                                         Get.to(RecceReportDetails(
-                                           
+                                               
                                                       id: controller
                                                           .getreceedsubjobData[index]
                                                           .id
@@ -214,7 +219,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                                   .getreceedsubjobData[index].isReceeVerrified ,
                                             ),
                                   ),
-                                );
+                                ):Text('');
                               })),
                         ),
             ],

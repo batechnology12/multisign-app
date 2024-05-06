@@ -19,6 +19,7 @@ class GetIReceeDetailsModel {
 
     factory GetIReceeDetailsModel.fromJson(Map<String, dynamic> json) => GetIReceeDetailsModel(
         status: json["status"],
+      
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
     );
 
@@ -97,8 +98,8 @@ class Data {
         contact: json["contact"]??'',
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        isDeleted: json["is_deleted"],
-        deletedAt: json["deleted_at"],
+        isDeleted: json["is_deleted"]??'',
+        deletedAt: json["deleted_at"]??'',
         receeVerifications: json["recee_verifications"] == null ? [] : List<ReceeVerification>.from(json["recee_verifications"]!.map((x) => ReceeVerification.fromJson(x))),
     );
 
@@ -171,8 +172,8 @@ class ReceeVerification {
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
         id: json["id"]??0,
-        userId: json["user_id"]??0,
-        clientId: json["client_id"]??0,
+        userId: json["user_id"]??'',
+        clientId: json["client_id"]??'',
         installerId: json["installer_id"]??'',
         jobCard: json["job_card"]??'',
         withColumn: json["with_column"]??'',

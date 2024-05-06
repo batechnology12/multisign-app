@@ -337,7 +337,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                           child: InkWell(
                                             onTap: () {
                                               Get.to(GetInstallerSubJob(storename:controller
-                                                      .installerListdata[index].storeName,
+                                                      .installerListdata[index].storeName.toString(),
                                                   id: controller
                                                       .installerListdata[index].id
                                                       .toString()));
@@ -648,8 +648,7 @@ class ContainerCustom extends StatelessWidget {
                           //         fontSize: 13,
                           //         fontWeight: FontWeight.w600,
                           //         color: AppColors.black.withOpacity(.50))),ksizedbox5,
-                           if (isverified ==
-                                                      "1")
+                           if (isverified == "1")
                                                     Text(
                                                       "completed",
                                                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500,

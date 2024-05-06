@@ -5,11 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ReceeSubJobDetailsServicesApi extends BaseApiService {
   Future receeSubJobdetailsApi({
-    required String id,
+    required dynamic id,
   }) async {
     dynamic responseJson;
     try {
     var dio = Dio();
+    FormData formdata = FormData.fromMap({
+            "id": id,
+    });
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final String? authtoken = prefs.getString('auth_token');
 
@@ -23,9 +26,7 @@ class ReceeSubJobDetailsServicesApi extends BaseApiService {
               validateStatus: (status) {
                 return status! <= 500;
               }),
-          data: {
-            "id": id,
-          });
+          data: formdata);
       print("::::::::<get recee sub job details Api>::${id}::::::status code::::::::::");
       print(response.statusCode);
       print(response.data);
