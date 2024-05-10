@@ -216,7 +216,7 @@ if (controller.getreceedetailsData != null &&
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
-                            controller: job_cardContoller,
+                            // controller: job_cardContoller,
                             //obscureText: false,
                             //       autofocus: true,
                             readOnly: true,
@@ -247,7 +247,7 @@ if (controller.getreceedetailsData != null &&
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: TextFormField(
-                            controller: job_cardContoller,
+                            // controller: job_cardContoller,
                             focusNode: _focusNode, // Assign the FocusNode
                             //  autofocus: false, // Disable autofocus
                             readOnly:
@@ -284,7 +284,7 @@ if (controller.getreceedetailsData != null &&
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
-                            controller: job_cardContoller,
+                            // controller: job_cardContoller,
                             autofocus: false,
                             readOnly: true,
                             decoration: InputDecoration(
@@ -321,7 +321,7 @@ if (controller.getreceedetailsData != null &&
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
                           child: TextFormField(
-                            controller: job_cardContoller,
+                            // controller: job_cardContoller,
                             autofocus: true,
                             readOnly: true,
                             decoration: InputDecoration(
@@ -448,7 +448,8 @@ if (controller.getreceedetailsData != null &&
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
                                 hintText:
-                                  controller.getreceedetailsData==null?'no data':  controller.getreceedetailsData?.shopcode,
+                                  controller.getreceedetailsData==null?'no data': 
+                                   controller.getreceedetailsData?.shopcode,
                                 hintStyle: primaryFonts.copyWith(
                                     color: AppColors.black,
                                     fontSize: 14,
@@ -525,7 +526,7 @@ if (controller.getreceedetailsData != null &&
                                 decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
-                                    hintText: "HFE42USD94645",
+                                    hintText:   "HFE42USD94645",
                                     hintStyle: primaryFonts.copyWith(
                                         color: AppColors.black.withOpacity(.20),
                                         fontSize: 13,
@@ -1079,7 +1080,7 @@ if (controller.getreceedetailsData != null &&
                             ),
                           ),
                         ksizedbox20,
-                        controller.getreceedetailsData?.isReceeVerrified=='1'
+                        controller.getreceedetailsData?.isReceeVerrified=="1"
                             ? InkWell(
                                 onTap: () {
                                   Get.to(BottomNaviBar());
@@ -1103,6 +1104,15 @@ if (controller.getreceedetailsData != null &&
                             : InkWell(
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
+                                    print('----------------image>>>>>>>>>>>');
+                                    print(controller.pickedEditedImagePathList);
+                                    print(signage_detailsController);
+                                    print(signage_typeController);
+                                    print( heightController.text);
+                                    print(squrefitController.text);
+                                    print(dimensionController.text);
+                                    print(widthController.text);
+                           
                                     // Validate media (picked images)
                                     if (signage_detailsController
                                             .text.isNotEmpty &&
@@ -1111,15 +1121,17 @@ if (controller.getreceedetailsData != null &&
                                         heightController.text.isNotEmpty &&
                                         squrefitController.text.isNotEmpty &&
                                         dimensionController.text.isNotEmpty &&
-                                        widthController.text.isNotEmpty &&
-                                        controller.pickedEditedImagePathList
-                                            .isNotEmpty) {
+                                        widthController.text.isNotEmpty 
+                                        && controller.pickedEditedImagePathList.isNotEmpty
+                                        ) {
                                       // widget.flag == true
                                       //     ?
                                       controller.verifysubjobRecee(
-                                        jobcard:controller.getreceedetailsData!=null? controller
-                                            .getreceedetailsData!.shopcode.toString():'',
-                                        width:controller.getreceedetailsData!=null?  widthController.text.toString():'',
+                                        jobcard:controller.getreceedetailsData!=null? 
+                                        controller.getreceedetailsData!.shopcode.toString():'',
+
+                                        width:controller.getreceedetailsData!=null?  
+                                        widthController.text.toString():'',
                                         height: controller.getreceedetailsData!=null? heightController.text:'',
                                         squrefit: controller.getreceedetailsData!=null? squrefitController.text:'',
                                         dimension: controller.getreceedetailsData!=null? dimensionController.text:'',
@@ -1154,6 +1166,7 @@ if (controller.getreceedetailsData != null &&
                                       //   );
                                     } else {
                                       AppConstant.showSnackbar(
+                                        
                                         headText: "Fill All Details",
                                         content:
                                             "Please fill all the details before continue.",

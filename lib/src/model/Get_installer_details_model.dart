@@ -39,7 +39,7 @@ class installerData {
     String? gstNumber;
     String? recceId;
     String? installerId;
-    String? installerStatus;
+    dynamic? installerStatus;
     String? status;
     String? isReceeVerrified;
     String? region;
@@ -78,27 +78,27 @@ class installerData {
     });
 
     factory installerData.fromJson(Map<String, dynamic> json) => installerData(
-        id: json["id"],
-        importId: json["import_id"],
-        clientId: json["client_id"],
-        shopcode: json["shopcode"],
-        shopName: json["shop_name"],
-        address: json["address"],
-        city: json["city"],
-        gstNumber: json["gst_number"],
-        recceId: json["recce_id"],
-        installerId: json["installer_id"],
-        installerStatus: json["installer_status"],
-        status: json["status"],
-        isReceeVerrified: json["is_recee_verrified"],
-        region: json["region"],
-        areaName: json["area_name"],
-        dealerName: json["dealer_name"],
-        contact: json["contact"],
+        id: json["id"]??0,
+        importId: json["import_id"]??'',
+        clientId: json["client_id"]??'',
+        shopcode: json["shopcode"]??'',
+        shopName: json["shop_name"]??'',
+        address: json["address"]??'',
+        city: json["city"]??'',
+        gstNumber: json["gst_number"]??'',
+        recceId: json["recce_id"]??'',
+        installerId: json["installer_id"]??'',
+        installerStatus: json["installer_status"]??'',
+        status: json["status"]??'',
+        isReceeVerrified: json["is_recee_verrified"]??'',
+        region: json["region"]??'',
+        areaName: json["area_name"]??'',
+        dealerName: json["dealer_name"]??'',
+        contact: json["contact"]??'',
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        isDeleted: json["is_deleted"],
-        deletedAt: json["deleted_at"],
+        isDeleted: json["is_deleted"]??'',
+        deletedAt: json["deleted_at"]??'',
         receeVerifications: json["recee_verifications"] == null ? [] : List<ReceeVerification>.from(json["recee_verifications"]!.map((x) => ReceeVerification.fromJson(x))),
     );
 
@@ -170,22 +170,22 @@ class ReceeVerification {
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
-        id: json["id"],
-        userId: json["user_id"],
-        clientId: json["client_id"],
-        installerId: json["installer_id"],
-        jobCard: json["job_card"],
-        withColumn: json["with_column"],
-        heightColumn: json["height_column"],
-        squareFit: json["square_fit"],
-        dimension: json["dimension"],
-        signageType: json["signage_type"],
-        signageDetails: json["signage_details"],
+        id: json["id"]??0,
+        userId: json["user_id"]??'',
+        clientId: json["client_id"]??'',
+        installerId: json["installer_id"]??'',
+        jobCard: json["job_card"]??'',
+        withColumn: json["with_column"]??'',
+        heightColumn: json["height_column"]??'',
+        squareFit: json["square_fit"]??'',
+        dimension: json["dimension"]??'',
+        signageType: json["signage_type"]??'',
+        signageDetails: json["signage_details"]??'',
         beforeImages: json["before_images"] == null ? [] : List<dynamic>.from(json["before_images"]!.map((x) => x)),
-        afterImages: json["after_images"],
-        isReceeVerrified: json["is_recee_verrified"],
-        isJobCompleted: json["is_job_completed"],
-        isPrinting: json["isPrinting"],
+        afterImages: json["after_images"]== null ? [] : List<dynamic>.from(json["before_images"]!.map((x) => x)),
+        isReceeVerrified: json["is_recee_verrified"]??'',
+        isJobCompleted: json["is_job_completed"]??'',
+        isPrinting: json["isPrinting"]??'',
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     );

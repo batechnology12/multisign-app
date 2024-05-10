@@ -312,7 +312,7 @@ class HomeController extends GetxController {
     required String signage_type,
     required String signage_details,
     required dynamic client_id,
-    required List<Uint8List?> media,
+     required List<Uint8List?> media,
   }) async {
     isLoadingverification(true);
     update();
@@ -326,7 +326,7 @@ class HomeController extends GetxController {
       signage_type: signage_type,
       signage_details: signage_details,
       client_id: client_id,
-      media: media,
+       media: media,
     );
     isLoadingverification(false);
     if (response.data['status'] == true) {
@@ -376,8 +376,7 @@ class HomeController extends GetxController {
     dio.Response<dynamic> response =
         await verifyInstallationApiServices.varifyInastallatinApi(
       jobcard: jobcard,
-
-      media: media,
+       media: media,
       //    media1: media1
     );
     isLoadingverification(false);

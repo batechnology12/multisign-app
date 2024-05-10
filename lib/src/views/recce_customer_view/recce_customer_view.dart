@@ -512,6 +512,7 @@ class ContainerCustom extends StatelessWidget {
   final String year;
   final String address;
   final String? isverified;
+  // final String? jobnumber;
   const ContainerCustom({
     super.key,
     required this.id,
@@ -522,7 +523,8 @@ class ContainerCustom extends StatelessWidget {
     required this.address,
     required this.month,
     required this.year,
-    this.isverified,
+    this.isverified, 
+    // this.jobnumber,
   });
 
   @override
@@ -591,6 +593,11 @@ class ContainerCustom extends StatelessWidget {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.black.withOpacity(.50))),
+                              //      Text(jobnumber!,
+                              // style: primaryFonts.copyWith(
+                              //     fontSize: 13,
+                              //     fontWeight: FontWeight.w600,
+                              //     color: AppColors.black.withOpacity(.50))),
                           // if (controller
                           //         .getreceelistData[
                           //             index]

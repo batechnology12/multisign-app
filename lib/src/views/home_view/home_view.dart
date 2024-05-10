@@ -597,13 +597,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   name: item1
                                                                       .clientName.toString(),
                                                                   city: item1
-                                                                      .shopName.toString(),
+                                                                      .jobCardPrefix.toString(),
                                                                   jobcard: item1
-                                                                      .shopcode.toString(),
+                                                                      .jobcard.toString(),
                                                                   day:formatDate(DateTime.parse(item1.subjobDate.toString()), [yyyy,'-',mm,'-',dd]),
                                                                   address: '',
                                                                   month: '',
                                                                   year: '',
+
                                                                 ),
                                                               ),
                                                             );

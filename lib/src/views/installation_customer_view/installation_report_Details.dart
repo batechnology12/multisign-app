@@ -959,21 +959,17 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             fontWeight: FontWeight.w600),
                       ),
                       ksizedbox15,
-                      controller.getinstallerdetailsData?.installerStatus == "1"
-                          ? Container(
+                      controller.getinstallerdetailsData?.installerStatus == "1"?
+                      controller.getinstallerdetailsData!.receeVerifications!.isEmpty?
+                      Container():
+                           Container(
                               height: 200,
-                              child: controller
-                                          .getinstallerdetailsData
-                                          ?.receeVerifications
-                                          ?.last
-                                          .afterImages ==
-                                      null
-                                  ? Container()
-                                  : ListView.builder(
+                              child: 
+                                   ListView.builder(
                                       itemCount: controller
                                           .getinstallerdetailsData
                                           ?.receeVerifications
-                                          !.last
+                                          !.last   
                                           .afterImages!.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index2) {
@@ -1032,7 +1028,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                                 width: 185,
                                               ),
                                             ),
-                                            const SizedBox(
+                                            const SizedBox( 
                                               height: 5,
                                             ),
                                             Text(
@@ -1204,16 +1200,17 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ),
                             )
                           : InkWell(
-                              onTap: () {
+                              onTap: () { 
                                 if (controller
-                                    .pickedEditedImagePathList.isNotEmpty) {
-                                  controller.verifyInstall(
+                                    .pickedEditedImagePathList.isNotEmpty) { 
+                                  controller.verifyInstall(   
                                     jobcard: controller
                                         .getinstallerdetailsData!.shopcode.toString(),
                                     //  media1: controller.pickedcamerapath!,
                                     media: controller.pickedEditedImagePathList,
                                   );
                                   controller.pickedImagePath != '';
+                            
                                 } else {
                                   AppConstant.showSnackbar(
                                     headText: "Upload Failed",

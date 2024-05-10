@@ -17,6 +17,7 @@ class VerifyInstallationApiServices extends BaseApiService {
 
       FormData formData = FormData.fromMap({
         "job_card": jobcard,
+        
         for (int i = 0; i < media.length; i++)
           "after_images[$i]":
                MultipartFile.fromBytes(media[i]!, filename: "image$i"),
