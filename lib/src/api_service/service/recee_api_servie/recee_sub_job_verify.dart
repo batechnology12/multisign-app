@@ -37,7 +37,8 @@ class VerifyReceeSubjobApiServices extends BaseApiService {
                MultipartFile.fromBytes(media[i]!, filename: "image$i"),
       });
 
-      var response = await dio.post(receesubjobverify,
+      var response = await dio.post(
+        receesubjobverify,
           options: Options(
               headers: {
                 'Accept': 'application/json',

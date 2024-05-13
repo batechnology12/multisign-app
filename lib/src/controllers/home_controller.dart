@@ -197,7 +197,7 @@ class HomeController extends GetxController {
 
   InstallerSubJobDetailsServicesApi installerSubJobDetailsServicesApi =
       InstallerSubJobDetailsServicesApi();
-  installerData? getinstallerdetailsData;
+  InstallerData? getinstallerdetailsData;
   //installerData? getinstallerdetailsData;
   getinstallerSubjobdetails({required String id}) async {
     print(

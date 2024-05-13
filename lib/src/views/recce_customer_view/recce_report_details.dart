@@ -710,7 +710,7 @@ if (controller.getreceedetailsData != null &&
                                   child: Container(
                                     margin: EdgeInsets.only(right: 8),
                                     height: 55.h,
-                                    decoration: BoxDecoration(
+                                    decoration: BoxDecoration( 
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: DropdownButtonFormField<String>(
@@ -762,8 +762,8 @@ if (controller.getreceedetailsData != null &&
                                             color: AppColors.black,
                                           ),
                                         ),
-                                      ),
-                                      items: <String>[
+                                      ),    
+                                      items: <String>[    
                                         'mm',
                                         'Inch',
                                         'Feet'

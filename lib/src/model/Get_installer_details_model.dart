@@ -10,7 +10,7 @@ String getIInstallerDetailsModelToJson(GetIInstallerDetailsModel data) => json.e
 
 class GetIInstallerDetailsModel {
     bool? status;
-    installerData? data;
+    InstallerData? data;
 
     GetIInstallerDetailsModel({
         this.status,
@@ -19,7 +19,7 @@ class GetIInstallerDetailsModel {
 
     factory GetIInstallerDetailsModel.fromJson(Map<String, dynamic> json) => GetIInstallerDetailsModel(
         status: json["status"],
-        data: json["data"] == null ? null : installerData.fromJson(json["data"]),
+        data: json["data"] == null ? null : InstallerData.fromJson(json["data"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,9 +28,9 @@ class GetIInstallerDetailsModel {
     };
 }
 
-class installerData {
+class InstallerData {
     int? id;
-    String? importId;
+    dynamic importId;
     String? clientId;
     String? shopcode;
     String? shopName;
@@ -39,7 +39,7 @@ class installerData {
     String? gstNumber;
     String? recceId;
     String? installerId;
-    dynamic? installerStatus;
+    String? installerStatus;
     String? status;
     String? isReceeVerrified;
     String? region;
@@ -52,7 +52,7 @@ class installerData {
     dynamic deletedAt;
     List<ReceeVerification>? receeVerifications;
 
-    installerData({
+    InstallerData({
         this.id,
         this.importId,
         this.clientId,
@@ -77,28 +77,28 @@ class installerData {
         this.receeVerifications,
     });
 
-    factory installerData.fromJson(Map<String, dynamic> json) => installerData(
-        id: json["id"]??0,
-        importId: json["import_id"]??'',
-        clientId: json["client_id"]??'',
-        shopcode: json["shopcode"]??'',
-        shopName: json["shop_name"]??'',
-        address: json["address"]??'',
-        city: json["city"]??'',
-        gstNumber: json["gst_number"]??'',
-        recceId: json["recce_id"]??'',
-        installerId: json["installer_id"]??'',
-        installerStatus: json["installer_status"]??'',
-        status: json["status"]??'',
-        isReceeVerrified: json["is_recee_verrified"]??'',
-        region: json["region"]??'',
-        areaName: json["area_name"]??'',
-        dealerName: json["dealer_name"]??'',
-        contact: json["contact"]??'',
+    factory InstallerData.fromJson(Map<String, dynamic> json) => InstallerData(
+        id: json["id"],
+        importId: json["import_id"],
+        clientId: json["client_id"],
+        shopcode: json["shopcode"],
+        shopName: json["shop_name"],
+        address: json["address"],
+        city: json["city"],
+        gstNumber: json["gst_number"],
+        recceId: json["recce_id"],
+        installerId: json["installer_id"],
+        installerStatus: json["installer_status"],
+        status: json["status"],
+        isReceeVerrified: json["is_recee_verrified"],
+        region: json["region"],
+        areaName: json["area_name"],
+        dealerName: json["dealer_name"],
+        contact: json["contact"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        isDeleted: json["is_deleted"]??'',
-        deletedAt: json["deleted_at"]??'',
+        isDeleted: json["is_deleted"],
+        deletedAt: json["deleted_at"],
         receeVerifications: json["recee_verifications"] == null ? [] : List<ReceeVerification>.from(json["recee_verifications"]!.map((x) => ReceeVerification.fromJson(x))),
     );
 
@@ -132,7 +132,7 @@ class ReceeVerification {
     int? id;
     String? userId;
     String? clientId;
-    dynamic installerId;
+    String? installerId;
     String? jobCard;
     String? withColumn;
     String? heightColumn;
@@ -140,8 +140,8 @@ class ReceeVerification {
     String? dimension;
     String? signageType;
     String? signageDetails;
-    List<dynamic>? beforeImages;
-    List<dynamic>? afterImages;
+    List<String>? beforeImages;
+    dynamic afterImages;
     String? isReceeVerrified;
     String? isJobCompleted;
     String? isPrinting;
@@ -170,22 +170,22 @@ class ReceeVerification {
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
-        id: json["id"]??0,
-        userId: json["user_id"]??'',
-        clientId: json["client_id"]??'',
-        installerId: json["installer_id"]??'',
-        jobCard: json["job_card"]??'',
-        withColumn: json["with_column"]??'',
-        heightColumn: json["height_column"]??'',
-        squareFit: json["square_fit"]??'',
-        dimension: json["dimension"]??'',
-        signageType: json["signage_type"]??'',
-        signageDetails: json["signage_details"]??'',
-        beforeImages: json["before_images"] == null ? [] : List<dynamic>.from(json["before_images"]!.map((x) => x)),
-        afterImages: json["after_images"]== null ? [] : List<dynamic>.from(json["before_images"]!.map((x) => x)),
-        isReceeVerrified: json["is_recee_verrified"]??'',
-        isJobCompleted: json["is_job_completed"]??'',
-        isPrinting: json["isPrinting"]??'',
+        id: json["id"],
+        userId: json["user_id"],
+        clientId: json["client_id"],
+        installerId: json["installer_id"],
+        jobCard: json["job_card"],
+        withColumn: json["with_column"],
+        heightColumn: json["height_column"],
+        squareFit: json["square_fit"],
+        dimension: json["dimension"],
+        signageType: json["signage_type"],
+        signageDetails: json["signage_details"],
+        beforeImages: json["before_images"] == null ? [] : List<String>.from(json["before_images"]!.map((x) => x)),
+        afterImages: json["after_images"],
+        isReceeVerrified: json["is_recee_verrified"],
+        isJobCompleted: json["is_job_completed"],
+        isPrinting: json["isPrinting"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     );
@@ -203,7 +203,7 @@ class ReceeVerification {
         "signage_type": signageType,
         "signage_details": signageDetails,
         "before_images": beforeImages == null ? [] : List<dynamic>.from(beforeImages!.map((x) => x)),
-        "after_images": afterImages==null?[]:List<dynamic>.from(afterImages!.map((x) => x)),
+        "after_images": afterImages,
         "is_recee_verrified": isReceeVerrified,
         "is_job_completed": isJobCompleted,
         "isPrinting": isPrinting,

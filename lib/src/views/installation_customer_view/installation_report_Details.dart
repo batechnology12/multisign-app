@@ -969,7 +969,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       itemCount: controller
                                           .getinstallerdetailsData
                                           ?.receeVerifications
-                                          !.last   
+                                          !.last        
                                           .afterImages!.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index2) {
@@ -981,8 +981,10 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                                         .getinstallerdetailsData
                                                         !.receeVerifications!
                                                         .last
-                                                        .afterImages![index2])
-                                                    .image);
+                                                        .afterImages![index2],
+                                                        )
+                                                    .image,
+                                                    );
                                           },
                                           child: Card(
                                             child: Container(
@@ -991,7 +993,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                                   .getinstallerdetailsData
                                                   !.receeVerifications!
                                                   .last
-                                                  .afterImages![index2]),
+                                                  .afterImages![index2],
+                                                  fit: BoxFit.fill,),
                                             ),
                                           ),
                                         );
@@ -1203,6 +1206,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               onTap: () { 
                                 if (controller
                                     .pickedEditedImagePathList.isNotEmpty) { 
+                                      print('>>>>>>>>>>>>>>>after images???????????????');
+                                      print(controller.pickedEditedImagePathList);
                                   controller.verifyInstall(   
                                     jobcard: controller
                                         .getinstallerdetailsData!.shopcode.toString(),
