@@ -36,7 +36,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
 
-  var selectedDimension;
+ 
 
   File? photo;
   File? image;
@@ -51,6 +51,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     super.initState();
     widthController.addListener(calculateSquareFeet);
     heightController.addListener(calculateSquareFeet);
+        
    
     setDefault();
     _themeMode();
@@ -90,7 +91,7 @@ if (controller.getreceedetailsData != null &&
     squrefitController.text =
       controller.getreceedetailsData!.receeVerifications!.last.squareFit!;
 
- selectedDimension =
+ selectedItem =
 
        controller.getreceedetailsData!.receeVerifications!.last.dimension;
   
@@ -105,12 +106,29 @@ if (controller.getreceedetailsData != null &&
     });
   }
 
+String? selectedItem ;
+  double toFeet(double value) {
+    switch (selectedItem) {
+      case 'Inch':
+        return value / 12;
+      case 'mm':
+        return value / 304.8;
+      case 'Feet':
+      default:
+        return value;
+    }
+  }
+
   void calculateSquareFeet() {
     double width = double.tryParse(widthController.text) ?? 0;
     double height = double.tryParse(heightController.text) ?? 0;
-    double squareFeet = width * height;
+    double widthInFeet = toFeet(width);
+    double heightInFeet = toFeet(height);
+    double squareFeet = widthInFeet * heightInFeet;
     squrefitController.text = squareFeet.toString();
+    print("RESULT ===>${squareFeet.toString()}");
   }
+   
 
   @override
   void dispose() {
@@ -716,11 +734,11 @@ if (controller.getreceedetailsData != null &&
                                     child: DropdownButtonFormField<String>(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
-                                      value: selectedDimension,
+                                      value: selectedItem,
                                       onChanged: (String? newValue) {
                                         setState(() {
-                                          selectedDimension = newValue!;
-                                          dimensionController.text = newValue;
+                                        selectedItem = newValue!;
+                                        calculateSquareFeet();
                                         });
                                       },
                                       validator: (value) {
@@ -1110,7 +1128,7 @@ if (controller.getreceedetailsData != null &&
                                     print(signage_typeController);
                                     print( heightController.text);
                                     print(squrefitController.text);
-                                    print(dimensionController.text);
+                                    print(selectedItem);
                                     print(widthController.text);
                            
                                     // Validate media (picked images)
@@ -1120,7 +1138,7 @@ if (controller.getreceedetailsData != null &&
                                             .text.isNotEmpty &&
                                         heightController.text.isNotEmpty &&
                                         squrefitController.text.isNotEmpty &&
-                                        dimensionController.text.isNotEmpty &&
+                                        selectedItem!=null &&
                                         widthController.text.isNotEmpty 
                                         && controller.pickedEditedImagePathList.isNotEmpty
                                         ) {
@@ -1134,7 +1152,7 @@ if (controller.getreceedetailsData != null &&
                                         widthController.text.toString():'',
                                         height: controller.getreceedetailsData!=null? heightController.text:'',
                                         squrefit: controller.getreceedetailsData!=null? squrefitController.text:'',
-                                        dimension: controller.getreceedetailsData!=null? dimensionController.text:'',
+                                        dimension: controller.getreceedetailsData!=null? selectedItem:'',
                                         signage_type:
                                             controller.getreceedetailsData!=null? signage_typeController.text:'',
                                         signage_details:
@@ -1165,13 +1183,21 @@ if (controller.getreceedetailsData != null &&
                                       //         .pickedEditedImagePathList,
                                       //   );
                                     } else {
-                                      AppConstant.showSnackbar(
-                                        
-                                        headText: "Fill All Details",
-                                        content:
-                                            "Please fill all the details before continue.",
-                                        position: SnackPosition.BOTTOM,
+                                      Get.rawSnackbar(
+                                        backgroundColor: AppColors.red,
+                                        title: 'Fill All Details',
+                                        messageText: Text("Please fill all the details before continue.",
+                                        style: TextStyle(
+                                          color: AppColors.white
+                                        ),)
                                       );
+                                      // AppConstant.showSnackbar(
+                                        
+                                      //   headText: "Fill All Details",
+                                      //   content:
+                                      //       "Please fill all the details before continue.",
+                                      //   position: SnackPosition.BOTTOM,
+                                      // );
                                     }
                                   }
                                 },
