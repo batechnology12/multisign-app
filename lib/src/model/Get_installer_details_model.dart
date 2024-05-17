@@ -138,6 +138,7 @@ class ReceeVerification {
     String? heightColumn;
     String? squareFit;
     String? dimension;
+    dynamic quantity;
     String? signageType;
     String? signageDetails;
     List<String>? beforeImages;
@@ -167,6 +168,7 @@ class ReceeVerification {
         this.isPrinting,
         this.createdAt,
         this.updatedAt,
+        this.quantity,
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
@@ -175,6 +177,7 @@ class ReceeVerification {
         clientId: json["client_id"],
         installerId: json["installer_id"],
         jobCard: json["job_card"],
+        quantity: json["qty"],
         withColumn: json["with_column"],
         heightColumn: json["height_column"],
         squareFit: json["square_fit"],
@@ -199,6 +202,7 @@ class ReceeVerification {
         "with_column": withColumn,
         "height_column": heightColumn,
         "square_fit": squareFit,
+        "qty":quantity,
         "dimension": dimension,
         "signage_type": signageType,
         "signage_details": signageDetails,

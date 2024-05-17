@@ -887,8 +887,47 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ),
                             ),
                           ),
+
                         ],
-                      ),
+                      ), 
+                      ksizedbox5,
+                       Container(
+                              height: 45.h,
+                              width: 155,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: TextFormField(
+                                readOnly: true,
+                                //keyboardType: TextInputType.number,
+                                controller: job_cardContoller,
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    hintText: controller
+                                        .getinstallerdetailsData!
+                                        .receeVerifications!
+                                        .first
+                                        .quantity,
+                                    hintStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    //labelText: "JOB CARD",
+                                    labelStyle: primaryFonts.copyWith(
+                                        color: AppColors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                        borderSide: BorderSide(
+                                            width: 1, color: AppColors.black))),
+                              ),
+                            ),
                       Text(
                         "Before Image",
                         style: primaryFonts.copyWith(

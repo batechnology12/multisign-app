@@ -28,9 +28,10 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController job_cardContoller = TextEditingController();
   final TextEditingController widthController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
+    final TextEditingController quantityController = TextEditingController();
   final TextEditingController squrefitController = TextEditingController();
   final TextEditingController dimensionController = TextEditingController();
-  final TextEditingController signage_typeController = TextEditingController();
+  final TextEditingController specialremarkController = TextEditingController();
   final TextEditingController signage_detailsController =
       TextEditingController();
   final TextEditingController client_idController = TextEditingController();
@@ -51,6 +52,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     super.initState();
     widthController.addListener(calculateSquareFeet);
     heightController.addListener(calculateSquareFeet);
+    quantityController.addListener(calculateSquareFeet);
+    controller.getreceesignageDetails();
         
    
     setDefault();
@@ -95,18 +98,22 @@ if (controller.getreceedetailsData != null &&
 
        controller.getreceedetailsData!.receeVerifications!.last.dimension;
   
-   signage_typeController.text =
+   specialremarkController.text =
       controller.getreceedetailsData!.receeVerifications!.last.signageType!;
       
-   signage_detailsController.text = controller
-      .getreceedetailsData!.receeVerifications!.last.signageDetails!;
+   signageItems = controller.getreceesignagedetailsData.last.signageName;
+
+      quantityController.text = controller.getreceedetailsData!.receeVerifications!.last.quantity!;
+
+     
 }
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
   }
+  String? signageItems;
 
-String? selectedItem ;
+   String? selectedItem ;
   double toFeet(double value) {
     switch (selectedItem) {
       case 'Inch':
@@ -122,9 +129,11 @@ String? selectedItem ;
   void calculateSquareFeet() {
     double width = double.tryParse(widthController.text) ?? 0;
     double height = double.tryParse(heightController.text) ?? 0;
+    double quantity = double.tryParse(quantityController.text)??0;
     double widthInFeet = toFeet(width);
     double heightInFeet = toFeet(height);
-    double squareFeet = widthInFeet * heightInFeet;
+    double quantityfeet = toFeet(quantity);
+    double squareFeet = widthInFeet * heightInFeet * quantityfeet;
     squrefitController.text = squareFeet.toString();
     print("RESULT ===>${squareFeet.toString()}");
   }
@@ -525,52 +534,124 @@ String? selectedItem ;
                         //  controller.getreceedetailsData!.receeVerifications.isEmpty?Container():
                         Column(
                           children: [
-                            Container(
-                              height: 55.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                //  keyboardType: TextInputType.number,
-                                controller: signage_detailsController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter Signage Details';
-                                  }
-                                  // You can add more validation rules here if needed
-                                  return null; // Return null if the input is valid
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.only(top: 5, left: 10),
-                                    hintText:   "HFE42USD94645",
-                                    hintStyle: primaryFonts.copyWith(
-                                        color: AppColors.black.withOpacity(.20),
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                    labelText: 'Signage Details',
-                                    labelStyle: primaryFonts.copyWith(
-                                        color: AppColors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.black,
+                             Padding(
+                                     padding: const EdgeInsets.only(left: 0),
+                                     child: Container(
+                                      margin: EdgeInsets.only(right:0),
+                                      height: 55.h,
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(4),
                                       ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                            width: 1, color: AppColors.black)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                            width: 1, color: AppColors.black))),
-                              ),
-                            ),
+                                      child: DropdownButtonFormField<String>(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        value: signageItems,
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                          signageItems = newValue!;
+                                          // calculateSquareFeet();
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select a Signage Details';
+                                          }
+                                          return null; // Return null if the input is valid
+                                        },
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Signage Details',
+                                          labelStyle: primaryFonts.copyWith(
+                                            color: AppColors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                        ),    
+                                        items: <String>[    
+                                         controller.getreceesignagedetailsData.isNotEmpty? 
+                                         controller.getreceesignagedetailsData.first.signageName.toString():''
+                                        ] // Replace with your dropdown options
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      ),
+                                                                       ),
+                                   ),
+                            // Container(
+                            //   height: 55.h,
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(4)),
+                            //   child: TextFormField(
+                            //     autovalidateMode:
+                            //         AutovalidateMode.onUserInteraction,
+                            //     //  keyboardType: TextInputType.number,
+                            //     controller: signage_detailsController,
+                            //     validator: (value) {
+                            //       if (value == null || value.isEmpty) {
+                            //         return 'Please enter Signage Details';
+                            //       }
+                            //       // You can add more validation rules here if needed
+                            //       return null; // Return null if the input is valid
+                            //     },
+                            //     decoration: InputDecoration(
+                            //         contentPadding:
+                            //             EdgeInsets.only(top: 5, left: 10),
+                            //         hintText:   "HFE42USD94645",
+                            //         hintStyle: primaryFonts.copyWith(
+                            //             color: AppColors.black.withOpacity(.20),
+                            //             fontSize: 13,
+                            //             fontWeight: FontWeight.w600),
+                            //         labelText: 'Signage Details',
+                            //         labelStyle: primaryFonts.copyWith(
+                            //             color: AppColors.black,
+                            //             fontSize: 14,
+                            //             fontWeight: FontWeight.w600),
+                            //         border: OutlineInputBorder(
+                            //           borderRadius: BorderRadius.circular(4),
+                            //           borderSide: BorderSide(
+                            //             width: 1,
+                            //             color: AppColors.black,
+                            //           ),
+                            //         ),
+                            //         enabledBorder: OutlineInputBorder(
+                            //             borderRadius: BorderRadius.circular(4),
+                            //             borderSide: BorderSide(
+                            //                 width: 1, color: AppColors.black)),
+                            //         focusedBorder: OutlineInputBorder(
+                            //             borderRadius: BorderRadius.circular(4),
+                            //             borderSide: BorderSide(
+                            //                 width: 1, color: AppColors.black))),
+                            //   ),
+                            // ),
                             //    ksizedbox10,
                             Container(
                               height: 55.h,
@@ -579,10 +660,10 @@ String? selectedItem ;
                               child: TextFormField(
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-                                controller: signage_typeController,
+                                controller: specialremarkController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Signage Type';
+                                    return 'Please enter Special Remark';
                                   }
                                   // You can add more validation rules here if needed
                                   return null; // Return null if the input is valid
@@ -595,7 +676,7 @@ String? selectedItem ;
                                         color: AppColors.black.withOpacity(.20),
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600),
-                                    labelText: 'Signage Type',
+                                    labelText: 'Special Remark',
                                     labelStyle: primaryFonts.copyWith(
                                         color: AppColors.black,
                                         fontSize: 14,
@@ -725,80 +806,141 @@ String? selectedItem ;
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 8),
+                                  child: 
+                                   Container(
                                     height: 55.h,
-                                    decoration: BoxDecoration( 
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: DropdownButtonFormField<String>(
+                             
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4)),
+                                    child: TextFormField(
                                       autovalidateMode:
                                           AutovalidateMode.onUserInteraction,
-                                      value: selectedItem,
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                        selectedItem = newValue!;
-                                        calculateSquareFeet();
-                                        });
-                                      },
+                                      keyboardType: TextInputType.number,
+                                      controller: quantityController,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please select a dimension';
+                                          return 'Please enter quantity';
                                         }
+                                        // You can add more validation rules here if needed
                                         return null; // Return null if the input is valid
                                       },
                                       decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(top: 5, left: 10),
-                                        labelText: 'Dimensions',
-                                        labelStyle: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Quantity',
+                                          labelStyle: primaryFonts.copyWith(
+                                              color: AppColors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
                                           ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                      ),    
-                                      items: <String>[    
-                                        'mm',
-                                        'Inch',
-                                        'Feet'
-                                      ] // Replace with your dropdown options
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              borderSide: BorderSide(
+                                                  width: 1,
+                                                  color: AppColors.black))),
                                     ),
                                   ),
+                                 
                                 ),
                                 Expanded(
-                                  child: Container(
+                                  child: 
+                                   Padding(
+                                     padding: const EdgeInsets.only(left: 5),
+                                     child: Container(
+                                      margin: EdgeInsets.only(right:0),
+                                      height: 55.h,
+                                      decoration: BoxDecoration( 
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        value: selectedItem,
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                          selectedItem = newValue!;
+                                          calculateSquareFeet();
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please select a dimension';
+                                          }
+                                          return null; // Return null if the input is valid
+                                        },
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(top: 5, left: 10),
+                                          labelText: 'Dimensions',
+                                          labelStyle: primaryFonts.copyWith(
+                                            color: AppColors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.black,
+                                            ),
+                                          ),
+                                        ),    
+                                        items: <String>[    
+                                          'mm',
+                                          'Inch',
+                                          'Feet'
+                                        ] // Replace with your dropdown options
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                      ),
+                                                                       ),
+                                   ),
+                                  
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        ksizedbox10,
+                       Container(
                                     height: 55.h,
+                                    width: 166,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -850,12 +992,6 @@ String? selectedItem ;
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                    
                         ksizedbox20,
                         Text(
                           "Capture Spaces & My Space",
@@ -1081,7 +1217,7 @@ String? selectedItem ;
                                           onPressed: () {
                                             // Add your delete logic here
                                             // For example, you can remove the image path from the list
-                                            setState(
+                                            setState( 
                                               () {
                                                 controller
                                                     .pickedEditedImagePathList
@@ -1124,44 +1260,44 @@ String? selectedItem ;
                                   if (_formKey.currentState!.validate()) {
                                     print('----------------image>>>>>>>>>>>');
                                     print(controller.pickedEditedImagePathList);
-                                    print(signage_detailsController);
-                                    print(signage_typeController);
+                                    print(specialremarkController);
                                     print( heightController.text);
                                     print(squrefitController.text);
                                     print(selectedItem);
                                     print(widthController.text);
+                                    print(signageItems);
                            
                                     // Validate media (picked images)
-                                    if (signage_detailsController
-                                            .text.isNotEmpty &&
-                                        signage_typeController
+                                    if ( specialremarkController
                                             .text.isNotEmpty &&
                                         heightController.text.isNotEmpty &&
                                         squrefitController.text.isNotEmpty &&
                                         selectedItem!=null &&
+                                        signageItems!=null&&
                                         widthController.text.isNotEmpty 
                                         && controller.pickedEditedImagePathList.isNotEmpty
+                                        
                                         ) {
                                       // widget.flag == true
                                       //     ?
                                       controller.verifysubjobRecee(
                                         jobcard:controller.getreceedetailsData!=null? 
                                         controller.getreceedetailsData!.shopcode.toString():'',
-
+                                        quantity:controller.getreceedetailsData!=null?quantityController.text:'' ,
                                         width:controller.getreceedetailsData!=null?  
                                         widthController.text.toString():'',
                                         height: controller.getreceedetailsData!=null? heightController.text:'',
                                         squrefit: controller.getreceedetailsData!=null? squrefitController.text:'',
                                         dimension: controller.getreceedetailsData!=null? selectedItem:'',
                                         signage_type:
-                                            controller.getreceedetailsData!=null? signage_typeController.text:'',
-                                        signage_details:
-                                           controller.getreceedetailsData!=null?  signage_detailsController.text:'',
+                                            controller.getreceedetailsData!=null? specialremarkController.text:'',
+                                        signage_details:controller.getreceesignagedetailsData.isNotEmpty?signageItems:'' ,
                                         client_id: controller.getreceedetailsData!=null? controller
                                             .getreceedetailsData!.id
                                             .toString():'',
                                         media: controller
-                                            .pickedEditedImagePathList,
+                                            .pickedEditedImagePathList, 
+                                            
                                       );
                                       // : controller.verifyRecee(
                                       //     job_card: controller

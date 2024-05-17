@@ -138,6 +138,7 @@ class ReceeVerification {
     String? withColumn;
     String? heightColumn;
     String? squareFit;
+    String? quantity;
     String? dimension;
     String? signageType;
     String? signageDetails;
@@ -151,6 +152,7 @@ class ReceeVerification {
 
     ReceeVerification({
         this.id,
+        this.quantity,
         this.userId,
         this.clientId,
         this.installerId,
@@ -180,6 +182,7 @@ class ReceeVerification {
         heightColumn: json["height_column"]??'',
         squareFit: json["square_fit"]??'',
         dimension: json["dimension"]??'',
+        quantity: json["qty"]??'',
         signageType: json["signage_type"]??'',
         signageDetails: json["signage_details"]??'',
         beforeImages: json["before_images"] == null ? [] : List<String>.from(json["before_images"]!.map((x) => x)),
@@ -200,6 +203,7 @@ class ReceeVerification {
         "with_column": withColumn,
         "height_column": heightColumn,
         "square_fit": squareFit,
+        "qty":quantity,
         "dimension": dimension,
         "signage_type": signageType,
         "signage_details": signageDetails,

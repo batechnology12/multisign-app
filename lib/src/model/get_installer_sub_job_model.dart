@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get_connect/http/src/request/request.dart';
+
 GetInstallerSubJobModel getInstallerSubJobModelFromJson(String str) => GetInstallerSubJobModel.fromJson(json.decode(str));
 
 String getInstallerSubJobModelToJson(GetInstallerSubJobModel data) => json.encode(data.toJson());
@@ -138,6 +140,7 @@ class ReceeVerification {
     String withColumn;
     String heightColumn;
     String squareFit;
+    dynamic quqntity;
     String dimension;
     String signageType;
     String signageDetails;
@@ -168,6 +171,7 @@ class ReceeVerification {
         required this.isPrinting,
         required this.createdAt,
         required this.updatedAt,
+         required this.quqntity,
     });
 
     factory ReceeVerification.fromJson(Map<String, dynamic> json) => ReceeVerification(
@@ -189,6 +193,7 @@ class ReceeVerification {
         isPrinting: json["isPrinting"]??'',
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+         quqntity: json["qty"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -201,6 +206,7 @@ class ReceeVerification {
         "height_column": heightColumn,
         "square_fit": squareFit,
         "dimension": dimension,
+        "qty":quqntity,
         "signage_type": signageType,
         "signage_details": signageDetails,
         "before_images": List<dynamic>.from(beforeImages.map((x) => x)),

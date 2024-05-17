@@ -12,6 +12,7 @@ import 'package:multisign_app/src/api_service/service/installer_api_service/get_
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/get_installer_sub_job_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/installer_api_service/verify_installation_api_service.dart';
+import 'package:multisign_app/src/api_service/service/recee_api_servie/get_reccesignage_details_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_job_api_service.dart';
 import 'package:multisign_app/src/api_service/service/recee_api_servie/get_recee_sub_jobdetails_api_service.dart';
@@ -24,6 +25,7 @@ import 'package:multisign_app/src/model/get_details_recee_model.dart';
 import 'package:multisign_app/src/model/get_installer_sub_job_model.dart';
 import 'package:multisign_app/src/model/get_intaller_model.dart';
 import 'package:multisign_app/src/model/get_recee_model.dart';
+import 'package:multisign_app/src/model/get_recee_signagedetails_model.dart';
 import 'package:multisign_app/src/model/get_recee_sub_job.dart';
 import 'package:multisign_app/src/views/Image_view/local_image_view.dart';
 import 'package:multisign_app/src/views/installation_customer_view/installation_report_Details.dart';
@@ -127,6 +129,28 @@ class HomeController extends GetxController {
     }
     update();
   }
+
+ GetReceeSignangeDetailsApiService getReceeSignangeDetailsApiService = 
+ GetReceeSignangeDetailsApiService();
+
+List <SignageData> getreceesignagedetailsData=[];
+
+ getreceesignageDetails()async{
+    
+    isLoading(true);
+    dio.Response<dynamic>response = await getReceeSignangeDetailsApiService.
+    getReceeSignangeDetailsApi();
+    isLoading(false);
+    if(response.data['status']==true){
+      GetRecceSignageDetails getRecceSignageDetailsModel = 
+      GetRecceSignageDetails.fromJson(response.data);
+     getreceesignagedetailsData = getRecceSignageDetailsModel.data!;
+    }else{
+
+    }
+    update();
+ }
+  
 
   GetInstallerSubjobApiServices getInstallerSubjobApiServices =
       GetInstallerSubjobApiServices();
@@ -308,9 +332,10 @@ class HomeController extends GetxController {
     required dynamic width,
     required dynamic height,
     required dynamic squrefit,
+    required dynamic quantity,
     required dynamic dimension,
     required String signage_type,
-    required String signage_details,
+    required dynamic signage_details,
     required dynamic client_id,
      required List<Uint8List?> media,
   }) async {
@@ -326,7 +351,8 @@ class HomeController extends GetxController {
       signage_type: signage_type,
       signage_details: signage_details,
       client_id: client_id,
-       media: media,
+       media: media, 
+       quantity: quantity,
     );
     isLoadingverification(false);
     if (response.data['status'] == true) {

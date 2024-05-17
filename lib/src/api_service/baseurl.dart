@@ -11,6 +11,9 @@ abstract class BaseApiService {
   final String getreceeDetailsURI =
       'https://portal.multisigns.batechnology.in/api/auth/get_project_details';
 
+  final String getreceesignageDetailsURL =
+   'https://portal.multisigns.batechnology.in/api/auth/get-signage-details';    
+
   final String receeverificationURI =
       'https://portal.multisigns.batechnology.in/api/auth/recee_verification';
 
