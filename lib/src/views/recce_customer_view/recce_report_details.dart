@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:multisign_app/src/const/app_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multisign_app/src/const/bottom_navi_bar.dart';
 import 'package:multisign_app/src/controllers/home_controller.dart';
+import 'package:multisign_app/src/model/get_recee_signagedetails_model.dart';
 import 'package:shimmer_pro/shimmer_pro.dart';
 
 class RecceReportDetails extends StatefulWidget {
@@ -28,7 +30,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController job_cardContoller = TextEditingController();
   final TextEditingController widthController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
-    final TextEditingController quantityController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
   final TextEditingController squrefitController = TextEditingController();
   final TextEditingController dimensionController = TextEditingController();
   final TextEditingController specialremarkController = TextEditingController();
@@ -36,8 +38,6 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       TextEditingController();
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
-
- 
 
   File? photo;
   File? image;
@@ -54,8 +54,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     heightController.addListener(calculateSquareFeet);
     quantityController.addListener(calculateSquareFeet);
     controller.getreceesignageDetails();
-        
-   
+
     setDefault();
     _themeMode();
   }
@@ -64,56 +63,57 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       //  controller.getreceedetailsData!=null;
       print('');
-  //  controller.getreceedetailsData!.receeVerifications!.clear();
-    await  controller.getReceesubjobDetails(id: widget.id);
-   
+      //  controller.getreceedetailsData!.receeVerifications!.clear();
+      await controller.getReceesubjobDetails(id: widget.id);
+
       //
       // if (widget.flag == true) {
       //   await controller.getReceesubjobDetails(id: widget.id);
       // } else {
       //   await controller.getReceedetails(id: widget.id);
       // }
-   if (controller.getreceedetailsData != null) {
-  // Fetch the data if it's not available
-  await controller.getReceesubjobDetails(id: widget.id);
-}
+      if (controller.getreceedetailsData != null) {
+        // Fetch the data if it's not available
+        await controller.getReceesubjobDetails(id: widget.id);
+      }
 
-if (controller.getreceedetailsData != null &&
-    controller.getreceedetailsData!.receeVerifications!.isNotEmpty) {
-  // Access properties only if controller.getreceedetailsData is not null
-  // and receeVerifications is not empty
- job_cardContoller.text =
-      controller.getreceedetailsData!.shopcode.toString();
+      if (controller.getreceedetailsData != null &&
+          controller.getreceedetailsData!.receeVerifications!.isNotEmpty) {
+        // Access properties only if controller.getreceedetailsData is not null
+        // and receeVerifications is not empty
+        job_cardContoller.text =
+            controller.getreceedetailsData!.shopcode.toString();
 
-   widthController.text =
-      controller.getreceedetailsData!.receeVerifications!.last.withColumn!;
+        widthController.text = controller
+            .getreceedetailsData!.receeVerifications!.last.withColumn!;
 
-     heightController.text = controller
-      .getreceedetailsData!.receeVerifications!.last.heightColumn!;
+        heightController.text = controller
+            .getreceedetailsData!.receeVerifications!.last.heightColumn!;
 
-    squrefitController.text =
-      controller.getreceedetailsData!.receeVerifications!.last.squareFit!;
+        squrefitController.text =
+            controller.getreceedetailsData!.receeVerifications!.last.squareFit!;
 
- selectedItem =
+        selectedItem =
+            controller.getreceedetailsData!.receeVerifications!.last.dimension;
 
-       controller.getreceedetailsData!.receeVerifications!.last.dimension;
-  
-   specialremarkController.text =
-      controller.getreceedetailsData!.receeVerifications!.last.signageType!;
-      
-   signageItems = controller.getreceesignagedetailsData.last.signageName;
+        specialremarkController.text = controller
+            .getreceedetailsData!.receeVerifications!.last.signageType!;
 
-      quantityController.text = controller.getreceedetailsData!.receeVerifications!.last.quantity!;
+        signageItems = controller.getreceesignagedetailsData.last.signageName;
 
-     
-}
+        quantityController.text =
+            controller.getreceedetailsData!.receeVerifications!.last.quantity!;
+      }
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
   }
-  String? signageItems;
+    
+  var signageItems;
+  List<SignageData>thelist =[]; 
 
-   String? selectedItem ;
+  String? selectedItem;
+
   double toFeet(double value) {
     switch (selectedItem) {
       case 'Inch':
@@ -129,20 +129,21 @@ if (controller.getreceedetailsData != null &&
   void calculateSquareFeet() {
     double width = double.tryParse(widthController.text) ?? 0;
     double height = double.tryParse(heightController.text) ?? 0;
-    double quantity = double.tryParse(quantityController.text)??0;
+    double quantity = double.tryParse(quantityController.text) ?? 0;
     double widthInFeet = toFeet(width);
     double heightInFeet = toFeet(height);
-    double quantityfeet = toFeet(quantity);
-    double squareFeet = widthInFeet * heightInFeet * quantityfeet;
+    // double quantityfeet = toFeet(quantity);
+    double squareFeet = widthInFeet * heightInFeet * quantity;
+    toFeet(squareFeet);
     squrefitController.text = squareFeet.toString();
     print("RESULT ===>${squareFeet.toString()}");
   }
-   
 
   @override
   void dispose() {
     widthController.dispose();
     heightController.dispose();
+    quantityController.dispose();
     super.dispose();
   }
 
@@ -225,7 +226,7 @@ if (controller.getreceedetailsData != null &&
                       ksizedbox10,
                     ],
                   )
-                :  Form(
+                : Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,7 +280,7 @@ if (controller.getreceedetailsData != null &&
                             //  autofocus: false, // Disable autofocus
                             readOnly:
                                 true, // Readonly will ensure the text field doesn't lose focus
-                    
+
                             onTap: () =>
                                 _focusNode.requestFocus(), // Focus when tapped
                             decoration: InputDecoration(
@@ -474,9 +475,9 @@ if (controller.getreceedetailsData != null &&
                             decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.only(top: 5, left: 10),
-                                hintText:
-                                  controller.getreceedetailsData==null?'no data': 
-                                   controller.getreceedetailsData?.shopcode,
+                                hintText: controller.getreceedetailsData == null
+                                    ? 'no data'
+                                    : controller.getreceedetailsData?.shopcode,
                                 hintStyle: primaryFonts.copyWith(
                                     color: AppColors.black,
                                     fontSize: 14,
@@ -534,78 +535,73 @@ if (controller.getreceedetailsData != null &&
                         //  controller.getreceedetailsData!.receeVerifications.isEmpty?Container():
                         Column(
                           children: [
-                             Padding(
-                                     padding: const EdgeInsets.only(left: 0),
-                                     child: Container(
-                                      margin: EdgeInsets.only(right:0),
-                                      height: 55.h,
-                                      decoration: BoxDecoration( 
-                                        borderRadius: BorderRadius.circular(4),
+
+                            Padding(
+                              padding: const EdgeInsets.only(left: 0),
+                              child: Container(
+                                margin: EdgeInsets.only(right: 0),
+                                height: 55.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: DropdownButtonFormField<SignageData>(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  value: signageItems,
+                                  onChanged: ( newValue) {
+                                    setState(() {
+                                      signageItems = newValue!;
+                                      // calculateSquareFeet();
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null) {
+                                      return 'Please select a Signage Details';
+                                    }
+                                    return null; // Return null if the input is valid
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.only(top: 5, left: 10),
+                                    labelText: 'Signage Details',
+                                    labelStyle: primaryFonts.copyWith(
+                                      color: AppColors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.black,
                                       ),
-                                      child: DropdownButtonFormField<String>(
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
-                                        value: signageItems,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                          signageItems = newValue!;
-                                          // calculateSquareFeet();
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please select a Signage Details';
-                                          }
-                                          return null; // Return null if the input is valid
-                                        },
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.only(top: 5, left: 10),
-                                          labelText: 'Signage Details',
-                                          labelStyle: primaryFonts.copyWith(
-                                            color: AppColors.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black,
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black,
-                                            ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: AppColors.black,
-                                            ),
-                                          ),
-                                        ),    
-                                        items: <String>[    
-                                         controller.getreceesignagedetailsData.isNotEmpty? 
-                                         controller.getreceesignagedetailsData.first.signageName.toString():''
-                                        ] // Replace with your dropdown options
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.black,
                                       ),
-                                                                       ),
-                                   ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  items:controller.getreceesignagedetailsData // Replace with your dropdown options
+                                      .map<DropdownMenuItem<SignageData>>(
+                                          ( value) {
+                                    return DropdownMenuItem<SignageData>(
+                                      value: value,
+                                      child: Text(value.signageName.toString()),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
                             // Container(
                             //   height: 55.h,
                             //   decoration: BoxDecoration(
@@ -806,10 +802,8 @@ if (controller.getreceedetailsData != null &&
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
-                                  child: 
-                                   Container(
+                                  child: Container(
                                     height: 55.h,
-                             
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4)),
                                     child: TextFormField(
@@ -854,16 +848,14 @@ if (controller.getreceedetailsData != null &&
                                                   color: AppColors.black))),
                                     ),
                                   ),
-                                 
                                 ),
                                 Expanded(
-                                  child: 
-                                   Padding(
-                                     padding: const EdgeInsets.only(left: 5),
-                                     child: Container(
-                                      margin: EdgeInsets.only(right:0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Container(
+                                      margin: EdgeInsets.only(right: 0),
                                       height: 55.h,
-                                      decoration: BoxDecoration( 
+                                      decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: DropdownButtonFormField<String>(
@@ -872,8 +864,8 @@ if (controller.getreceedetailsData != null &&
                                         value: selectedItem,
                                         onChanged: (String? newValue) {
                                           setState(() {
-                                          selectedItem = newValue!;
-                                          calculateSquareFeet();
+                                            selectedItem = newValue!;
+                                            calculateSquareFeet();
                                           });
                                         },
                                         validator: (value) {
@@ -915,8 +907,8 @@ if (controller.getreceedetailsData != null &&
                                               color: AppColors.black,
                                             ),
                                           ),
-                                        ),    
-                                        items: <String>[    
+                                        ),
+                                        items: <String>[
                                           'mm',
                                           'Inch',
                                           'Feet'
@@ -929,69 +921,64 @@ if (controller.getreceedetailsData != null &&
                                           );
                                         }).toList(),
                                       ),
-                                                                       ),
-                                   ),
-                                  
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ],
                         ),
                         ksizedbox10,
-                       Container(
-                                    height: 55.h,
-                                    width: 166,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: TextFormField(
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      keyboardType: TextInputType.number,
-                                      controller: squrefitController,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'Please enter Square Feet';
-                                        }
-                                        // You can add more validation rules here if needed
-                                        return null; // Return null if the input is valid
-                                      },
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(top: 5, left: 10),
-                                        labelText: 'Square Feet',
-                                        labelStyle: primaryFonts.copyWith(
-                                          color: AppColors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                        Container(
+                          height: 55.h,
+                          width: 166,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: TextFormField(
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            keyboardType: TextInputType.number,
+                            controller: squrefitController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Square Feet';
+                              }
+                              // You can add more validation rules here if needed
+                              return null; // Return null if the input is valid
+                            },
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              labelText: 'Square Feet',
+                              labelStyle: primaryFonts.copyWith(
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         ksizedbox20,
                         Text(
                           "Capture Spaces & My Space",
@@ -1001,45 +988,48 @@ if (controller.getreceedetailsData != null &&
                               fontWeight: FontWeight.w600),
                         ),
                         ksizedbox15,
-                 
+
                         controller.getreceedetailsData?.isReceeVerrified == "1"
-                            ? controller.getreceedetailsData!.receeVerifications!.isEmpty?
-                            Container(): Container(
-                                height: 200,
-                                child: ListView.builder(
-                                    itemCount: controller
-                                        .getreceedetailsData
-                                        !.receeVerifications!   //.last.beforeImages!
-                                        .last.beforeImages!
-                                        .length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index2) {
-                                      return   Card(
-                                        child: InkWell(
-                                          onTap: () {
-                                            showImageViewer(
-                                                context,
-                                                Image.network(controller
-                                                        .getreceedetailsData
-                                                        !.receeVerifications!
-                                                        .last
-                                                        .beforeImages![index2])
-                                                    .image,
-                                                swipeDismissible: true,
-                                                doubleTapZoomable: true);
-                                          },
-                                          child: Container(
-                                            width: 200,
-                                            child: Image.network(controller
-                                                .getreceedetailsData
-                                                !.receeVerifications!
-                                                .last
-                                                .beforeImages![index2]),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              )
+                            ? controller.getreceedetailsData!
+                                    .receeVerifications!.isEmpty
+                                ? Container()
+                                : Container(
+                                    height: 200,
+                                    child: ListView.builder(
+                                        itemCount: controller
+                                            .getreceedetailsData!
+                                            .receeVerifications! //.last.beforeImages!
+                                            .last
+                                            .beforeImages!
+                                            .length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index2) {
+                                          return Card(
+                                            child: InkWell(
+                                              onTap: () {
+                                                showImageViewer(
+                                                    context,
+                                                    Image.network(controller
+                                                            .getreceedetailsData!
+                                                            .receeVerifications!
+                                                            .last
+                                                            .beforeImages![index2])
+                                                        .image,
+                                                    swipeDismissible: true,
+                                                    doubleTapZoomable: true);
+                                              },
+                                              child: Container(
+                                                width: 200,
+                                                child: Image.network(controller
+                                                    .getreceedetailsData!
+                                                    .receeVerifications!
+                                                    .last
+                                                    .beforeImages![index2]),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  )
                             : Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1113,7 +1103,7 @@ if (controller.getreceedetailsData != null &&
                                             controller.pickImage(
                                                 imageSource:
                                                     ImageSource.gallery);
-                    
+
                                             controller.update();
                                           },
                                           child:
@@ -1172,7 +1162,7 @@ if (controller.getreceedetailsData != null &&
                                 ],
                               ),
                         ksizedbox10,
-                    
+
                         if (controller.pickedEditedImagePathList.isNotEmpty)
                           Container(
                             height: 150,
@@ -1217,7 +1207,7 @@ if (controller.getreceedetailsData != null &&
                                           onPressed: () {
                                             // Add your delete logic here
                                             // For example, you can remove the image path from the list
-                                            setState( 
+                                            setState(
                                               () {
                                                 controller
                                                     .pickedEditedImagePathList
@@ -1234,7 +1224,7 @@ if (controller.getreceedetailsData != null &&
                             ),
                           ),
                         ksizedbox20,
-                        controller.getreceedetailsData?.isReceeVerrified=="1"
+                        controller.getreceedetailsData?.isReceeVerrified == "1"
                             ? InkWell(
                                 onTap: () {
                                   Get.to(BottomNaviBar());
@@ -1261,43 +1251,75 @@ if (controller.getreceedetailsData != null &&
                                     print('----------------image>>>>>>>>>>>');
                                     print(controller.pickedEditedImagePathList);
                                     print(specialremarkController);
-                                    print( heightController.text);
+                                    print(heightController.text);
                                     print(squrefitController.text);
                                     print(selectedItem);
                                     print(widthController.text);
                                     print(signageItems);
-                           
+
                                     // Validate media (picked images)
-                                    if ( specialremarkController
+                                    if (specialremarkController
                                             .text.isNotEmpty &&
                                         heightController.text.isNotEmpty &&
                                         squrefitController.text.isNotEmpty &&
-                                        selectedItem!=null &&
-                                        signageItems!=null&&
-                                        widthController.text.isNotEmpty 
-                                        && controller.pickedEditedImagePathList.isNotEmpty
-                                        
-                                        ) {
+                                        selectedItem != null &&
+                                        signageItems != null &&
+                                        widthController.text.isNotEmpty &&
+                                        controller.pickedEditedImagePathList
+                                            .isNotEmpty) {
                                       // widget.flag == true
                                       //     ?
                                       controller.verifysubjobRecee(
-                                        jobcard:controller.getreceedetailsData!=null? 
-                                        controller.getreceedetailsData!.shopcode.toString():'',
-                                        quantity:controller.getreceedetailsData!=null?quantityController.text:'' ,
-                                        width:controller.getreceedetailsData!=null?  
-                                        widthController.text.toString():'',
-                                        height: controller.getreceedetailsData!=null? heightController.text:'',
-                                        squrefit: controller.getreceedetailsData!=null? squrefitController.text:'',
-                                        dimension: controller.getreceedetailsData!=null? selectedItem:'',
+                                        jobcard:
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? controller
+                                                    .getreceedetailsData!
+                                                    .shopcode
+                                                    .toString()
+                                                : '',
+                                        quantity:
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? quantityController.text
+                                                : '',
+                                        width: controller.getreceedetailsData !=
+                                                null
+                                            ? widthController.text.toString()
+                                            : '',
+                                        height:
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? heightController.text
+                                                : '',
+                                        squrefit:
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? squrefitController.text
+                                                : '',
+                                        dimension:
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? selectedItem
+                                                : '',
                                         signage_type:
-                                            controller.getreceedetailsData!=null? specialremarkController.text:'',
-                                        signage_details:controller.getreceesignagedetailsData.isNotEmpty?signageItems:'' ,
-                                        client_id: controller.getreceedetailsData!=null? controller
-                                            .getreceedetailsData!.id
-                                            .toString():'',
+                                            controller.getreceedetailsData !=
+                                                    null
+                                                ? specialremarkController.text
+                                                : '',
+                                        signage_details: controller
+                                                .getreceesignagedetailsData
+                                                .isNotEmpty
+                                            ? signageItems
+                                            : '',
+                                        client_id: controller
+                                                    .getreceedetailsData !=
+                                                null
+                                            ? controller.getreceedetailsData!.id
+                                                .toString()
+                                            : '',
                                         media: controller
-                                            .pickedEditedImagePathList, 
-                                            
+                                            .pickedEditedImagePathList,
                                       );
                                       // : controller.verifyRecee(
                                       //     job_card: controller
@@ -1320,15 +1342,15 @@ if (controller.getreceedetailsData != null &&
                                       //   );
                                     } else {
                                       Get.rawSnackbar(
-                                        backgroundColor: AppColors.red,
-                                        title: 'Fill All Details',
-                                        messageText: Text("Please fill all the details before continue.",
-                                        style: TextStyle(
-                                          color: AppColors.white
-                                        ),)
-                                      );
+                                          backgroundColor: AppColors.red,
+                                          title: 'Fill All Details',
+                                          messageText: Text(
+                                            "Please fill all the details before continue.",
+                                            style: TextStyle(
+                                                color: AppColors.white),
+                                          ));
                                       // AppConstant.showSnackbar(
-                                        
+
                                       //   headText: "Fill All Details",
                                       //   content:
                                       //       "Please fill all the details before continue.",

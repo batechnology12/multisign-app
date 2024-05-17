@@ -247,28 +247,20 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .getreceelistData[index]
                                                   .clientName.toString(),
                                               city: controller
-                                                  .getreceelistData[index].city,
+                                                  .getreceelistData[index].storeName,
                                               jobcard: controller
                                                   .getreceelistData[index]
                                                   .jobcard.toString(),
                                               day: controller
                                                   .getreceelistData[index]
                                                   .createdAt!
-                                                  .day
+                                                  
                                                   .toString(),
                                               address: controller
                                                   .getreceelistData[index]
                                                   .address,
-                                              month: controller
-                                                  .getreceelistData[index]
-                                                  .createdAt!
-                                                  .month
-                                                  .toString(),
-                                              year: controller
-                                                  .getreceelistData[index]
-                                                  .createdAt!
-                                                  .year
-                                                  .toString(),
+                                              month: '',
+                                              year: '',
                                             ),
                                           ),
                                         );

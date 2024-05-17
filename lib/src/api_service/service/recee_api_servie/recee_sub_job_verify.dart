@@ -14,7 +14,7 @@ class VerifyReceeSubjobApiServices extends BaseApiService {
     required String dimension,
     required String quantity,
     required String signage_type,
-    required String signage_details,
+    required dynamic signage_details,
     required String client_id,
     required List<Uint8List?> media,
   }) async {
