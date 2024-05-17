@@ -34,7 +34,7 @@ class GetRecceSignageDetails {
 
 class SignageData {
     int? id;
-    String? signageName;
+    dynamic signageName;
     String? signageNo;
     String? status;
     DateTime? createdAt;

@@ -109,7 +109,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
     });
   }
     
-  var signageItems;
+  dynamic signageItems;
   List<SignageData>thelist =[]; 
 
   String? selectedItem;
@@ -544,7 +544,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: DropdownButtonFormField<SignageData>(
+                                child: DropdownButtonFormField<String>(
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                   value: signageItems,
@@ -582,7 +582,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         width: 1,
                                         color: AppColors.black,
                                       ),
-                                    ),
+                                    ),  
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(4),
                                       borderSide: BorderSide(
@@ -592,10 +592,10 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                     ),
                                   ),
                                   items:controller.getreceesignagedetailsData // Replace with your dropdown options
-                                      .map<DropdownMenuItem<SignageData>>(
-                                          ( value) {
-                                    return DropdownMenuItem<SignageData>(
-                                      value: value,
+                                      .map<DropdownMenuItem<String>>(
+                                          (  value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.signageName,
                                       child: Text(value.signageName.toString()),
                                     );
                                   }).toList(),

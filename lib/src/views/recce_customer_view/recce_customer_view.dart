@@ -247,15 +247,14 @@ class _RecceCustomerState extends State<RecceCustomer> {
                                                   .getreceelistData[index]
                                                   .clientName.toString(),
                                               city: controller
-                                                  .getreceelistData[index].storeName,
+                                                  .getreceelistData[index].scopeOfWork.toString(),
                                               jobcard: controller
                                                   .getreceelistData[index]
                                                   .jobcard.toString(),
-                                              day: controller
+                                              day: formatDate(DateTime.parse(controller
                                                   .getreceelistData[index]
                                                   .createdAt!
-                                                  
-                                                  .toString(),
+                                                  .toString()), [yyyy,'-',mm,'-',dd]),
                                               address: controller
                                                   .getreceelistData[index]
                                                   .address,
