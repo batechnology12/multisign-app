@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/src/material/dropdown.dart';
+
 GetRecceSignageDetails getRecceSignageDetailsFromJson(String str) => GetRecceSignageDetails.fromJson(json.decode(str));
 
 String getRecceSignageDetailsToJson(GetRecceSignageDetails data) => json.encode(data.toJson());
@@ -26,6 +28,8 @@ class GetRecceSignageDetails {
         "status": status,
         "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
     };
+
+  static map(DropdownMenuItem<String> Function(String value) param0) {}
 }
 
 class SignageData {
@@ -41,7 +45,7 @@ class SignageData {
     dynamic deletedBy;
     dynamic deletedAt;
 
-    SignageData({
+    SignageData( {
         this.id,
         this.signageName,
         this.signageNo,
