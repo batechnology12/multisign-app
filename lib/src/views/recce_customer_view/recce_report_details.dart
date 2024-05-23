@@ -97,13 +97,16 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
             controller.getreceedetailsData!.receeVerifications!.last.dimension;
 
         specialremarkController.text = controller
-            .getreceedetailsData!.receeVerifications!.last.signageType!;
+            .getreceedetailsData!.receeVerifications!.last.signageDetails!;
 
-        signageItems = controller.getreceesignagedetailsData.last.signageName;
+        signageItems = controller
+            .getreceedetailsData!.receeVerifications!.last.signageType;
 
         quantityController.text =
             controller.getreceedetailsData!.receeVerifications!.last.quantity!;
       }
+      print('mismatching data::::::::::::::::::>>>>>>>>>>>>>');
+      print(specialremarkController.text);
       controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
@@ -556,14 +559,14 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   },
                                   validator: (value) {
                                     if (value == null) {
-                                      return 'Please select a Signage Details';
+                                      return 'Please select a Signage Type';
                                     }
                                     return null; // Return null if the input is valid
                                   },
                                   decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.only(top: 5, left: 10),
-                                    labelText: 'Signage Details',
+                                    labelText: 'Signage Type',
                                     labelStyle: primaryFonts.copyWith(
                                       color: AppColors.black,
                                       fontSize: 14,
@@ -1250,7 +1253,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   if (_formKey.currentState!.validate()) {
                                     print('----------------image>>>>>>>>>>>');
                                     print(controller.pickedEditedImagePathList);
-                                    print(specialremarkController);
+                                    print(specialremarkController.text);
                                     print(heightController.text);
                                     print(squrefitController.text);
                                     print(selectedItem);
@@ -1269,7 +1272,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                             .isNotEmpty) {
                                       // widget.flag == true
                                       //     ?
-                                      controller.verifysubjobRecee(
+                                      controller.verifysubjobRecee( 
                                         jobcard:
                                             controller.getreceedetailsData !=
                                                     null
