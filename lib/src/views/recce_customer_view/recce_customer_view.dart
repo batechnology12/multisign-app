@@ -221,7 +221,7 @@ class _RecceCustomerState extends State<RecceCustomer> {
                               : RefreshIndicator(
                                   onRefresh: () => controller.getRecee(),
                                   child: ListView.builder(
-                                      // physics: BouncingScrollPhysics(),
+                                     physics: BouncingScrollPhysics(),
                                       shrinkWrap: true,
                                       itemCount:
                                           controller.getreceelistData.length,

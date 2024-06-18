@@ -14,10 +14,10 @@ import 'package:svg_flutter/svg.dart';
 class GetInstallerSubJob extends StatefulWidget {
   final String id;
   final String storename;
- 
+
   GetInstallerSubJob({
     super.key,
-    required this .storename,
+    required this.storename,
     required this.id,
   });
 
@@ -59,14 +59,17 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
       });
     }
   }
- final TextEditingController searchController = TextEditingController();
+
+  final TextEditingController searchController = TextEditingController();
   final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.grey[100],
-      appBar: AppBar(backgroundColor: Colors.grey[100],
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[100],
         centerTitle: true,
-        title: Text( widget.storename,
+        title: Text(widget.storename,
             style: primaryFonts.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -79,44 +82,44 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                 Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: const Color.fromARGB(255, 216, 216, 216)
-                                      .withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 5))
-                            ]),
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SvgPicture.asset('assets/images/Vector.svg'),
-                            // Image(image: kimgsearch),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: TextField(
-                                onChanged: (query) {
-                                  controller.searchcustomers(query: query);
-                                },
-                               controller: searchController,
-                                decoration: InputDecoration.collapsed(
-                                  hintText: "Search",
-                                ),
-                              ),
-                            ),
-                          ],
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                              color: const Color.fromARGB(255, 216, 216, 216)
+                                  .withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5))
+                        ]),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ),
+                        SvgPicture.asset('assets/images/Vector.svg'),
+                        // Image(image: kimgsearch),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            onChanged: (query) {
+                              controller.searchcustomers(query: query);
+                            },
+                            controller: searchController,
+                            decoration: InputDecoration.collapsed(
+                              hintText: "Search",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   ksizedbox30,
                   Row(
                     children: [
@@ -181,48 +184,51 @@ class _GetInstallerSubJobState extends State<GetInstallerSubJob> {
                               onRefresh: () =>
                                   controller.getinstallersubjob(id: widget.id),
                               child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount:
                                       controller.getinstallersubjobData.length,
                                   itemBuilder: ((context, index) {
                                     return Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10),
                                       child: InkWell(
-                                                onTap: () {
-                                                  Get.to(InstallationReportDetails(
-                                                      id: controller
-                                                          .getinstallersubjobData[index].id
-                                                          .toString()));
-                                                },
-                                                child: ContainerCustom(
-                                                  id: controller
-                                                      .getinstallersubjobData[index].id
-                                                      .toString(),
-                                                  name: controller
-                                                      .getinstallersubjobData[index]
-                                                      .shopName,
-                                                
-                                                  jobcard: controller
-                                                      .getinstallersubjobData[index].shopcode,
-                                                 
-                                                  address: controller
-                                                      .getinstallersubjobData[index]
-                                                      .address,
-                                                        city: controller
-                                                      .getinstallersubjobData[index].city,
-                                                  day:formatDate(DateTime.parse( controller
-                                                      .getinstallersubjobData[index]
-                                                      .createdAt.toString()), [yyyy,'-',mm,'-',dd])
-                                                     ,
-                                                  month: '',
-                                                  year:''
-                                                      ,
-                                                      isverified:
-                                                      controller
-                                                      .getinstallersubjobData[index].installerStatus ,
-                                                ),
-                                              ),
+                                        onTap: () {
+                                          Get.to(InstallationReportDetails(
+                                              id: controller
+                                                  .getinstallersubjobData[index]
+                                                  .id
+                                                  .toString()));
+                                        },
+                                        child: ContainerCustom(
+                                          id: controller
+                                              .getinstallersubjobData[index].id
+                                              .toString(),
+                                          name: controller
+                                              .getinstallersubjobData[index]
+                                              .shopName,
+                                          jobcard: controller
+                                              .getinstallersubjobData[index]
+                                              .shopcode,
+                                          address: controller
+                                              .getinstallersubjobData[index]
+                                              .address,
+                                          city: controller
+                                              .getinstallersubjobData[index]
+                                              .city,
+                                          day: formatDate(
+                                              DateTime.parse(controller
+                                                  .getinstallersubjobData[index]
+                                                  .createdAt
+                                                  .toString()),
+                                              [yyyy, '-', mm, '-', dd]),
+                                          month: '',
+                                          year: '',
+                                          isverified: controller
+                                              .getinstallersubjobData[index]
+                                              .installerStatus,
+                                        ),
+                                      ),
                                     );
                                   })),
                             ),

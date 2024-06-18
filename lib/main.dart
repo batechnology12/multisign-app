@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,7 +12,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:multisign_app/src/controllers/profile_controller.dart';
 import 'package:multisign_app/src/fire_base_pushnotification.dart';
 import 'package:multisign_app/src/views/splash_view/splash_view.dart';
-
 
 Future _firebaseBagroundMessage(RemoteMessage message) async {
   if (message.notification != null) {
@@ -30,11 +31,16 @@ void main() async {
 
   PushNotifications.int();
   FirebaseMessaging.onBackgroundMessage(_firebaseBagroundMessage);
-  
+
   runApp(
-     MyApp(),
-    
+    MyApp(),
   );
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => MyApp(), // Wrap your app
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {

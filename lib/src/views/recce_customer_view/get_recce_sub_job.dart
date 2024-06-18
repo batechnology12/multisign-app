@@ -14,7 +14,7 @@ class GetReceeSubJob extends StatefulWidget {
   final String id;
   final String storename;
 
-  const GetReceeSubJob({super.key, required this.id,required this.storename});
+  const GetReceeSubJob({super.key, required this.id, required this.storename});
 
   @override
   State<GetReceeSubJob> createState() => _GetReceeSubJobState();
@@ -54,6 +54,7 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
       });
     }
   }
+
   final TextEditingController searchController = TextEditingController();
   final controller = Get.find<HomeController>();
   @override
@@ -74,44 +75,44 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: const Color.fromARGB(255, 216, 216, 216)
-                                      .withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 5))
-                            ]),
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SvgPicture.asset('assets/images/Vector.svg'),
-                            // Image(image: kimgsearch),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: TextField(
-                                onChanged: (query) {
-                                  controller.searchcustomers(query: query);
-                                },
-                               controller: searchController,
-                                decoration: InputDecoration.collapsed(
-                                  hintText: "Search",
-                                ),
-                              ),
-                            ),
-                          ],
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                              color: const Color.fromARGB(255, 216, 216, 216)
+                                  .withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5))
+                        ]),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ),
+                        SvgPicture.asset('assets/images/Vector.svg'),
+                        // Image(image: kimgsearch),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            onChanged: (query) {
+                              controller.searchcustomers(query: query);
+                            },
+                            controller: searchController,
+                            decoration: InputDecoration.collapsed(
+                              hintText: "Search",
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   ksizedbox30,
                   Row(
                     children: [
@@ -177,51 +178,70 @@ class _GetReceeSubJobState extends State<GetReceeSubJob> {
                                   controller.getReceesubjob(id: widget.id),
                               child: ListView.builder(
                                   shrinkWrap: true,
-                                  itemCount: controller.getreceedsubjobData.length,
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount:
+                                      controller.getreceedsubjobData.length,
                                   itemBuilder: ((context, index) {
-                                    return  controller.getreceedsubjobData.isNotEmpty? Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 10),
-                                      child: InkWell(onTap: () {
-                                        // controller.getReceesubjobDetails(id:controller
-                                        //                       .getreceedsubjobData[index]
-                                        //                       .id
-                                        //            
-                                        //            .toString(),);
-                                        print('null id');
-                                        print(  controller
-                                                              .getreceedsubjobData[index]
-                                                              .id);
-                                            Get.to(RecceReportDetails(
-                                                   
-                                                          id: controller
-                                                              .getreceedsubjobData[index]
-                                                              .id
-                                                              .toString(),
-                                                        ));},
-                                        child:  ContainerCustom(
+                                    return controller
+                                            .getreceedsubjobData.isNotEmpty
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            child: InkWell(
+                                              onTap: () {
+                                                // controller.getReceesubjobDetails(id:controller
+                                                //                       .getreceedsubjobData[index]
+                                                //                       .id
+                                                //
+                                                //            .toString(),);
+                                                print('null id');
+                                                print(controller
+                                                    .getreceedsubjobData[index]
+                                                    .id);
+                                                Get.to(RecceReportDetails(
                                                   id: controller
-                                                      .getreceedsubjobData[index].id
+                                                      .getreceedsubjobData[
+                                                          index]
+                                                      .id
                                                       .toString(),
-                                                  name: controller
-                                                      .getreceedsubjobData[index]
-                                                      .shopName.toString(),
-                                                  city: controller
-                                                      .getreceedsubjobData[index].city.toString(),
-                                                  jobcard: controller
-                                                      .getreceedsubjobData[index]
-                                                      .shopcode.toString(),
-                                                  day: formatDate(DateTime.parse(controller
-                                                      .getreceedsubjobData[index].createdAt
-                                                      .toString(),), [yyyy,'-',mm,'-',dd]),
-                                                  address:'',
-                                                  month: '',
-                                                  year: '',
-                                                      isverified:controller
-                                                      .getreceedsubjobData[index].isReceeVerrified ,
-                                                ),
-                                      ),
-                                    ):Text('');
+                                                ));
+                                              },
+                                              child: ContainerCustom(
+                                                id: controller
+                                                    .getreceedsubjobData[index]
+                                                    .id
+                                                    .toString(),
+                                                name: controller
+                                                    .getreceedsubjobData[index]
+                                                    .shopName
+                                                    .toString(),
+                                                city: controller
+                                                    .getreceedsubjobData[index]
+                                                    .city
+                                                    .toString(),
+                                                jobcard: controller
+                                                    .getreceedsubjobData[index]
+                                                    .shopcode
+                                                    .toString(),
+                                                day: formatDate(
+                                                    DateTime.parse(
+                                                      controller
+                                                          .getreceedsubjobData[
+                                                              index]
+                                                          .createdAt
+                                                          .toString(),
+                                                    ),
+                                                    [yyyy, '-', mm, '-', dd]),
+                                                address: '',
+                                                month: '',
+                                                year: '',
+                                                isverified: controller
+                                                    .getreceedsubjobData[index]
+                                                    .isReceeVerrified,
+                                              ),
+                                            ),
+                                          )
+                                        : Text('');
                                   })),
                             ),
                 ],

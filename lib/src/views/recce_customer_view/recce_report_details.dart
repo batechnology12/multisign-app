@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
@@ -39,13 +41,13 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
   final TextEditingController client_idController = TextEditingController();
   HomeController controller = Get.find<HomeController>();
 
-  File? photo;
-  File? image;
-  ImagePicker imagePicker = ImagePicker();
+  // File? photo;
+  // File? image;
+
   final _formKey = GlobalKey<FormState>();
 
   //String selectedDimension = 'Feet';
-
+  bool isSubmit = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -107,13 +109,13 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       }
       print('mismatching data::::::::::::::::::>>>>>>>>>>>>>');
       print(specialremarkController.text);
-      controller.setImagePathEmpty();
+      //  controller.setImagePathEmpty();
       controller.setImagesEmpty();
     });
   }
-    
+
   dynamic signageItems;
-  List<SignageData>thelist =[]; 
+  List<SignageData> thelist = [];
 
   String? selectedItem;
 
@@ -165,6 +167,61 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
       setState(() {
         bgColor = const Color.fromARGB(255, 240, 240, 240);
         shimmerlight = ShimmerProLight.darker;
+      });
+    }
+  }
+
+  ImagePicker imagePicker = ImagePicker();
+
+  Future<void> _pickAndCropImage(ImageSource source) async {
+    final XFile? image = await imagePicker.pickImage(source: source);
+    if (image != null) {
+      final Uint8List? croppedImage = await _cropImage(image);
+      if (croppedImage != null) {
+        setState(() {
+          controller.pickedEditedImagePathList.add(croppedImage);
+        });
+      }
+    }
+  }
+
+  Future<Uint8List?> _cropImage(XFile image) async {
+    final CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
+    );
+
+    if (croppedFile != null) {
+      return await croppedFile.readAsBytes();
+    }
+    return null;
+  }
+
+  Future<void> _pickImageFromGalleryAndCamera() async {
+    final XFile? image =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final Uint8List imageBytes = await image.readAsBytes();
+      setState(() {
+        controller.pickedEditedImagePathList.add(imageBytes);
       });
     }
   }
@@ -538,7 +595,6 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                         //  controller.getreceedetailsData!.receeVerifications.isEmpty?Container():
                         Column(
                           children: [
-
                             Padding(
                               padding: const EdgeInsets.only(left: 0),
                               child: Container(
@@ -551,7 +607,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                   value: signageItems,
-                                  onChanged: ( newValue) {
+                                  onChanged: (newValue) {
                                     setState(() {
                                       signageItems = newValue!;
                                       // calculateSquareFeet();
@@ -585,7 +641,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         width: 1,
                                         color: AppColors.black,
                                       ),
-                                    ),  
+                                    ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(4),
                                       borderSide: BorderSide(
@@ -594,9 +650,9 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       ),
                                     ),
                                   ),
-                                  items:controller.getreceesignagedetailsData // Replace with your dropdown options
-                                      .map<DropdownMenuItem<String>>(
-                                          (  value) {
+                                  items: controller
+                                      .getreceesignagedetailsData // Replace with your dropdown options
+                                      .map<DropdownMenuItem<String>>((value) {
                                     return DropdownMenuItem<String>(
                                       value: value.signageName,
                                       child: Text(value.signageName.toString()),
@@ -1042,16 +1098,12 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                           onTap: () async {
-                                            controller.CameraImage(
-                                                imageSource:
-                                                    ImageSource.camera);
+                                            _pickAndCropImage(
+                                                ImageSource.camera);
                                             controller.update();
+                                            //  controller.addImageCamera(photo);
                                           },
-                                          child:
-                                              //  Obx(
-                                              //   () => controller.pickedcamerapath == ""
-                                              //       ?
-                                              Column(
+                                          child: Column(
                                             children: [
                                               Container(
                                                 height: 115.h,
@@ -1077,25 +1129,7 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                                         FontWeight.bold),
                                               )
                                             ],
-                                          )
-                                          // : Container(
-                                          //     width: 200,
-                                          //     height: 115.h,
-                                          //     decoration: BoxDecoration(
-                                          //         image: DecorationImage(
-                                          //             image: FileImage(File(
-                                          //           controller.pickedcamerapath!,
-                                          //         ))),
-                                          //         border: Border.all(
-                                          //             width: 1,
-                                          //             color: AppColors.lightGrey),
-                                          //         color: AppColors.lightGrey
-                                          //             .withOpacity(.20),
-                                          //         borderRadius:
-                                          //             BorderRadius.circular(6)),
-                                          //   ),
-                                          //    ),
-                                          ),
+                                          )),
                                     ),
                                   ),
                                   Expanded(
@@ -1103,9 +1137,8 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                           onTap: () async {
-                                            controller.pickImage(
-                                                imageSource:
-                                                    ImageSource.gallery);
+                                            _pickAndCropImage(
+                                                ImageSource.gallery);
 
                                             controller.update();
                                           },
@@ -1169,11 +1202,15 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                         if (controller.pickedEditedImagePathList.isNotEmpty)
                           Container(
                             height: 150,
+                            width: 500,
+                           // color: Colors.amber,
                             child: ListView.builder(
                               itemCount:
                                   controller.pickedEditedImagePathList.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
+                                // final imageBytes = controller
+                                //     .pickedEditedImagePathList[index];
                                 return Stack(
                                   children: [
                                     Padding(
@@ -1250,115 +1287,96 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                               )
                             : InkWell(
                                 onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    print('----------------image>>>>>>>>>>>');
-                                    print(controller.pickedEditedImagePathList);
-                                    print(specialremarkController.text);
-                                    print(heightController.text);
-                                    print(squrefitController.text);
-                                    print(selectedItem);
-                                    print(widthController.text);
-                                    print(signageItems);
+                                  if (isSubmit == true) {
+                                    isSubmit = false;
+                                    if (_formKey.currentState!.validate()) {
+                                      print('----------------image>>>>>>>>>>>');
+                                      print(
+                                          controller.pickedEditedImagePathList);
+                                      print(specialremarkController.text);
+                                      print(heightController.text);
+                                      print(squrefitController.text);
+                                      print(selectedItem);
+                                      print(widthController.text);
+                                      print(signageItems);
 
-                                    // Validate media (picked images)
-                                    if (specialremarkController
-                                            .text.isNotEmpty &&
-                                        heightController.text.isNotEmpty &&
-                                        squrefitController.text.isNotEmpty &&
-                                        selectedItem != null &&
-                                        signageItems != null &&
-                                        widthController.text.isNotEmpty &&
-                                        controller.pickedEditedImagePathList
-                                            .isNotEmpty) {
-                                      // widget.flag == true
-                                      //     ?
-                                      controller.verifysubjobRecee( 
-                                        jobcard:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? controller
-                                                    .getreceedetailsData!
-                                                    .shopcode
-                                                    .toString()
-                                                : '',
-                                        quantity:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? quantityController.text
-                                                : '',
-                                        width: controller.getreceedetailsData !=
-                                                null
-                                            ? widthController.text.toString()
-                                            : '',
-                                        height:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? heightController.text
-                                                : '',
-                                        squrefit:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? squrefitController.text
-                                                : '',
-                                        dimension:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? selectedItem
-                                                : '',
-                                        signage_type:
-                                            controller.getreceedetailsData !=
-                                                    null
-                                                ? specialremarkController.text
-                                                : '',
-                                        signage_details: controller
-                                                .getreceesignagedetailsData
-                                                .isNotEmpty
-                                            ? signageItems
-                                            : '',
-                                        client_id: controller
-                                                    .getreceedetailsData !=
-                                                null
-                                            ? controller.getreceedetailsData!.id
-                                                .toString()
-                                            : '',
-                                        media: controller
-                                            .pickedEditedImagePathList,
-                                      );
-                                      // : controller.verifyRecee(
-                                      //     job_card: controller
-                                      //         .getreceedetailsData!.jobcard,
-                                      //     width: widthController.text,
-                                      //     height: heightController.text,
-                                      //     squrefit: squrefitController.text,
-                                      //     dimension:
-                                      //         dimensionController.text,
-                                      //     signage_type:
-                                      //         signage_typeController.text,
-                                      //     signage_details:
-                                      //         signage_detailsController
-                                      //             .text,
-                                      //     client_id: controller
-                                      //         .getreceedetailsData!.id
-                                      //         .toString(),
-                                      //     media: controller
-                                      //         .pickedEditedImagePathList,
-                                      //   );
-                                    } else {
-                                      Get.rawSnackbar(
-                                          backgroundColor: AppColors.red,
-                                          title: 'Fill All Details',
-                                          messageText: Text(
-                                            "Please fill all the details before continue.",
-                                            style: TextStyle(
-                                                color: AppColors.white),
-                                          ));
-                                      // AppConstant.showSnackbar(
-
-                                      //   headText: "Fill All Details",
-                                      //   content:
-                                      //       "Please fill all the details before continue.",
-                                      //   position: SnackPosition.BOTTOM,
-                                      // );
+                                      // Validate media (picked images)
+                                      if (specialremarkController
+                                              .text.isNotEmpty &&
+                                          heightController.text.isNotEmpty &&
+                                          squrefitController.text.isNotEmpty &&
+                                          selectedItem != null &&
+                                          signageItems != null &&
+                                          widthController.text.isNotEmpty &&
+                                          controller.pickedEditedImagePathList
+                                              .isNotEmpty) {
+                                        // widget.flag == true
+                                        //     ?
+                                        controller.verifysubjobRecee(
+                                          jobcard:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? controller
+                                                      .getreceedetailsData!
+                                                      .shopcode
+                                                      .toString()
+                                                  : '',
+                                          quantity:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? quantityController.text
+                                                  : '',
+                                          width: controller
+                                                      .getreceedetailsData !=
+                                                  null
+                                              ? widthController.text.toString()
+                                              : '',
+                                          height:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? heightController.text
+                                                  : '',
+                                          squrefit:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? squrefitController.text
+                                                  : '',
+                                          dimension:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? selectedItem
+                                                  : '',
+                                          signage_type:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? specialremarkController.text
+                                                  : '',
+                                          signage_details: controller
+                                                  .getreceesignagedetailsData
+                                                  .isNotEmpty
+                                              ? signageItems
+                                              : '',
+                                          client_id:
+                                              controller.getreceedetailsData !=
+                                                      null
+                                                  ? controller
+                                                      .getreceedetailsData!.id
+                                                      .toString()
+                                                  : '',
+                                          media: controller
+                                              .pickedEditedImagePathList,
+                                        );
+                                      } else {
+                                        isSubmit = true;
+                                        Get.rawSnackbar(
+                                            backgroundColor: AppColors.red,
+                                            title: 'Fill All Details',
+                                            messageText: Text(
+                                              "Please fill all the details before continue.",
+                                              style: TextStyle(
+                                                  color: AppColors.white),
+                                            ));
+                                      }
                                     }
                                   }
                                 },
@@ -1371,10 +1389,18 @@ class _RecceReportDetailsState extends State<RecceReportDetails> {
                                         color: AppColors.green,
                                         borderRadius: BorderRadius.circular(8)),
                                     child: controller
-                                            .isLoadingverification.isTrue
-                                        ? const Center(
-                                            child: CircularProgressIndicator(
-                                              color: AppColors.white,
+                                            .isLoadingverification.value
+                                        ? Container(
+                                            height: 45,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: const Center(
+                                              child: CircularProgressIndicator(
+                                                color: AppColors.white,
+                                              ),
                                             ),
                                           )
                                         : Text(

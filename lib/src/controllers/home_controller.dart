@@ -41,6 +41,7 @@ class HomeController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool isLoadingdatails = false.obs;
+  RxBool isLoadingInstaller = false.obs;
   RxBool isLoadingverification = false.obs;
 
   GetInstallerApiServices getInstallerApiServices = GetInstallerApiServices();
@@ -53,13 +54,13 @@ class HomeController extends GetxController {
     dio.Response<dynamic> response =
         await getInstallerApiServices.getInstallerApiServices();
     isLoading(false);
-    update();
     if (response.data["status"] == true) {
       GetInstallerModel getInstallerModel =
           GetInstallerModel.fromJson(response.data);
       installerListdata = getInstallerModel.data!;
       tempGetinstallerlistData = getInstallerModel.data!;
     }
+
     update();
   }
 
@@ -82,26 +83,6 @@ class HomeController extends GetxController {
     update();
   }
 
-  // ReceeDetailsServicesApi receeDetailsServicesApi = ReceeDetailsServicesApi();
-
-  // Data? getreceedetailsData;
-  // getReceedetails({required String id}) async {
-  //   print(
-  //       '========================data==1==========${id}=======================');
-  //   isLoadingdatails(true);
-  //   update();
-  //   dio.Response<dynamic> response =
-  //       await receeDetailsServicesApi.receedetailsApi(id: id);
-  //   isLoadingdatails(false);
-  //   update();
-  //   print('========================data==2=================================');
-  //   if (response.data["status"] == true) {
-  //     GetIReceeDetailsModel geRreceedetailModel =
-  //         GetIReceeDetailsModel.fromJson(response.data);
-  //     getreceedetailsData = geRreceedetailModel.data;
-  //   }
-  //   update();
-  // }
 
   GetReceeSubjobApiServices getReceeSubjobApiServices =
       GetReceeSubjobApiServices();
@@ -130,27 +111,23 @@ class HomeController extends GetxController {
     update();
   }
 
- GetReceeSignangeDetailsApiService getReceeSignangeDetailsApiService = 
- GetReceeSignangeDetailsApiService();
+  GetReceeSignangeDetailsApiService getReceeSignangeDetailsApiService =
+      GetReceeSignangeDetailsApiService();
 
-List <SignageData> getreceesignagedetailsData=[];
+  List<SignageData> getreceesignagedetailsData = [];
 
- getreceesignageDetails()async{
-    
+  getreceesignageDetails() async {
     isLoading(true);
-    dio.Response<dynamic>response = await getReceeSignangeDetailsApiService.
-    getReceeSignangeDetailsApi();
+    dio.Response<dynamic> response =
+        await getReceeSignangeDetailsApiService.getReceeSignangeDetailsApi();
     isLoading(false);
-    if(response.data['status']==true){
-      GetRecceSignageDetails getRecceSignageDetailsModel = 
-      GetRecceSignageDetails.fromJson(response.data);
-     getreceesignagedetailsData = getRecceSignageDetailsModel.data!;
-    }else{
-
-    }
+    if (response.data['status'] == true) {
+      GetRecceSignageDetails getRecceSignageDetailsModel =
+          GetRecceSignageDetails.fromJson(response.data);
+      getreceesignagedetailsData = getRecceSignageDetailsModel.data!;
+    } else {}
     update();
- }
-  
+  }
 
   GetInstallerSubjobApiServices getInstallerSubjobApiServices =
       GetInstallerSubjobApiServices();
@@ -194,21 +171,21 @@ List <SignageData> getreceesignagedetailsData=[];
     isLoadingdatails(false);
     update();
     print('========================data==2=================================');
-   
+
     if (response.data!["status"] == true) {
       GetIReceeDetailsModel geRreceedetailModel =
           GetIReceeDetailsModel.fromJson(response.data);
-      getreceedetailsData = geRreceedetailModel.data ;
-  // Get.rawSnackbar(
-  //       messageText: Text(
-  //         response.data!["message"],
-  //         style: const TextStyle(color: Colors.white),
-  //       ),
-  //       backgroundColor: Colors.green,
-  //     );
+      getreceedetailsData = geRreceedetailModel.data;
+      // Get.rawSnackbar(
+      //       messageText: Text(
+      //         response.data!["message"],
+      //         style: const TextStyle(color: Colors.white),
+      //       ),
+      //       backgroundColor: Colors.green,
+      //     );
       update();
     } else {
-       Get.rawSnackbar(
+      Get.rawSnackbar(
         messageText: Text(
           response.data["message"],
           style: const TextStyle(color: Colors.white),
@@ -337,7 +314,7 @@ List <SignageData> getreceesignagedetailsData=[];
     required String signage_type,
     required dynamic signage_details,
     required dynamic client_id,
-     required List<Uint8List?> media,
+    required List<Uint8List?> media,
   }) async {
     isLoadingverification(true);
     update();
@@ -351,15 +328,15 @@ List <SignageData> getreceesignagedetailsData=[];
       signage_type: signage_type,
       signage_details: signage_details,
       client_id: client_id,
-       media: media, 
-       quantity: quantity,
+      media: media,
+      quantity: quantity,
     );
-    isLoadingverification(false);
+
     if (response.data['status'] == true) {
       pickedEditedImagePathList.clear();
       Get.to(BottomNaviBar());
       pickedImagePathList.clear();
-      pickedImagePath!= '';
+      pickedImagePath != '';
       update();
       AppConstant.showSnackbar(
         headText: "Successful",
@@ -373,6 +350,8 @@ List <SignageData> getreceesignagedetailsData=[];
       //   ),
       //   backgroundColor: Colors.green,
       // );
+      isLoadingverification(false);
+      update();
     } else {
       AppConstant.showSnackbar(
         headText: "Upload Failed",
@@ -402,10 +381,9 @@ List <SignageData> getreceesignagedetailsData=[];
     dio.Response<dynamic> response =
         await verifyInstallationApiServices.varifyInastallatinApi(
       jobcard: jobcard,
-       media: media,
+      media: media,
       //    media1: media1
     );
-    isLoadingverification(false);
 
     if (response.data['status'] == true) {
       Get.to(BottomNaviBar());
@@ -420,6 +398,7 @@ List <SignageData> getreceesignagedetailsData=[];
         ),
         backgroundColor: Colors.green,
       );
+      isLoadingverification(false);
     } else {
       Get.rawSnackbar(
         messageText: const Text(
@@ -501,67 +480,79 @@ List <SignageData> getreceesignagedetailsData=[];
   final picker = ImagePicker();
   List<String> pickedImagePathList = [];
   List<Uint8List?> pickedEditedImagePathList = [];
+
   File? _pickedImage;
   final _pickedImagePath = ''.obs;
 
   File? get pickedImage => _pickedImage;
   String? get pickedImagePath => _pickedImagePath.value;
 
-  void setImagePathEmpty() {
-    _pickedImagePath.value = '';
-  }
+  // addImageGallery(image) {
+  //   if (image != null) {
+  //     pickedEditedImagePathList.add(image!.path);
+  //   }
+  //   update();
+  // }
 
-  Future pickImage({
-    required ImageSource imageSource,
-  }) async {
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
+  // void addImageGallery(Uint8List? image) {
+  //   pickedEditedImagePathList.add(image);
+  // }
 
-    if (pickedFile != null) {
-      final croppedImage = await ImageCropper().cropImage(
-        sourcePath: pickedFile.path,
-        compressQuality: 70,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.ratio7x5,
-          CropAspectRatioPreset.original
-        ],
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: AppColors.blue,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          // WebUiSettings(
-          //   context: context,
-          // ),
-        ],
-      );
+  // void addImageCamera(Uint8List? camera) {
+  //   pickedEditedImagePathList.add(camera);
+  // }
 
-      if (croppedImage == null) return;
+  // addImageCamera(camera) {
+  //   pickedEditedImagePathList.add(camera.path);
+  //   update();
+  // }
+  ////// CODE/////////////
+  // void setImagePathEmpty() {
+  //   _pickedImagePath.value = '';
+  // }
 
-      final croppedFile = File(croppedImage.path);
-      Get.to(() => FlutterPainterExample(
-            image: croppedFile.path,
-          ));
-      // //  image = croppedFile;
+  // File? pickedFile;
 
-      // //  _pickedImage = File(pickedFile.path);
+  // Future pickImage({
+  //   required ImageSource imageSource,
+  // }) async {
+  //   final pickedFile = await picker.pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-      // _pickedImagePath.value = croppedFile!.path;
+  //   if (pickedFile != null) {
+  //     final croppedImage = await ImageCropper().cropImage(
+  //       sourcePath: pickedFile.path,
+  //       compressQuality: 70,
+  //       aspectRatioPresets: [
+  //         CropAspectRatioPreset.ratio7x5,
+  //         CropAspectRatioPreset.original
+  //       ],
+  //       uiSettings: [
+  //         AndroidUiSettings(
+  //             toolbarTitle: 'Cropper',
+  //             toolbarColor: AppColors.blue,
+  //             toolbarWidgetColor: Colors.white,
+  //             initAspectRatio: CropAspectRatioPreset.original,
+  //             lockAspectRatio: false),
+  //         IOSUiSettings(
+  //           title: 'Cropper',
+  //         ),
 
-      // // pickedImagePathList.add(croppedFile!.path);
-      // pickedImagePathList = [croppedFile.path];
-      // update();
-      //   print(
-      //   'picked image size ${_pickedImage!.lengthSync()}',
-      // );
-    } else {}
-  }
+  //       ],
+  //     );
+
+  //     if (croppedImage == null) return;
+
+  //     final croppedFile = File(croppedImage.path);
+  //     Get.to(() => FlutterPainterExample(
+  //           image: croppedFile.path,
+  //         ));
+
+  //   } else {}
+  // }
+
+  ////// CODE/////////////
 
   // addImages(photos) {
   //  cameraImages.

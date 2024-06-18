@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:multisign_app/src/const/app_colors.dart';
 import 'package:multisign_app/src/const/app_constant.dart';
 import 'package:multisign_app/src/const/app_fonts.dart';
@@ -15,8 +17,10 @@ class InstallationReportDetails extends StatefulWidget {
   final dynamic id;
 
 //  final bool flag;
-  const InstallationReportDetails(
-      {super.key, required this.id,});
+  const InstallationReportDetails({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<InstallationReportDetails> createState() =>
@@ -24,6 +28,8 @@ class InstallationReportDetails extends StatefulWidget {
 }
 
 class _InstallationReportDetailsState extends State<InstallationReportDetails> {
+  bool isSubmit = true;
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -48,8 +54,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
       //     await  controller.getinstallerdetails(id: widget.id);
       //   }
 
-      controller.setImagePathEmpty();
-    
+      // controller.setImagePathEmpty();
+
       controller.setImagesEmpty();
     });
   }
@@ -60,7 +66,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
   String? get ImagePath => _ImagePath.value;
   File? photo;
   File? image;
-  ImagePicker imagePicker = ImagePicker();
+
   late Color bgColor;
   bool isThemeDark = true;
 
@@ -77,6 +83,61 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
       setState(() {
         bgColor = const Color.fromARGB(255, 240, 240, 240);
         shimmerlight = ShimmerProLight.darker;
+      });
+    }
+  }
+
+  ImagePicker imagePicker = ImagePicker();
+
+  Future<void> _pickAndCropImage(ImageSource source) async {
+    final XFile? image = await imagePicker.pickImage(source: source);
+    if (image != null) {
+      final Uint8List? croppedImage = await _cropImage(image);
+      if (croppedImage != null) {
+        setState(() {
+          controller.pickedEditedImagePathList.add(croppedImage);
+        });
+      }
+    }
+  }
+
+  Future<Uint8List?> _cropImage(XFile image) async {
+    final CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Cropper',
+        ),
+      ],
+    );
+
+    if (croppedFile != null) {
+      return await croppedFile.readAsBytes();
+    }
+    return null;
+  }
+
+  Future<void> _pickImageFromGalleryAndCamera() async {
+    final XFile? image =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final Uint8List imageBytes = await image.readAsBytes();
+      setState(() {
+        controller.pickedEditedImagePathList.add(imageBytes);
       });
     }
   }
@@ -162,8 +223,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           controller: job_cardContoller,
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                              hintText: controller
-                                  .getinstallerdetailsData!.shopName,
+                              hintText:
+                                  controller.getinstallerdetailsData!.shopName,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -196,8 +257,8 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                           controller: job_cardContoller,
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 5, left: 10),
-                              hintText: controller
-                                  .getinstallerdetailsData!.shopcode,
+                              hintText:
+                                  controller.getinstallerdetailsData!.shopcode,
                               hintStyle: primaryFonts.copyWith(
                                   color: AppColors.black,
                                   fontSize: 14,
@@ -418,246 +479,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                         ),
                       ),
                       ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Chennai",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "City",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Anna Nagar",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Address",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox20,
-                      // Text(
-                      //   "Signage Details",
-                      //   style: primaryFonts.copyWith(
-                      //       color: AppColors.red,
-                      //       fontSize: 18,
-                      //       fontWeight: FontWeight.w500),
-                      // ),
-                      // ksizedbox20,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Praksh MP",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Dealer Name",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Redmi Shop",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Store Name",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Redmi Shop",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "City",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Perambur",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Area Name",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "Chennai",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Address",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      //  ),
-                      // ksizedbox15,
-                      // Container(
-                      //   height: 45,
-                      //   decoration:
-                      //       BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                      //   child: TextFormField(
-                      //     decoration: InputDecoration(
-                      //         contentPadding: EdgeInsets.only(top: 5, left: 10),
-                      //         hintText: "+91 98765 43210",
-                      //         hintStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black.withOpacity(.20),
-                      //             fontSize: 13,
-                      //             fontWeight: FontWeight.w600),
-                      //         labelText: "Contact Number",
-                      //         labelStyle: primaryFonts.copyWith(
-                      //             color: AppColors.black,
-                      //             fontSize: 14,
-                      //             fontWeight: FontWeight.w600),
-                      //         border: InputBorder.none,
-                      //         enabledBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black)),
-                      //         focusedBorder: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.circular(4),
-                      //             borderSide:
-                      //                 BorderSide(width: 1, color: AppColors.black))),
-                      //   ),
-                      // ),
-                      // ksizedbox15,
+
                       Container(
                         height: 45,
                         decoration: BoxDecoration(
@@ -887,47 +709,42 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ),
                             ),
                           ),
-
                         ],
-                      ), 
+                      ),
                       ksizedbox5,
-                       Container(
-                              height: 45.h,
-                              width: 155,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: TextFormField(
-                                readOnly: true,
-                                //keyboardType: TextInputType.number,
-                                controller: job_cardContoller,
-                                decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.only(top: 5, left: 10),
-                                    hintText: controller
-                                        .getinstallerdetailsData!
-                                        .receeVerifications!
-                                        .first
-                                        .quantity,
-                                    hintStyle: primaryFonts.copyWith(
-                                        color: AppColors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                    //labelText: "JOB CARD",
-                                    labelStyle: primaryFonts.copyWith(
-                                        color: AppColors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                    border: InputBorder.none,
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                            width: 1, color: AppColors.black)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                            width: 1, color: AppColors.black))),
-                              ),
-                            ),
+                      Container(
+                        height: 45.h,
+                        width: 155,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: TextFormField(
+                          readOnly: true,
+                          //keyboardType: TextInputType.number,
+                          controller: job_cardContoller,
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(top: 5, left: 10),
+                              hintText: controller.getinstallerdetailsData!
+                                  .receeVerifications!.first.quantity,
+                              hintStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              //labelText: "JOB CARD",
+                              labelStyle: primaryFonts.copyWith(
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600),
+                              border: InputBorder.none,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.black))),
+                        ),
+                      ),
                       Text(
                         "Before Image",
                         style: primaryFonts.copyWith(
@@ -937,45 +754,51 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                       ),
                       ksizedbox10,
 
-                      GetBuilder<HomeController>(
-                        builder: (_) {
-                          print("????????????............before---image::::::::::");
-                          print(controller.getinstallerdetailsData!.receeVerifications!.last.beforeImages);
-                          return Container(
-                            height: 200,
-                            child: ListView.builder(
+                      GetBuilder<HomeController>(builder: (_) {
+                        print(
+                            "????????????............before---image::::::::::");
+                        print(controller.getinstallerdetailsData!
+                            .receeVerifications!.last.beforeImages);
+                        return Container(
+                          height: 200,
+                          child: ListView.builder(
                               shrinkWrap: true,
-                                itemCount: controller.getinstallerdetailsData!
-                                    .receeVerifications!.last.beforeImages!.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index2) {
-                                  return Card(
-                                    child: InkWell(
-                                      onTap: () {
-                                        showImageViewer(
-                                            context,
-                                            Image.network(controller
-                                                    .getinstallerdetailsData!
-                                                    .receeVerifications!
-                                                    .last
-                                                    .beforeImages![index2])
-                                                .image);
-                                       },
-                                      child: Container(
-                                        width: 200,
-                                        child: Image.network(controller
+                              itemCount: controller
+                                  .getinstallerdetailsData!
+                                  .receeVerifications!
+                                  .last
+                                  .beforeImages!
+                                  .length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index2) {
+                                return Card(
+                                  child: InkWell(
+                                    onTap: () {
+                                      showImageViewer(
+                                          context,
+                                          Image.network(controller
+                                                  .getinstallerdetailsData!
+                                                  .receeVerifications!
+                                                  .last
+                                                  .beforeImages![index2])
+                                              .image);
+                                    },
+                                    child: Container(
+                                      width: 200,
+                                      child: Image.network(
+                                        controller
                                             .getinstallerdetailsData!
                                             .receeVerifications!
                                             .last
                                             .beforeImages![index2],
-                                            fit: BoxFit.fill,),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
-                                  );
-                                }),
-                          );
-                        }
-                      ),
+                                  ),
+                                );
+                              }),
+                        );
+                      }),
 
                       // Container(
                       //   height: 200,
@@ -998,47 +821,50 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                             fontWeight: FontWeight.w600),
                       ),
                       ksizedbox15,
-                      controller.getinstallerdetailsData?.installerStatus == "1"?
-                      controller.getinstallerdetailsData!.receeVerifications!.isEmpty?
-                      Container():
-                           Container(
-                              height: 200,
-                              child: 
-                                   ListView.builder(
+                      controller.getinstallerdetailsData?.installerStatus == "1"
+                          ? controller.getinstallerdetailsData!
+                                  .receeVerifications!.isEmpty
+                              ? Container()
+                              : Container(
+                                  height: 200,
+                                  child: ListView.builder(
                                       itemCount: controller
                                           .getinstallerdetailsData
-                                          ?.receeVerifications
-                                          !.last        
-                                          .afterImages!.length,
+                                          ?.receeVerifications!
+                                          .last
+                                          .afterImages!
+                                          .length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index2) {
                                         return InkWell(
                                           onTap: () {
                                             showImageViewer(
-                                                context,
-                                                Image.network(controller
-                                                        .getinstallerdetailsData
-                                                        !.receeVerifications!
-                                                        .last
-                                                        .afterImages![index2],
-                                                        )
-                                                    .image,
-                                                    );
+                                              context,
+                                              Image.network(
+                                                controller
+                                                    .getinstallerdetailsData!
+                                                    .receeVerifications!
+                                                    .last
+                                                    .afterImages![index2],
+                                              ).image,
+                                            );
                                           },
                                           child: Card(
                                             child: Container(
                                               width: 200,
-                                              child: Image.network(controller
-                                                  .getinstallerdetailsData
-                                                  !.receeVerifications!
-                                                  .last
-                                                  .afterImages![index2],
-                                                  fit: BoxFit.fill,),
+                                              child: Image.network(
+                                                controller
+                                                    .getinstallerdetailsData!
+                                                    .receeVerifications!
+                                                    .last
+                                                    .afterImages![index2],
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
                                         );
                                       }),
-                            )
+                                )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -1047,8 +873,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: GestureDetector(
                                         onTap: () async {
-                                          controller.CameraImage(
-                                              imageSource: ImageSource.camera);
+                                          _pickAndCropImage(ImageSource.camera);
                                           controller.update();
                                         },
                                         child:
@@ -1070,7 +895,7 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                                 width: 185,
                                               ),
                                             ),
-                                            const SizedBox( 
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             Text(
@@ -1105,9 +930,10 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: GestureDetector(
                                         onTap: () async {
-                                          controller.pickImage(
-                                              imageSource: ImageSource.gallery);
-
+                                          // controller.pickImage(
+                                          //     imageSource: ImageSource.gallery);
+                                          _pickAndCropImage(
+                                              ImageSource.gallery);
                                           controller.update();
                                         },
                                         child:
@@ -1242,25 +1068,32 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                               ),
                             )
                           : InkWell(
-                              onTap: () { 
-                                if (controller
-                                    .pickedEditedImagePathList.isNotEmpty) { 
-                                      print('>>>>>>>>>>>>>>>after images???????????????');
-                                      print(controller.pickedEditedImagePathList);
-                                  controller.verifyInstall(   
-                                    jobcard: controller
-                                        .getinstallerdetailsData!.shopcode.toString(),
-                                    //  media1: controller.pickedcamerapath!,
-                                    media: controller.pickedEditedImagePathList,
-                                  );
-                                  controller.pickedImagePath != '';
-                            
-                                } else {
-                                  AppConstant.showSnackbar(
-                                    headText: "Upload Failed",
-                                    content: "Please pick at least one image.",
-                                    position: SnackPosition.BOTTOM,
-                                  );
+                              onTap: () {
+                                if (isSubmit == true) {
+                                  isSubmit = false;
+                                  if (controller
+                                      .pickedEditedImagePathList.isNotEmpty) {
+                                    print(
+                                        '>>>>>>>>>>>>>>>after images???????????????');
+                                    print(controller.pickedEditedImagePathList);
+                                    controller.verifyInstall(
+                                      jobcard: controller
+                                          .getinstallerdetailsData!.shopcode
+                                          .toString(),
+                                      //  media1: controller.pickedcamerapath!,
+                                      media:
+                                          controller.pickedEditedImagePathList,
+                                    );
+                                    controller.pickedImagePath != '';
+                                  } else {
+                                    isSubmit = true;
+                                    AppConstant.showSnackbar(
+                                      headText: "Upload Failed",
+                                      content:
+                                          "Please pick at least one image.",
+                                      position: SnackPosition.BOTTOM,
+                                    );
+                                  }
                                 }
                               },
                               child: Obx(
@@ -1271,9 +1104,17 @@ class _InstallationReportDetailsState extends State<InstallationReportDetails> {
                                       color: AppColors.green,
                                       borderRadius: BorderRadius.circular(8)),
                                   child: controller.isLoadingverification.isTrue
-                                      ? const Center(
-                                          child: CircularProgressIndicator(
-                                            color: AppColors.white,
+                                      ? Container(
+                                          height: 45,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: const Center(
+                                            child: CircularProgressIndicator(
+                                              color: AppColors.white,
+                                            ),
                                           ),
                                         )
                                       : Text(
